@@ -10,11 +10,12 @@ class FoodTest {
 
     @Test
     void 음식을_생성한다() throws Exception {
-        //given & when & then
+
+        //given
+
+        //when & then
         assertDoesNotThrow(()->{
-            new Food("파스타", 1, null, FoodType.from("western"), 500);
+            new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
         });
     }
-
-
 }

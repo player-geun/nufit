@@ -9,9 +9,8 @@ import org.hibernate.annotations.Comment;
 import javax.persistence.*;
 
 @Getter
-@Entity
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Food extends BaseEntity {
 
     @Id

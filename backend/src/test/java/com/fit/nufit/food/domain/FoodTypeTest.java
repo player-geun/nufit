@@ -11,16 +11,14 @@ class FoodTypeTest {
 
     @Test
     public void 음식_타입에_존재하지_않는_타입이_들어오면_예외가_발생한다() throws Exception {
+
         //given
         String foodType = "KOREANA";
         //when & then
         assertThatThrownBy(() -> {
-                    FoodType.from(foodType);
-                })
+            FoodType.from(foodType);
+        })
                 .isInstanceOf(NoSuchFoodException.class)
                 .hasMessage(String.format("%s는 존재하지 않는 음식 타입입니다.", foodType));
-
     }
-
-
 }

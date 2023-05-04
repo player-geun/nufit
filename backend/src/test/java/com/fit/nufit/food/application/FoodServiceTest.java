@@ -13,5 +13,4 @@ class FoodServiceTest {
     @Autowired
     FoodService foodService;
 
-
 }
