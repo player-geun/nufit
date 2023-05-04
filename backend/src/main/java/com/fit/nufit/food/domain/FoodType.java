@@ -5,7 +5,7 @@ import com.fit.nufit.meal.exception.NoSuchMealException;
 
 public enum FoodType {
 
-    KOREAN, CHINESE, JAPANESE, WESTERN;
+    NORMAL, BRAND;
 
     public static FoodType from(String value) {
         try {
