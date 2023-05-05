@@ -7,6 +7,8 @@ import net.bytebuddy.implementation.bind.annotation.BindingPriority;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,6 +19,10 @@ public class Food extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food_id")
     private Long id;
+
+    @Comment("음식 영양소 ID")
+    @OneToMany(mappedBy = "food_nutrient_id")
+    private final List<FoodNutrient> foodNutrients = new ArrayList<>();
 
     @Comment("음식 이름")
     @Column(name = "food_name")
@@ -45,5 +51,11 @@ public class Food extends BaseEntity {
         this.amount = amount;
         this.type = foodType;
         this.total_calorie = total_calorie;
+    }
+
+    public FoodNutrient addFoodNutrient(FoodNutrient foodNutrient) {
+        foodNutrients.add(foodNutrient);
+        foodNutrient.changeFood(this);
+        return foodNutrient;
     }
 }
