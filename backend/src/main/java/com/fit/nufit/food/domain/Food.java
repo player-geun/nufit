@@ -21,7 +21,7 @@ public class Food extends BaseEntity {
     private Long id;
 
     @Comment("음식 영양소 ID")
-    @OneToMany(mappedBy = "food_nutrient_id")
+    @OneToMany(mappedBy = "food")
     private final List<FoodNutrient> foodNutrients = new ArrayList<>();
 
     @Comment("음식 이름")
@@ -54,8 +54,13 @@ public class Food extends BaseEntity {
     }
 
     public FoodNutrient addFoodNutrient(FoodNutrient foodNutrient) {
-        foodNutrients.add(foodNutrient);
         foodNutrient.changeFood(this);
+        foodNutrients.add(foodNutrient);
         return foodNutrient;
+    }
+
+    public void deleteFoodNutrient(FoodNutrient foodNutrient) {
+        foodNutrients.remove(foodNutrient);
+        foodNutrient.getNutrient().deleteFoodNutrient(foodNutrient);
     }
 }
