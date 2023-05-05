@@ -11,6 +11,7 @@ import org.hibernate.annotations.Comment;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -60,6 +61,16 @@ public class Nutrient extends BaseEntity {
 
     public void deleteFoodNutrient(FoodNutrient foodNutrient) {
         foodNutrients.remove(foodNutrient);
+    }
+
+    public void addChildNutrient(Nutrient nutrient) {
+        nutrient.parentNutrient = this;
+        childNutrients.add(nutrient);
+    }
+
+    public void deleteChildNutrient(Nutrient nutrient) {
+        childNutrients.remove(nutrient);
+        nutrient.parentNutrient = null;
     }
 
 }
