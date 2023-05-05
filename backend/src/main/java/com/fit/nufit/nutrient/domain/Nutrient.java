@@ -1,6 +1,7 @@
 package com.fit.nufit.nutrient.domain;
 
 import com.fit.nufit.common.BaseEntity;
+import com.fit.nufit.food.domain.FoodNutrient;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,11 @@ public class Nutrient extends BaseEntity {
     @OneToMany(mappedBy = "parentNutrient")
     private final List<Nutrient> childNutrients = new ArrayList<>();
 
+    @Comment("음식 영양소 ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_nutrient_id")
+    private FoodNutrient foodNutrient;
+
     @Comment("영양소 이름")
     @Column(name = "nutrient_name")
     private String name;
@@ -46,5 +52,9 @@ public class Nutrient extends BaseEntity {
         this.name = name;
         this.calorie = calorie;
         this.unit = unit;
+    }
+
+    public void changeFoodNutrient(FoodNutrient foodNutrient) {
+        this.foodNutrient = foodNutrient;
     }
 }
