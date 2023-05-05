@@ -26,12 +26,13 @@ public class FoodNutrient extends BaseEntity {
     private Long id;
 
     @Comment("영양소 ID")
-    @OneToMany(mappedBy = "nutrient")
-    private final List<Nutrient> nutrients = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nutrient_id", nullable = false)
+    private Nutrient nutrient;
 
     @Comment("음식 ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id")
+    @JoinColumn(name = "food_id", nullable = false)
     private Food food;
 
     @Comment("음식 영양소 양")
@@ -43,8 +44,8 @@ public class FoodNutrient extends BaseEntity {
     private int totalCalorie;
 
     public FoodNutrient(Nutrient nutrient, int amount, int totalCalorie) {
-        nutrients.add(nutrient);
-        nutrient.changeFoodNutrient(this);
+        nutrient.addFoodNutrient(this);
+        this.nutrient = nutrient;
         this.amount = amount;
         this.totalCalorie = totalCalorie;
     }
