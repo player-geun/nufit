@@ -1,6 +1,7 @@
 package com.fit.nufit.nutrient.domain;
 
 import com.fit.nufit.common.BaseEntity;
+import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodNutrient;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,13 +28,12 @@ public class Nutrient extends BaseEntity {
     private Nutrient parentNutrient;
 
     @Comment("하위 영양소 ID")
-    @OneToMany(mappedBy = "parentNutrient")
+    @OneToMany(mappedBy = "parentNutrient", cascade = CascadeType.ALL)
     private final List<Nutrient> childNutrients = new ArrayList<>();
 
     @Comment("음식 영양소 ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_nutrient_id")
-    private FoodNutrient foodNutrient;
+    @OneToMany(mappedBy = "nutrient",cascade = CascadeType.ALL)
+    private final List<FoodNutrient> foodNutrients = new ArrayList<>();
 
     @Comment("영양소 이름")
     @Column(name = "nutrient_name")
@@ -54,7 +54,12 @@ public class Nutrient extends BaseEntity {
         this.unit = unit;
     }
 
-    public void changeFoodNutrient(FoodNutrient foodNutrient) {
-        this.foodNutrient = foodNutrient;
+    public void addFoodNutrient(FoodNutrient foodNutrient) {
+        foodNutrients.add(foodNutrient);
     }
+
+    public void deleteFoodNutrient(FoodNutrient foodNutrient) {
+        foodNutrients.remove(foodNutrient);
+    }
+
 }
