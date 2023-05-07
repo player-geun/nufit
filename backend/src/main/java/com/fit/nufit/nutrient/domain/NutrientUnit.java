@@ -1,13 +1,12 @@
 package com.fit.nufit.nutrient.domain;
 
-import com.fit.nufit.food.exception.NoSuchFoodException;
 import com.fit.nufit.nutrient.exception.NoSuchNutrientException;
 
 public enum NutrientUnit {
 
     G, MG, MCG;
 
-    public static NutrientUnit from(String value) {
+    public static NutrientUnit of(String value) {
         try {
             return NutrientUnit.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {

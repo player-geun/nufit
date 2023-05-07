@@ -20,28 +20,22 @@ public class Food extends BaseEntity {
     @Column(name = "food_id")
     private Long id;
 
-    @Comment("음식 영양소 ID")
     @OneToMany(mappedBy = "food")
-    private final List<FoodNutrient> foodNutrients = new ArrayList<>();
+    private List<FoodNutrient> foodNutrients = new ArrayList<>();
 
-    @Comment("음식 이름")
     @Column(name = "food_name")
     private String name;
 
-    @Comment("음식 브랜드")
     @Column(name = "food_brand")
     private String brand;
 
-    @Comment("음식 양")
     @Column(name = "food_amount")
     private int amount;
 
-    @Comment("음식 타입")
     @Enumerated(value = EnumType.STRING)
     @Column(name = "food_type", nullable = false)
     private FoodType type;
 
-    @Comment("음식 총 칼로리")
     @Column(name = "food_total_calorie")
     private int total_calorie;
 
@@ -61,6 +55,5 @@ public class Food extends BaseEntity {
 
     public void deleteFoodNutrient(FoodNutrient foodNutrient) {
         foodNutrients.remove(foodNutrient);
-        foodNutrient.getNutrient().deleteFoodNutrient(foodNutrient);
     }
 }
