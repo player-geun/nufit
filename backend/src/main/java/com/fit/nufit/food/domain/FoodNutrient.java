@@ -4,6 +4,7 @@ import com.fit.nufit.common.BaseEntity;
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodType;
 import com.fit.nufit.nutrient.domain.Nutrient;
+import com.sun.xml.bind.v2.TODO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,8 @@ public class FoodNutrient extends BaseEntity {
         this.totalCalorie = totalCalorie;
     }
 
+
+    //TODO: 칼로리 계산 추가하기
     public void changeFood(Food food) {
         this.food = food;
     }
