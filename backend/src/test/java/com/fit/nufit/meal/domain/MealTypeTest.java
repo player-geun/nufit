@@ -4,7 +4,6 @@ import com.fit.nufit.meal.exception.NoSuchMealException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MealTypeTest {
 
@@ -15,7 +14,7 @@ class MealTypeTest {
 
         //when & then
         assertThatThrownBy(() -> {
-            MealType.from(type);
+            MealType.of(type);
         })
                 .isInstanceOf(NoSuchMealException.class)
                 .hasMessage(String.format("%s는 존재하지 않는 식사 타입입니다.", type));

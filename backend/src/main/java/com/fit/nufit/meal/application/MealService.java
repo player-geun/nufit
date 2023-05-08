@@ -1,9 +1,8 @@
 package com.fit.nufit.meal.application;
 
-import com.fit.nufit.meal.domain.Meal;
-import com.fit.nufit.meal.domain.MealRepository;
-import com.fit.nufit.meal.domain.MealType;
-import com.fit.nufit.meal.dto.MealResponse;
+import com.fit.nufit.meal.domain.*;
+import com.fit.nufit.meal.dto.request.MealCreateRequest;
+import com.fit.nufit.meal.dto.response.MealResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +15,8 @@ public class MealService {
     private final MealRepository mealRepository;
 
     @Transactional
-    public MealResponse save(MealType mealType) {
-        Meal meal = mealRepository.save(new Meal(mealType));
+    public MealResponse save(MealCreateRequest request) {
+        Meal meal = mealRepository.save(new Meal(request.getMealType()));
         return new MealResponse(meal);
     }
 
