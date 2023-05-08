@@ -5,7 +5,7 @@ import com.fit.nufit.meal.exception.NoSuchMealException;
 public enum MealType {
     BREAKFAST, LUNCH, DINNER, SNACK;
 
-    public static MealType from(String value) {
+    public static MealType of(String value) {
         try {
             return MealType.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
