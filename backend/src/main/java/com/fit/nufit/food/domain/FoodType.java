@@ -1,13 +1,12 @@
 package com.fit.nufit.food.domain;
 
 import com.fit.nufit.food.exception.NoSuchFoodException;
-import com.fit.nufit.meal.exception.NoSuchMealException;
 
 public enum FoodType {
 
     NORMAL, BRAND;
 
-    public static FoodType from(String value) {
+    public static FoodType of(String value) {
         try {
             return FoodType.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
