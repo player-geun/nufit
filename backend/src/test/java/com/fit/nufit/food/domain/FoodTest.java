@@ -15,7 +15,7 @@ class FoodTest {
 
         //when & then
         assertDoesNotThrow(()->{
-            new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
+            new Food("파스타", 1, "오뚜기", FoodType.of("brand"), 500);
         });
     }
 }
