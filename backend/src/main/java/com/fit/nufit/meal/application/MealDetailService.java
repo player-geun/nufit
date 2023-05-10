@@ -40,13 +40,18 @@ public class MealDetailService {
         return new MealDetailResponse(mealDetail);
     }
 
-    public MealDetailsResponse findByMealIdWithStatistics(Long mealId) {
+    public MealDetailsResponse findAllByMealId(Long mealId) {
         List<MealDetail> mealDetails = mealDetailRepository.findByMealId(mealId);
 
         List<FoodSimpleResponse> simpleFoods = mealDetails.stream()
                 .map(FoodSimpleResponse::new)
                 .collect(Collectors.toList());
-        return new MealDetailsResponse(mealId, simpleFoods);
+
+        Double calorieSum = simpleFoods.stream()
+                .map(FoodSimpleResponse::getCalorie)
+                .reduce(0.0, Double::sum);
+
+        return new MealDetailsResponse(mealId, calorieSum, simpleFoods);
     }
 
     @Transactional
