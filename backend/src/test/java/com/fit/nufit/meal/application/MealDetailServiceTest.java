@@ -34,7 +34,7 @@ class MealDetailServiceTest {
         mealDetailService.save(new MealDetailCreateRequest(meal.getId(), food.getId()));
 
         // when
-        MealDetailsResponse mealDetailsResponse = mealDetailService.findByMealIdWithStatistics(meal.getId());
+        MealDetailsResponse mealDetailsResponse = mealDetailService.findAllByMealId(meal.getId());
 
         // then
         assertThat(mealDetailsResponse.getFoodSimpleResponses().get(0).getFoodName()).isEqualTo("사과");

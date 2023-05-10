@@ -26,7 +26,7 @@ class MealControllerTest extends ControllerTest {
                 new FoodSimpleResponse(2L, 1, "배", 30)
         );
 
-        given(mealDetailService.findByMealIdWithStatistics(any()))
+        given(mealDetailService.findAllByMealId(any()))
                 .willReturn(new MealDetailsResponse(any(), simpleFoods));
 
         // when & then
