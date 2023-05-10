@@ -15,4 +15,6 @@ public class MealResponse {
     public MealResponse(Meal meal) {
         this(meal.getId(), meal.getType());
     }
+
+
 }
