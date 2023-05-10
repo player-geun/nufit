@@ -27,7 +27,7 @@ class MealControllerTest extends ControllerTest {
         );
 
         given(mealDetailService.findAllByMealId(any()))
-                .willReturn(new MealDetailsResponse(any(), simpleFoods));
+                .willReturn(new MealDetailsResponse(any(), 1.1, simpleFoods));
 
         // when & then
         mockMvc.perform(get("/api/meals/{mealId}/details", mealId)
