@@ -3,13 +3,9 @@ package com.fit.nufit.food.domain;
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.domain.NutrientUnit;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -20,6 +16,9 @@ class FoodTest {
 
     @Autowired
     FoodRepository foodRepository;
+
+    @Autowired
+    FoodNutrientRepository foodNutrientRepository;
 
     @Autowired
     NutrientRepository nutrientRepository;
@@ -37,37 +36,40 @@ class FoodTest {
 
     @Test
     @Transactional
-    void 음식과_영양소를_생성하고_음식에_음식_영양소를_추가한다() throws Exception {
+    void 음식에_영양소를_추가한다() throws Exception {
 
         //given
         Food pasta = new Food("파스타", 1, "오뚜기", FoodType.of("brand"), 500);
         foodRepository.save(pasta);
         Nutrient vitamin = new Nutrient("비타민", 5, NutrientUnit.MCG);
         nutrientRepository.save(vitamin);
+        FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5, 25);
+        foodNutrientRepository.save(foodNutrient);
         //when
-        FoodNutrient foodNutrient = pasta.addFoodNutrient(new FoodNutrient(vitamin, 5, 25));
         Food findFood = foodRepository.getByName("파스타");
         //then
-        assertThat(findFood.getFoodNutrients().get(0)).isEqualTo(foodNutrient);
-        assertThat(findFood.getFoodNutrients().get(0).getNutrient()).isEqualTo(vitamin);
+        assertThat(foodNutrientRepository.getByFoodId(findFood.getId()).get(0)).isEqualTo(foodNutrient);
+        assertThat(foodNutrientRepository.getByNutrientId(vitamin.getId()).get(0)).isEqualTo(foodNutrient);
 
     }
 
     @Test
     @Transactional
-    void 음식과_영양소를_생성하고_음식에_음식_영양소를_추가하고_제거한다() throws Exception {
+    void 음식의_영양소를_제거한다() throws Exception {
 
         //given
         Food pasta = new Food("파스타", 1, "오뚜기", FoodType.of("brand"), 500);
         foodRepository.save(pasta);
         Nutrient vitamin = new Nutrient("비타민", 5, NutrientUnit.MCG);
         nutrientRepository.save(vitamin);
+        FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5, 25);
+        foodNutrientRepository.save(foodNutrient);
         //when
-        FoodNutrient foodNutrient = pasta.addFoodNutrient(new FoodNutrient(vitamin, 5, 25));
-        pasta.deleteFoodNutrient(foodNutrient);
+        foodNutrientRepository.delete(foodNutrient);
         Food findFood = foodRepository.getByName("파스타");
+
         //then
-        assertThat(findFood.getFoodNutrients().size()).isEqualTo(0);
+        assertThat(foodNutrientRepository.findByFoodId(findFood.getId())).isNull();
     }
 
 }
