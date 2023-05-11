@@ -19,6 +19,6 @@ public class MealDetailResponse {
                 mealDetail.getMeal().getId(),
                 mealDetail.getFood().getId(),
                 mealDetail.getFoodCount(),
-                mealDetail.getTotalCalorie());
+                mealDetail.getCalorieTotal());
     }
 }
