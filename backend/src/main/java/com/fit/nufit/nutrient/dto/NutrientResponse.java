@@ -5,8 +5,8 @@ import com.fit.nufit.nutrient.domain.NutrientUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
+@Getter
 public class NutrientResponse {
 
     private Long id;
