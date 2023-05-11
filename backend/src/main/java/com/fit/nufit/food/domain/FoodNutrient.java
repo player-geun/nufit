@@ -1,23 +1,15 @@
 package com.fit.nufit.food.domain;
 
 import com.fit.nufit.common.BaseEntity;
-import com.fit.nufit.food.domain.Food;
-import com.fit.nufit.food.domain.FoodType;
 import com.fit.nufit.nutrient.domain.Nutrient;
-import com.sun.xml.bind.v2.TODO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.aspectj.weaver.AjcMemberMaker;
-import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 public class FoodNutrient extends BaseEntity {
 
@@ -35,15 +27,16 @@ public class FoodNutrient extends BaseEntity {
     private Food food;
 
     @Column(name = "food_nutrient_amount")
-    private int amount;
+    private double amount;
 
-    @Column(name = "food_nutrient_total_calorie")
-    private int totalCalorie;
+    @Column(name = "food_nutrient_calorie")
+    private double calorie;
 
-    public FoodNutrient(Nutrient nutrient, int amount, int totalCalorie) {
+    public FoodNutrient(Food food, Nutrient nutrient, double amount, double calorie) {
+        this.food = food;
         this.nutrient = nutrient;
         this.amount = amount;
-        this.totalCalorie = totalCalorie;
+        this.calorie = calorie;
     }
 
 
