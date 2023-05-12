@@ -1,6 +1,7 @@
 package com.fit.nufit.food.domain;
 
 import com.fit.nufit.common.BaseEntity;
+import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,5 +38,9 @@ public class Food extends BaseEntity {
         this.amount = amount;
         this.type = foodType;
         this.calorie = calorie;
+    }
+
+    public static Food toEntity(FoodCreateRequest request) {
+        return new Food(request.getName(), request.getAmount(), request.getBrand(), request.getType(), request.getCalorie());
     }
 }
