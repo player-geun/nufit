@@ -1,4 +1,4 @@
-package com.fit.nufit.nutrient.dto;
+package com.fit.nufit.nutrient.dto.response;
 
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientUnit;

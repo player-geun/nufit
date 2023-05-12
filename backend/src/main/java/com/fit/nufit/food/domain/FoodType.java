@@ -6,7 +6,7 @@ public enum FoodType {
 
     NORMAL, BRAND;
 
-    public static FoodType of(String value) {
+    public static FoodType from(String value) {
         try {
             return FoodType.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {

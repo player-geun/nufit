@@ -16,7 +16,7 @@ class NutrientTypeTest {
         String nutrientUnit = "kg";
         //when & then
         assertThatThrownBy(() -> {
-            NutrientUnit.of(nutrientUnit);
+            NutrientUnit.from(nutrientUnit);
         })
                 .isInstanceOf(NoSuchNutrientException.class)
                 .hasMessage(String.format("%s는 존재하지 않는 영양소 단위입니다.", nutrientUnit));

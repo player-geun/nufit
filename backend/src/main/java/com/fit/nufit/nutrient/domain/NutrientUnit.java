@@ -6,7 +6,7 @@ public enum NutrientUnit {
 
     G, MG, MCG;
 
-    public static NutrientUnit of(String value) {
+    public static NutrientUnit from(String value) {
         try {
             return NutrientUnit.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {

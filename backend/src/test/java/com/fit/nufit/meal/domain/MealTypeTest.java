@@ -14,7 +14,7 @@ class MealTypeTest {
 
         //when & then
         assertThatThrownBy(() -> {
-            MealType.of(type);
+            MealType.from(type);
         })
                 .isInstanceOf(NoSuchMealException.class)
                 .hasMessage(String.format("%s는 존재하지 않는 식사 타입입니다.", type));

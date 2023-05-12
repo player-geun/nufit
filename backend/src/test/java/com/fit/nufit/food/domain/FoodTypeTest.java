@@ -16,7 +16,7 @@ class FoodTypeTest {
         String foodType = "KOREANA";
         //when & then
         assertThatThrownBy(() -> {
-            FoodType.of(foodType);
+            FoodType.from(foodType);
         })
                 .isInstanceOf(NoSuchFoodException.class)
                 .hasMessage(String.format("%s는 존재하지 않는 음식 타입입니다.", foodType));

@@ -1,4 +1,4 @@
-package com.fit.nufit.food.dto;
+package com.fit.nufit.food.dto.response;
 
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.meal.domain.MealDetail;

@@ -1,7 +1,7 @@
 package com.fit.nufit.meal.presentation;
 
 import com.fit.nufit.common.ControllerTest;
-import com.fit.nufit.food.dto.FoodSimpleResponse;
+import com.fit.nufit.food.dto.response.FoodSimpleResponse;
 import com.fit.nufit.meal.dto.response.MealDetailsResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
