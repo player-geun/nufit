@@ -30,9 +30,9 @@ public class Food extends BaseEntity {
     private FoodType type;
 
     @Column(name = "food_calorie")
-    private int calorie;
+    private double calorie;
 
-    public Food(String name, int amount, String brand, FoodType foodType, int calorie) {
+    public Food(String name, int amount, String brand, FoodType foodType, double calorie) {
         this.name = name;
         this.brand = brand;
         this.amount = amount;

@@ -24,5 +24,5 @@ public class FoodCreateRequest {
     private FoodType type;
 
     @NotNull(message = "필수 입력값입니다.")
-    private int calorie;
+    private double calorie;
 }

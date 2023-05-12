@@ -13,13 +13,13 @@ public class FoodResponse {
     private String brand;
     private int amount;
     private FoodType type;
-    private int total_calorie;
+    private int calorie;
 
     public FoodResponse(Food food) {
         this.name = food.getName();
         this.brand = food.getBrand();
         this.amount = food.getAmount();
         this.type = food.getType();
-        this.total_calorie = food.getCalorie();
+        this.calorie = (int)Math.round(food.getCalorie());
     }
 }
