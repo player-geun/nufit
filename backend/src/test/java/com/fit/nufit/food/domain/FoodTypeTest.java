@@ -12,9 +12,9 @@ class FoodTypeTest {
     @Test
     public void 음식_타입에_존재하지_않는_타입이_들어오면_예외가_발생한다() throws Exception {
 
-        //given
+        // given
         String foodType = "KOREANA";
-        //when & then
+        // when & then
         assertThatThrownBy(() -> {
             FoodType.from(foodType);
         })

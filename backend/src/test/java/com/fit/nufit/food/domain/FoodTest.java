@@ -26,9 +26,9 @@ class FoodTest {
     @Test
     void 음식을_생성한다() throws Exception {
 
-        //given
+        // given
 
-        //when & then
+        // when & then
         assertDoesNotThrow(() -> {
             new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
         });
@@ -38,16 +38,16 @@ class FoodTest {
     @Transactional
     void 음식에_영양소를_추가한다() throws Exception {
 
-        //given
+        // given
         Food pasta = new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
         foodRepository.save(pasta);
         Nutrient vitamin = new Nutrient("비타민", 5, NutrientUnit.MCG);
         nutrientRepository.save(vitamin);
         FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5, 25);
         foodNutrientRepository.save(foodNutrient);
-        //when
+        // when
         Food findFood = foodRepository.getById(pasta.getId());
-        //then
+        // then
         assertThat(foodNutrientRepository.getByFoodId(findFood.getId()).get(0)).isEqualTo(foodNutrient);
         assertThat(foodNutrientRepository.getByNutrientId(vitamin.getId()).get(0)).isEqualTo(foodNutrient);
 
@@ -57,18 +57,18 @@ class FoodTest {
     @Transactional
     void 음식의_영양소를_제거한다() throws Exception {
 
-        //given
+        // given
         Food pasta = new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
         foodRepository.save(pasta);
         Nutrient vitamin = new Nutrient("비타민", 5, NutrientUnit.MCG);
         nutrientRepository.save(vitamin);
         FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5, 25);
         foodNutrientRepository.save(foodNutrient);
-        //when
+        // when
         foodNutrientRepository.delete(foodNutrient);
         Food findFood = foodRepository.getById(pasta.getId());
 
-        //then
+        // then
         assertThat(foodNutrientRepository.findByFoodId(findFood.getId()).size()).isEqualTo(0);
     }
 

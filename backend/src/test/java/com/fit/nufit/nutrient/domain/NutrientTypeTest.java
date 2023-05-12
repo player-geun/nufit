@@ -12,9 +12,9 @@ class NutrientTypeTest {
     @Test
     public void 영양소_단위에_존재하지_않는_단위가_들어오면_예외가_발생한다() throws Exception {
 
-        //given
+        // given
         String nutrientUnit = "kg";
-        //when & then
+        // when & then
         assertThatThrownBy(() -> {
             NutrientUnit.from(nutrientUnit);
         })
