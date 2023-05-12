@@ -1,6 +1,6 @@
 package com.fit.nufit.nutrient.exception;
 
-public class AlreadyExistsChildNutrientException extends RuntimeException{
+public class AlreadyExistsChildNutrientException extends RuntimeException {
 
     public AlreadyExistsChildNutrientException(String message) {
         super(message);

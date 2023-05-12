@@ -15,6 +15,7 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
     }
 
     Optional<Food> findByName(String name);
+
     default Food getByName(String name) {
         return this.findByName(name)
                 .orElseThrow(NoSuchFoodException::new);

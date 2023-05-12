@@ -27,6 +27,4 @@ public interface FoodNutrientRepository extends JpaRepository<FoodNutrient, Long
     List<FoodNutrient> findByNutrientId(Long nutrientId);
 
 
-
-
 }

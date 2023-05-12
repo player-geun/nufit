@@ -20,7 +20,7 @@ class NutrientTest {
         // given
 
         // when & then
-        assertDoesNotThrow(()->{
+        assertDoesNotThrow(() -> {
             new Nutrient("탄수화물", 4, NutrientUnit.from("g"));
         });
 
