@@ -1,18 +1,13 @@
 package com.fit.nufit.nutrient.domain;
 
 import com.fit.nufit.common.BaseEntity;
-import com.fit.nufit.food.domain.Food;
-import com.fit.nufit.food.domain.FoodNutrient;
-import com.fit.nufit.nutrient.exception.AlreadyExistsChildNutrientException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
