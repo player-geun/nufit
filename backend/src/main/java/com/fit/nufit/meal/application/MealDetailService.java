@@ -2,7 +2,7 @@ package com.fit.nufit.meal.application;
 
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodRepository;
-import com.fit.nufit.food.dto.FoodSimpleResponse;
+import com.fit.nufit.food.dto.response.FoodSimpleResponse;
 import com.fit.nufit.meal.domain.Meal;
 import com.fit.nufit.meal.domain.MealDetail;
 import com.fit.nufit.meal.domain.MealDetailRepository;
@@ -31,7 +31,7 @@ public class MealDetailService {
         Meal meal = mealRepository.getById(request.getMealId());
         Food food = foodRepository.getById(request.getFoodId());
         MealDetail mealDetail = mealDetailRepository.save(
-                new MealDetail(meal, food, 1, food.getTotal_calorie()));
+                new MealDetail(meal, food, 1, food.getCalorie()));
         return new MealDetailResponse(mealDetail);
     }
 

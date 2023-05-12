@@ -1,16 +1,11 @@
-package com.fit.nufit.food.dto;
+package com.fit.nufit.food.dto.response;
 
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodType;
 import lombok.*;
-import org.hibernate.annotations.Comment;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
-@Getter
 @AllArgsConstructor
+@Getter
 public class FoodResponse {
 
     private Long id;
@@ -18,13 +13,13 @@ public class FoodResponse {
     private String brand;
     private int amount;
     private FoodType type;
-    private int total_calorie;
+    private int calorie;
 
     public FoodResponse(Food food) {
         this.name = food.getName();
         this.brand = food.getBrand();
         this.amount = food.getAmount();
         this.type = food.getType();
-        this.total_calorie = food.getTotal_calorie();
+        this.calorie = (int)Math.round(food.getCalorie());
     }
 }

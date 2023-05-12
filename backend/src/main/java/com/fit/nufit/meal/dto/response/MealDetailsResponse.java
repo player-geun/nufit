@@ -1,7 +1,6 @@
 package com.fit.nufit.meal.dto.response;
 
-import com.fit.nufit.food.dto.FoodSimpleResponse;
-import lombok.AllArgsConstructor;
+import com.fit.nufit.food.dto.response.FoodSimpleResponse;
 import lombok.Getter;
 
 import java.util.List;

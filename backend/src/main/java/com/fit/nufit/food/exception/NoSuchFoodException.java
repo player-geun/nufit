@@ -1,6 +1,6 @@
 package com.fit.nufit.food.exception;
 
-public class NoSuchFoodException extends RuntimeException{
+public class NoSuchFoodException extends RuntimeException {
 
     public NoSuchFoodException(String message) {
         super(message);

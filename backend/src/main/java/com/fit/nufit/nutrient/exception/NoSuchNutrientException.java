@@ -1,6 +1,6 @@
 package com.fit.nufit.nutrient.exception;
 
-public class NoSuchNutrientException extends RuntimeException{
+public class NoSuchNutrientException extends RuntimeException {
 
     public NoSuchNutrientException(String message) {
         super(message);

@@ -15,6 +15,7 @@ public interface NutrientRepository extends JpaRepository<Nutrient, Long> {
     }
 
     Optional<Nutrient> findByName(String name);
+
     default Nutrient getByName(String name) {
         return this.findByName(name)
                 .orElseThrow(NoSuchNutrientException::new);

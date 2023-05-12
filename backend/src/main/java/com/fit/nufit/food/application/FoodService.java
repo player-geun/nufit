@@ -2,12 +2,11 @@ package com.fit.nufit.food.application;
 
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodRepository;
-import com.fit.nufit.food.domain.FoodType;
-import com.fit.nufit.food.dto.FoodResponse;
+import com.fit.nufit.food.dto.request.FoodCreateRequest;
+import com.fit.nufit.food.dto.response.FoodResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 
 @RequiredArgsConstructor
@@ -18,8 +17,8 @@ public class FoodService {
     private final FoodRepository foodRepository;
 
     @Transactional
-    public FoodResponse save(String name, int amount, String brand, FoodType foodtype, int total_calorie) {
-        Food food = foodRepository.save(new Food(name, amount, brand, foodtype, total_calorie));
+    public FoodResponse save(FoodCreateRequest request) {
+        Food food = foodRepository.save(Food.toEntity(request));
         return new FoodResponse(food);
     }
 

@@ -12,11 +12,11 @@ class NutrientTypeTest {
     @Test
     public void 영양소_단위에_존재하지_않는_단위가_들어오면_예외가_발생한다() throws Exception {
 
-        //given
+        // given
         String nutrientUnit = "kg";
-        //when & then
+        // when & then
         assertThatThrownBy(() -> {
-            NutrientUnit.of(nutrientUnit);
+            NutrientUnit.from(nutrientUnit);
         })
                 .isInstanceOf(NoSuchNutrientException.class)
                 .hasMessage(String.format("%s는 존재하지 않는 영양소 단위입니다.", nutrientUnit));

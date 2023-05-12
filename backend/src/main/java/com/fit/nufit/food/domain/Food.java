@@ -1,17 +1,13 @@
 package com.fit.nufit.food.domain;
 
 import com.fit.nufit.common.BaseEntity;
-import com.fit.nufit.meal.domain.MealType;
+import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import lombok.*;
-import net.bytebuddy.implementation.bind.annotation.BindingPriority;
-import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 public class Food extends BaseEntity {
 
@@ -19,9 +15,6 @@ public class Food extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food_id")
     private Long id;
-
-    @OneToMany(mappedBy = "food")
-    private List<FoodNutrient> foodNutrients = new ArrayList<>();
 
     @Column(name = "food_name")
     private String name;
@@ -36,24 +29,18 @@ public class Food extends BaseEntity {
     @Column(name = "food_type", nullable = false)
     private FoodType type;
 
-    @Column(name = "food_total_calorie")
-    private int total_calorie;
+    @Column(name = "food_calorie")
+    private double calorie;
 
-    public Food(String name, int amount, String brand, FoodType foodType, int total_calorie) {
+    public Food(String name, int amount, String brand, FoodType foodType, double calorie) {
         this.name = name;
         this.brand = brand;
         this.amount = amount;
         this.type = foodType;
-        this.total_calorie = total_calorie;
+        this.calorie = calorie;
     }
 
-    public FoodNutrient addFoodNutrient(FoodNutrient foodNutrient) {
-        foodNutrient.changeFood(this);
-        foodNutrients.add(foodNutrient);
-        return foodNutrient;
-    }
-
-    public void deleteFoodNutrient(FoodNutrient foodNutrient) {
-        foodNutrients.remove(foodNutrient);
+    public static Food toEntity(FoodCreateRequest request) {
+        return new Food(request.getName(), request.getAmount(), request.getBrand(), request.getType(), request.getCalorie());
     }
 }

@@ -13,7 +13,7 @@ class MealDetailTest {
         //given
         Meal meal = new Meal(MealType.BREAKFAST);
         Food food = new Food("파스타", 1, "오뚜기",
-                FoodType.of("brand"), 500);
+                FoodType.from("brand"), 500);
 
         //when & then
         assertDoesNotThrow(() -> {
