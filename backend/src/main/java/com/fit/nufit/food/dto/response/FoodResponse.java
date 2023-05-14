@@ -13,7 +13,7 @@ public class FoodResponse {
     private String brand;
     private int amount;
     private FoodType type;
-    private int calorie;
+    private double calorie;
 
     public FoodResponse(Food food) {
         this.name = food.getName();
