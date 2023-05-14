@@ -1,5 +1,6 @@
 package com.fit.nufit.meal.application;
 
+import com.fit.nufit.common.CommonResponse;
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodRepository;
 import com.fit.nufit.food.dto.response.FoodSimpleResponse;
@@ -11,6 +12,7 @@ import com.fit.nufit.meal.dto.request.MealDetailCreateRequest;
 import com.fit.nufit.meal.dto.response.MealDetailResponse;
 import com.fit.nufit.meal.dto.response.MealDetailsResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,7 +57,14 @@ public class MealDetailService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public CommonResponse delete(Long id) {
         mealDetailRepository.deleteById(id);
+        return new CommonResponse("성공적으로 삭제되었습니다.", HttpStatus.OK.value());
+    }
+
+    @Transactional
+    public CommonResponse deleteAllById(List<Long> ids) {
+        mealDetailRepository.deleteAllById(ids);
+        return new CommonResponse("성공적으로 삭제되었습니다.", HttpStatus.OK.value());
     }
 }
