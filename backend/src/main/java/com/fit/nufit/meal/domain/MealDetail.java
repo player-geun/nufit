@@ -3,12 +3,14 @@ package com.fit.nufit.meal.domain;
 import com.fit.nufit.common.BaseEntity;
 import com.fit.nufit.food.domain.Food;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Table(name = "meal_detail")
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
