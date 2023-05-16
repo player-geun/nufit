@@ -45,13 +45,9 @@ class MealControllerTest extends ControllerTest {
     void 식사에_해당하는_음식을_조회한다() throws Exception {
         // given
         Long mealId = 1L;
-        List<FoodSimpleResponse> simpleFoods = List.of(
-                new FoodSimpleResponse(1L, 1, "사과", 40),
-                new FoodSimpleResponse(2L, 1, "배", 30)
-        );
 
         given(mealDetailService.findAllByMealId(any()))
-                .willReturn(new MealDetailsResponse(any(), 1.1, simpleFoods));
+                .willReturn(new MealDetailsResponse());
 
         // when & then
         mockMvc.perform(get("/api/meals/{mealId}/details", mealId)

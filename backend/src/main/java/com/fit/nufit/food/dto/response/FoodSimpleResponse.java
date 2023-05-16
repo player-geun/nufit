@@ -4,8 +4,10 @@ import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.meal.domain.MealDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class FoodSimpleResponse {
 
