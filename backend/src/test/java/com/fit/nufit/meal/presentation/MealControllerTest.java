@@ -25,8 +25,8 @@ class MealControllerTest extends ControllerTest {
     void 식사를_등록한다() throws Exception {
         // given
         Long memberId = 1L;
-        Long mealId = 1L;
         MealCreateRequest request = new MealCreateRequest(MealType.BREAKFAST);
+
         given(mealService.save(any(), any(MealCreateRequest.class)))
                 .willReturn(new MealResponse());
 
