@@ -5,19 +5,27 @@ import com.fit.nufit.nutrient.domain.NutrientUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 @Getter
 public class NutrientResponse {
 
     private Long id;
     private String name;
-    private int calorie;
+    private int amount;
     private NutrientUnit unit;
+    private List<NutrientResponse> childNutrientResponses = new ArrayList<>();
 
-
-    public NutrientResponse(Nutrient nutrient) {
+    public NutrientResponse(Nutrient nutrient, int amount) {
+        this.id = nutrient.getId();
         this.name = nutrient.getName();
-        this.calorie = nutrient.getCalorie();
         this.unit = nutrient.getUnit();
+        this.amount = amount;
+    }
+
+    public void addChildNutrientResponses(NutrientResponse nutrientResponse) {
+        childNutrientResponses.add(nutrientResponse);
     }
 }
