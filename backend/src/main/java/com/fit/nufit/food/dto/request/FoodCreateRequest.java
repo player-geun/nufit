@@ -1,6 +1,7 @@
 package com.fit.nufit.food.dto.request;
 
 import com.fit.nufit.food.domain.FoodType;
+import com.fit.nufit.food.domain.FoodUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,6 +20,9 @@ public class FoodCreateRequest {
 
     @NotNull(message = "필수 입력값입니다.")
     private int amount;
+
+    @NotNull(message = "필수 입력값입니다.")
+    private FoodUnit unit;
 
     @NotNull(message = "필수 입력값입니다.")
     private FoodType type;
