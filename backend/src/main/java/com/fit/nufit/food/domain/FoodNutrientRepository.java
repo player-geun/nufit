@@ -3,7 +3,6 @@ package com.fit.nufit.food.domain;
 import com.fit.nufit.food.exception.NoSuchFoodException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -22,9 +21,13 @@ public interface FoodNutrientRepository extends JpaRepository<FoodNutrient, Long
         return this.findByNutrientId(nutrientId);
     }
 
-    List<FoodNutrient> findByFoodId(Long foodId);
-
     List<FoodNutrient> findByNutrientId(Long nutrientId);
 
+    @Query("SELECT fn " +
+            "FROM FoodNutrient fn " +
+            "JOIN FETCH fn.food f " +
+            "JOIN FETCH fn.nutrient n " +
+            "WHERE f.id = :foodId")
+    List<FoodNutrient> findByFoodId(Long foodId);
 
 }
