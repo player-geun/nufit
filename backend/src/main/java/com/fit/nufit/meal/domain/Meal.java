@@ -26,11 +26,13 @@ public class Meal extends BaseEntity {
     @Column(nullable = false)
     private MealType type;
 
-    public Meal(MealType type) {
+    public Meal(Member member, MealType type) {
+        this.member = member;
         this.type = type;
     }
 
-    public void change(MealType type) {
+    public void change(Member member, MealType type) {
+        this.member = member;
         this.type = type;
     }
 }
