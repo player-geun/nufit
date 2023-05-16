@@ -1,5 +1,6 @@
 package com.fit.nufit.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fit.nufit.food.domain.FoodRepository;
 import com.fit.nufit.meal.application.MealDetailService;
 import com.fit.nufit.meal.application.MealService;
@@ -16,6 +17,9 @@ public abstract class ControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     @MockBean
     protected MealDetailRepository mealDetailRepository;

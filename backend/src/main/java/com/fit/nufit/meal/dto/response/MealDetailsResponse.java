@@ -1,10 +1,14 @@
 package com.fit.nufit.meal.dto.response;
 
 import com.fit.nufit.food.dto.response.FoodSimpleResponse;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class MealDetailsResponse {
 
