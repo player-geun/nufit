@@ -2,6 +2,7 @@ package com.fit.nufit.meal.domain;
 
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodType;
+import com.fit.nufit.food.domain.FoodUnit;
 import com.fit.nufit.member.domain.Member;
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +14,12 @@ class MealDetailTest {
     void 식사를_생성한다() {
         //given
         Meal meal = new Meal(new Member("근우@gmail.com"), MealType.BREAKFAST);
-        Food food = new Food("파스타", 1, "오뚜기",
+        Food food = new Food("파스타", 1, FoodUnit.G, "오뚜기",
                 FoodType.from("brand"), 500);
 
         //when & then
         assertDoesNotThrow(() -> {
-            new MealDetail(meal, food, 1, 10);
+            new MealDetail(meal, food, 1);
         });
     }
 }

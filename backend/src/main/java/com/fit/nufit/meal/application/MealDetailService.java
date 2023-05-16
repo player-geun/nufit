@@ -31,7 +31,7 @@ public class MealDetailService {
         Meal meal = mealRepository.getById(request.getMealId());
         Food food = foodRepository.getById(request.getFoodId());
         MealDetail mealDetail = mealDetailRepository.save(
-                new MealDetail(meal, food, 1, food.getCalorie()));
+                new MealDetail(meal, food, 1));
         return new MealDetailResponse(mealDetail);
     }
 

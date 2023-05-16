@@ -12,13 +12,12 @@ public class MealDetailResponse {
     private Long mealId;
     private Long foodId;
     private int foodCount;
-    private double totalCalorie;
 
     public MealDetailResponse(MealDetail mealDetail) {
         this(mealDetail.getId(),
                 mealDetail.getMeal().getId(),
                 mealDetail.getFood().getId(),
-                mealDetail.getFoodCount(),
-                mealDetail.getCalorieTotal());
+                mealDetail.getFoodCount());
+
     }
 }
