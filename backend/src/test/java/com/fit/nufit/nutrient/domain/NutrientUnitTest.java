@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
-class NutrientTypeTest {
+class NutrientUnitTest {
 
     @Test
     public void 영양소_단위에_존재하지_않는_단위가_들어오면_예외가_발생한다() throws Exception {
