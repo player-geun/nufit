@@ -13,8 +13,7 @@ import org.springframework.http.MediaType;
 import java.util.List;
 
 import static org.mockito.BDDMockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -56,5 +55,20 @@ class MealControllerTest extends ControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+    
+    @Test
+    void 식사상세를_삭제한다() throws Exception {
+        // given
+        Long mealDetailId = 1L;
+        willDoNothing().given(mealDetailService).delete(any());
+
+        // when & then
+        mockMvc.perform(delete("/api/meals/details/{mealDetailId}", mealDetailId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
