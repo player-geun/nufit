@@ -25,8 +25,14 @@ public class MealController {
     }
 
     @GetMapping("/{mealId}/details")
-    public ResponseEntity<MealDetailsResponse> findAllByMealId(@PathVariable Long mealId) {
+    public ResponseEntity<MealDetailsResponse> findMealDetailsByMealId(@PathVariable Long mealId) {
         MealDetailsResponse response = mealDetailService.findAllByMealId(mealId);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/details/{mealDetailId}")
+    public ResponseEntity<Void> deleteByMealDetailId(@PathVariable Long mealDetailId) {
+        mealDetailService.delete(mealDetailId);
+        return ResponseEntity.noContent().build();
     }
 }

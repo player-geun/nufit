@@ -49,4 +49,25 @@ class MealDetailServiceTest {
         // then
         assertThat(mealDetailsResponse.getFoodSimpleResponses().get(0).getFoodName()).isEqualTo("사과");
     }
+
+    @Test
+    void 식사상세를_삭제한다() {
+        // given
+        Member member = new Member("근우@gmail.com");
+        memberRepository.save(member);
+        Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
+        Food food = foodRepository.save(new Food("사과", 1, "NO", FoodType.BRAND, 1));
+        MealDetailResponse response =
+                mealDetailService.save(new MealDetailCreateRequest(meal.getId(), food.getId()));
+
+        // when
+        mealDetailService.delete(response.getId());
+
+        // then
+        assertThatThrownBy(() -> {
+            mealDetailService.findById(response.getId());
+        })
+                .isInstanceOf(NoSuchMealDetailException.class)
+                .hasMessage("존재하지 않는 식사 상세입니다.");
+    }
 }
