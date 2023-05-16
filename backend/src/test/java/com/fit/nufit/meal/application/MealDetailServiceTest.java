@@ -8,6 +8,7 @@ import com.fit.nufit.meal.domain.MealRepository;
 import com.fit.nufit.meal.domain.MealType;
 import com.fit.nufit.meal.dto.request.MealDetailCreateRequest;
 import com.fit.nufit.meal.dto.response.MealDetailsResponse;
+import com.fit.nufit.member.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +30,7 @@ class MealDetailServiceTest {
     @Test
     void 식사에_해당하는_음식을_조회한다() {
         // given
-        Meal meal = mealRepository.save(new Meal(MealType.BREAKFAST));
+        Meal meal = mealRepository.save(new Meal(new Member("근우@gmail.com"), MealType.BREAKFAST));
         Food food = foodRepository.save(new Food("사과", 1, "NO", FoodType.BRAND, 1));
         mealDetailService.save(new MealDetailCreateRequest(meal.getId(), food.getId()));
 
