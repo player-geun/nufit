@@ -15,4 +15,11 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    public Member(String email) {
+        this.email = email;
+    }
 }
