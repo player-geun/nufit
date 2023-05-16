@@ -15,7 +15,7 @@ public class MealService {
     private final MealRepository mealRepository;
 
     @Transactional
-    public MealResponse save(MealCreateRequest request) {
+    public MealResponse save(Long memberId, MealCreateRequest request) {
         Meal meal = mealRepository.save(new Meal(request.getMealType()));
         return new MealResponse(meal);
     }
