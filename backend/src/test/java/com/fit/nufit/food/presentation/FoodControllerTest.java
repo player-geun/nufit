@@ -23,7 +23,7 @@ class FoodControllerTest extends ControllerTest {
         given(foodService.getNutrientDetailByMealDetailId(any()))
                 .willReturn(new NutrientDetailResponse());
         // when & then
-        mockMvc.perform(get("/api/foods/nutrients/details/{mealDetailId}", mealDetailId)
+        mockMvc.perform(get("/api/foods/details/{mealDetailId}/nutrients", mealDetailId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )

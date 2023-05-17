@@ -17,7 +17,7 @@ public class FoodController {
 
     private final FoodService foodService;
 
-    @GetMapping("/nutrients/details/{mealDetailId}")
+    @GetMapping("/details/{mealDetailId}/nutrients")
     public ResponseEntity<NutrientDetailResponse> findNutrientDetailsByMealDetailId(@PathVariable Long mealDetailId) {
         NutrientDetailResponse response = foodService.getNutrientDetailByMealDetailId(mealDetailId);
         return ResponseEntity.ok(response);
