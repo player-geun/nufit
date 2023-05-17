@@ -59,6 +59,16 @@ public class FoodService {
         Map<Long, NutrientResponse> parentNutrientResponses = new HashMap<>();
 
         //상위 영양소인 경우
+        setParentNutrientResponses(foodCount, foodNutrients, parentNutrientResponses);
+
+        //하위 영양소인 경우
+        setChildNutrientResponses(foodCount, foodNutrients, parentNutrientResponses);
+
+        List<NutrientResponse> nutrientResponses = new ArrayList<>(parentNutrientResponses.values());
+        return nutrientResponses;
+    }
+
+    private static void setParentNutrientResponses(int foodCount, List<FoodNutrient> foodNutrients, Map<Long, NutrientResponse> parentNutrientResponses) {
         for (FoodNutrient foodNutrient : foodNutrients) {
             Nutrient nutrient = foodNutrient.getNutrient();
             Nutrient parentNutrient = nutrient.getParentNutrient();
@@ -67,8 +77,9 @@ public class FoodService {
                 parentNutrientResponses.put(nutrient.getId(), new NutrientResponse(nutrient, (int) Math.round(totalNutrientAmount)));
             }
         }
+    }
 
-        //하위 영양소인 경우
+    private static void setChildNutrientResponses(int foodCount, List<FoodNutrient> foodNutrients, Map<Long, NutrientResponse> parentNutrientResponses) {
         for (FoodNutrient foodNutrient : foodNutrients) {
             Nutrient nutrient = foodNutrient.getNutrient();
             Nutrient parentNutrient = nutrient.getParentNutrient();
@@ -78,10 +89,8 @@ public class FoodService {
                 nutrientResponse.addChildNutrientResponses(new NutrientResponse(nutrient, (int) Math.round(totalNutrientAmount)));
             }
         }
-
-        List<NutrientResponse> nutrientResponses = new ArrayList<>(parentNutrientResponses.values());
-        return nutrientResponses;
     }
+
 
     @Transactional
     public void delete(Long id) {
