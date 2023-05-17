@@ -27,8 +27,8 @@ public class MealDetailService {
     private final FoodRepository foodRepository;
 
     @Transactional
-    public MealDetailResponse save(MealDetailCreateRequest request) {
-        Meal meal = mealRepository.getById(request.getMealId());
+    public MealDetailResponse save(Long id, MealDetailCreateRequest request) {
+        Meal meal = mealRepository.getById(id);
         Food food = foodRepository.getById(request.getFoodId());
         MealDetail mealDetail = mealDetailRepository.save(
                 new MealDetail(meal, food, 1));

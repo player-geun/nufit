@@ -42,4 +42,12 @@ public class MealDetail extends BaseEntity {
         this.food = food;
         this.foodCount = foodCount;
     }
+
+    public int getCalorie() {
+        return (int) Math.round(foodCount * food.getCalorie());
+    }
+
+    public int getAmount() {
+        return foodCount * food.getAmount();
+    }
 }

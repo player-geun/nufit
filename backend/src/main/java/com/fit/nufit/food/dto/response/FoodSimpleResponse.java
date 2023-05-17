@@ -17,6 +17,9 @@ public class FoodSimpleResponse {
     private double calorie;
 
     public FoodSimpleResponse(MealDetail mealDetail) {
-        this(mealDetail.getId(), mealDetail.getFoodCount(), mealDetail.getFood().getName(), 10);
+        this(mealDetail.getId(),
+                mealDetail.getFoodCount(),
+                mealDetail.getFood().getName(),
+                mealDetail.getCalorie());
     }
 }

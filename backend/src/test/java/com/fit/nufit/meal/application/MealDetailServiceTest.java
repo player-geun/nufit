@@ -36,13 +36,30 @@ class MealDetailServiceTest {
     private MemberRepository memberRepository;
 
     @Test
+    void 식사상세를_생성한다() {
+        // given
+        Member member = new Member("근우@gmail.com");
+        memberRepository.save(member);
+        Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
+        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G,
+                                                    "NO", FoodType.BRAND, 1));
+
+        // when
+        MealDetailResponse result = mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
+
+        // then
+        assertThat(result.getFoodId()).isEqualTo(food.getId());
+    }
+
+    @Test
     void 식사에_해당하는_음식을_조회한다() {
         // given
         Member member = new Member("근우@gmail.com");
         memberRepository.save(member);
         Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
-        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G, "NO", FoodType.BRAND, 1));
-        mealDetailService.save(new MealDetailCreateRequest(meal.getId(), food.getId()));
+        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G,
+                                                    "NO", FoodType.BRAND, 1));
+        mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
 
         // when
         MealDetailsResponse mealDetailsResponse = mealDetailService.findAllByMealId(meal.getId());
@@ -59,7 +76,7 @@ class MealDetailServiceTest {
         Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
         Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G, "NO", FoodType.BRAND, 1));
         MealDetailResponse response =
-                mealDetailService.save(new MealDetailCreateRequest(meal.getId(), food.getId()));
+                mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
 
         // when
         mealDetailService.delete(response.getId());

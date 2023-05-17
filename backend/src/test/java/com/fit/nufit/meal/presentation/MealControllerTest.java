@@ -4,6 +4,8 @@ import com.fit.nufit.common.ControllerTest;
 import com.fit.nufit.food.dto.response.FoodSimpleResponse;
 import com.fit.nufit.meal.domain.MealType;
 import com.fit.nufit.meal.dto.request.MealCreateRequest;
+import com.fit.nufit.meal.dto.request.MealDetailCreateRequest;
+import com.fit.nufit.meal.dto.response.MealDetailResponse;
 import com.fit.nufit.meal.dto.response.MealDetailsResponse;
 import com.fit.nufit.meal.dto.response.MealResponse;
 import org.junit.jupiter.api.Test;
@@ -24,7 +26,7 @@ class MealControllerTest extends ControllerTest {
     void 식사를_등록한다() throws Exception {
         // given
         Long memberId = 1L;
-        MealCreateRequest request = new MealCreateRequest(MealType.BREAKFAST);
+        MealCreateRequest request = new MealCreateRequest();
 
         given(mealService.save(any(), any(MealCreateRequest.class)))
                 .willReturn(new MealResponse());
@@ -32,6 +34,25 @@ class MealControllerTest extends ControllerTest {
         // when & then
         mockMvc.perform(post("/api/meals")
                         .param("memberId", String.valueOf(memberId))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 식사상세를_등록한다() throws Exception {
+        // given
+        Long mealId = 1L;
+        MealDetailCreateRequest request = new MealDetailCreateRequest();
+
+        given(mealDetailService.save(any(), any(MealDetailCreateRequest.class)))
+                .willReturn(new MealDetailResponse());
+
+        // when & then
+        mockMvc.perform(post("/api/meals/{mealId}", mealId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
