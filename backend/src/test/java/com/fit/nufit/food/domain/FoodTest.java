@@ -30,7 +30,7 @@ class FoodTest {
 
         // when & then
         assertDoesNotThrow(() -> {
-            new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
+            new Food("파스타", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500);
         });
     }
 
@@ -39,11 +39,11 @@ class FoodTest {
     void 음식에_영양소를_추가한다() throws Exception {
 
         // given
-        Food pasta = new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
+        Food pasta = new Food("파스타", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500);
         foodRepository.save(pasta);
-        Nutrient vitamin = new Nutrient("비타민", 5, NutrientUnit.MCG);
+        Nutrient vitamin = new Nutrient("비타민", NutrientUnit.MCG);
         nutrientRepository.save(vitamin);
-        FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5, 25);
+        FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5);
         foodNutrientRepository.save(foodNutrient);
         // when
         Food findFood = foodRepository.getById(pasta.getId());
@@ -58,12 +58,13 @@ class FoodTest {
     void 음식의_영양소를_제거한다() throws Exception {
 
         // given
-        Food pasta = new Food("파스타", 1, "오뚜기", FoodType.from("brand"), 500);
+        Food pasta = new Food("파스타", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500);
         foodRepository.save(pasta);
-        Nutrient vitamin = new Nutrient("비타민", 5, NutrientUnit.MCG);
+        Nutrient vitamin = new Nutrient("비타민", NutrientUnit.MCG);
         nutrientRepository.save(vitamin);
-        FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5, 25);
+        FoodNutrient foodNutrient = new FoodNutrient(pasta, vitamin, 5);
         foodNutrientRepository.save(foodNutrient);
+
         // when
         foodNutrientRepository.delete(foodNutrient);
         Food findFood = foodRepository.getById(pasta.getId());

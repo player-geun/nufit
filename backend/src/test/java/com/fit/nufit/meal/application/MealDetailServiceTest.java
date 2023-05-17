@@ -3,6 +3,7 @@ package com.fit.nufit.meal.application;
 import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.domain.FoodRepository;
 import com.fit.nufit.food.domain.FoodType;
+import com.fit.nufit.food.domain.FoodUnit;
 import com.fit.nufit.meal.domain.Meal;
 import com.fit.nufit.meal.domain.MealRepository;
 import com.fit.nufit.meal.domain.MealType;
@@ -40,7 +41,7 @@ class MealDetailServiceTest {
         Member member = new Member("근우@gmail.com");
         memberRepository.save(member);
         Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
-        Food food = foodRepository.save(new Food("사과", 1, "NO", FoodType.BRAND, 1));
+        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G, "NO", FoodType.BRAND, 1));
         mealDetailService.save(new MealDetailCreateRequest(meal.getId(), food.getId()));
 
         // when
@@ -56,7 +57,7 @@ class MealDetailServiceTest {
         Member member = new Member("근우@gmail.com");
         memberRepository.save(member);
         Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
-        Food food = foodRepository.save(new Food("사과", 1, "NO", FoodType.BRAND, 1));
+        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G, "NO", FoodType.BRAND, 1));
         MealDetailResponse response =
                 mealDetailService.save(new MealDetailCreateRequest(meal.getId(), food.getId()));
 

@@ -29,19 +29,10 @@ public class FoodNutrient extends BaseEntity {
     @Column(name = "food_nutrient_amount")
     private double amount;
 
-    @Column(name = "food_nutrient_calorie")
-    private double calorie;
-
-    public FoodNutrient(Food food, Nutrient nutrient, double amount, double calorie) {
+    public FoodNutrient(Food food, Nutrient nutrient, double amount) {
         this.food = food;
         this.nutrient = nutrient;
         this.amount = amount;
-        this.calorie = calorie;
     }
 
-
-    //TODO: 칼로리 계산 추가하기
-    public void changeFood(Food food) {
-        this.food = food;
-    }
 }

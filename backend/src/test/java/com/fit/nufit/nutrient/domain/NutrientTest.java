@@ -21,7 +21,7 @@ class NutrientTest {
 
         // when & then
         assertDoesNotThrow(() -> {
-            new Nutrient("탄수화물", 4, NutrientUnit.from("g"));
+            new Nutrient("탄수화물", NutrientUnit.from("g"));
         });
 
     }
@@ -31,9 +31,9 @@ class NutrientTest {
     void 영양소의_셀프_참조_관계를_생성한다() throws Exception {
 
         // given
-        Nutrient vitamin = new Nutrient("비타민", 5, NutrientUnit.MCG);
-        Nutrient vitaminA = new Nutrient("비타민A", 3, NutrientUnit.MCG);
-        Nutrient vitaminB = new Nutrient("비타민B", 2, NutrientUnit.MCG);
+        Nutrient vitamin = new Nutrient("비타민", NutrientUnit.MCG);
+        Nutrient vitaminA = new Nutrient("비타민A", NutrientUnit.MCG);
+        Nutrient vitaminB = new Nutrient("비타민B", NutrientUnit.MCG);
         // when
         nutrientRepository.save(vitamin);
         nutrientRepository.save(vitaminA);
@@ -52,10 +52,10 @@ class NutrientTest {
     @Transactional
     void 영양소의_셀프_참조_관계를_변경한다() throws Exception {
         // given
-        Nutrient vitamin1 = new Nutrient("비타민1", 5, NutrientUnit.MCG);
-        Nutrient vitamin2 = new Nutrient("비타민2", 5, NutrientUnit.MCG);
-        Nutrient vitaminA = new Nutrient("비타민A", 3, NutrientUnit.MCG);
-        Nutrient vitaminB = new Nutrient("비타민B", 2, NutrientUnit.MCG);
+        Nutrient vitamin1 = new Nutrient("비타민1", NutrientUnit.MCG);
+        Nutrient vitamin2 = new Nutrient("비타민2", NutrientUnit.MCG);
+        Nutrient vitaminA = new Nutrient("비타민A", NutrientUnit.MCG);
+        Nutrient vitaminB = new Nutrient("비타민B", NutrientUnit.MCG);
         // when
         nutrientRepository.save(vitamin1);
         nutrientRepository.save(vitamin2);

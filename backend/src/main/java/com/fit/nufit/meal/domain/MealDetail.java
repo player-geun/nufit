@@ -30,20 +30,16 @@ public class MealDetail extends BaseEntity {
     @Column(name = "food_count", nullable = false)
     private int foodCount;
 
-    @Column(name = "total_calorie", nullable = false)
-    private double calorieTotal;
 
-    public MealDetail(Meal meal, Food food, int foodCount, double calorieTotal) {
+    public MealDetail(Meal meal, Food food, int foodCount) {
         this.meal = meal;
         this.food = food;
         this.foodCount = foodCount;
-        this.calorieTotal = calorieTotal;
     }
 
-    public void change(Meal meal, Food food, int foodCount, double totalCalorie) {
+    public void change(Meal meal, Food food, int foodCount) {
         this.meal = meal;
         this.food = food;
         this.foodCount = foodCount;
-        this.calorieTotal = totalCalorie;
     }
 }

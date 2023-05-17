@@ -23,22 +23,18 @@ public class Nutrient extends BaseEntity {
     @JoinColumn(name = "parent_nutrient_id", referencedColumnName = "nutrient_id")
     private Nutrient parentNutrient;
 
-    @OneToMany(mappedBy = "parentNutrient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentNutrient")
     private List<Nutrient> childNutrients = new ArrayList<>();
 
     @Column(name = "nutrient_name")
     private String name;
 
-    @Column(name = "nutrient_calorie")
-    private int calorie;
-
     @Enumerated(value = EnumType.STRING)
     @Column(name = "nutrient_unit", nullable = false)
     private NutrientUnit unit;
 
-    public Nutrient(String name, int calorie, NutrientUnit unit) {
+    public Nutrient(String name, NutrientUnit unit) {
         this.name = name;
-        this.calorie = calorie;
         this.unit = unit;
     }
 
