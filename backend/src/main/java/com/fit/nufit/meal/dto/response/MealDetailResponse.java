@@ -22,7 +22,7 @@ public class MealDetailResponse {
                 mealDetail.getMeal().getId(),
                 mealDetail.getFood().getId(),
                 mealDetail.getFoodCount(),
-                mealDetail.getFood().getAmount(),
+                mealDetail.getAmount(),
                 mealDetail.getCalorie());
     }
 }
