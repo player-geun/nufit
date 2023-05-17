@@ -46,11 +46,16 @@ public class FoodService {
     public NutrientDetailResponse getNutrientDetailByMealDetailId(Long mealDetailId) {
         MealDetail mealDetail = mealDetailRepository.getById(mealDetailId);
         int foodCount = mealDetail.getFoodCount();
-
         Food food = mealDetail.getFood();
         String foodName = food.getName();
         int calorieTotal = (int) Math.round(food.getCalorie() * foodCount);
-        List<FoodNutrient> foodNutrients = foodNutrientRepository.findByFoodId(food.getId());
+        List<NutrientResponse> nutrientResponses = getNutrientResponses(food.getId(), foodCount);
+
+        return new NutrientDetailResponse(foodName, calorieTotal, nutrientResponses);
+    }
+
+    private List<NutrientResponse> getNutrientResponses(Long foodId, int foodCount) {
+        List<FoodNutrient> foodNutrients = foodNutrientRepository.findByFoodId(foodId);
         Map<Long, NutrientResponse> parentNutrientResponses = new HashMap<>();
 
         //상위 영양소인 경우
@@ -70,12 +75,12 @@ public class FoodService {
             if (parentNutrient != null) {
                 double totalNutrientAmount = foodNutrient.getAmount() * foodCount;
                 NutrientResponse nutrientResponse = parentNutrientResponses.get(parentNutrient.getId());
-                nutrientResponse.addChildNutrientResponses(new NutrientResponse(nutrient,(int) Math.round(totalNutrientAmount)));
+                nutrientResponse.addChildNutrientResponses(new NutrientResponse(nutrient, (int) Math.round(totalNutrientAmount)));
             }
         }
-        List<NutrientResponse> nutrientResponses = new ArrayList<>(parentNutrientResponses.values());
 
-        return new NutrientDetailResponse(foodName, calorieTotal, nutrientResponses);
+        List<NutrientResponse> nutrientResponses = new ArrayList<>(parentNutrientResponses.values());
+        return nutrientResponses;
     }
 
     @Transactional
