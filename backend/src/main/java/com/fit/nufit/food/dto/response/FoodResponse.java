@@ -5,6 +5,7 @@ import com.fit.nufit.food.domain.FoodType;
 import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class FoodResponse {
 
