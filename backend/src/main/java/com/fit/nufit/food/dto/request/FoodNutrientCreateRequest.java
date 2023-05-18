@@ -1,17 +1,13 @@
 package com.fit.nufit.food.dto.request;
 
-import com.fit.nufit.food.domain.FoodType;
-import com.fit.nufit.food.domain.FoodUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @AllArgsConstructor
-@ToString
 @Getter
 public class FoodNutrientCreateRequest {
 
