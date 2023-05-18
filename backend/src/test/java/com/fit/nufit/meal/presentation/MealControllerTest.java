@@ -1,18 +1,15 @@
 package com.fit.nufit.meal.presentation;
 
 import com.fit.nufit.common.ControllerTest;
-import com.fit.nufit.food.dto.response.FoodSimpleResponse;
-import com.fit.nufit.meal.domain.MealType;
 import com.fit.nufit.meal.dto.request.MealCreateRequest;
 import com.fit.nufit.meal.dto.request.MealDetailCreateRequest;
+import com.fit.nufit.meal.dto.response.MealDailyCaloriesResponse;
 import com.fit.nufit.meal.dto.response.MealDetailResponse;
 import com.fit.nufit.meal.dto.response.MealDetailsResponse;
 import com.fit.nufit.meal.dto.response.MealResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-
-import java.util.List;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -56,6 +53,24 @@ class MealControllerTest extends ControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 하루섭취_총칼로리를_조회한다() throws Exception {
+        // given
+        Long memberId = 1L;
+
+        given(mealService.findDailyCaloriesByMemberId(any()))
+                .willReturn(new MealDailyCaloriesResponse());
+
+        // when & then
+        mockMvc.perform(get("/api/meals/me/calories")
+                        .param("memberId", String.valueOf(memberId))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
