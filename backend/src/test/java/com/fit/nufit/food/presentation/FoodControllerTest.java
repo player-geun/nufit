@@ -5,6 +5,10 @@ import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import com.fit.nufit.food.dto.request.FoodNutrientCreateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
+import com.fit.nufit.nutrient.domain.Nutrient;
+import com.fit.nufit.nutrient.domain.NutrientRepository;
+import com.fit.nufit.nutrient.domain.NutrientUnit;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -20,6 +24,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(FoodController.class)
 class FoodControllerTest extends ControllerTest {
+
+    @BeforeEach
+    void beforeEach() {
+        nutrientRepository.save(new Nutrient("탄수화물", NutrientUnit.G));
+        nutrientRepository.save(new Nutrient("지방", NutrientUnit.G));
+    }
 
     @Test
     void 음식의_영양성분_상세를_조회한다() throws Exception {
@@ -49,7 +59,7 @@ class FoodControllerTest extends ControllerTest {
                 .willReturn(new FoodResponse());
 
         // when & then
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/foods/create")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/foods")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))

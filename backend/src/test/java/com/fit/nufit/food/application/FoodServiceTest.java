@@ -10,12 +10,11 @@ import com.fit.nufit.member.domain.MemberRepository;
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.domain.NutrientUnit;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -45,6 +44,13 @@ class FoodServiceTest {
 
     @Autowired
     MealRepository mealRepository;
+
+    @BeforeEach
+    void beforeEach() {
+        nutrientRepository.save(new Nutrient("탄수화물", NutrientUnit.G));
+        nutrientRepository.save(new Nutrient("지방", NutrientUnit.G));
+        nutrientRepository.save(new Nutrient("단백질", NutrientUnit.G));
+    }
 
     @Test
     @Transactional
@@ -103,5 +109,4 @@ class FoodServiceTest {
         List<FoodNutrient> foodNutrients = foodNutrientRepository.getByFoodId(pasta.getId());
         assertThat(foodNutrients.size()).isEqualTo(2);
     }
-
 }
