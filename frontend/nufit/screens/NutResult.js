@@ -13,7 +13,7 @@ const NutResult = ({ route }) => {
   );
 }
 
-export default NutResult;
+
 
 const styles = StyleSheet.create({
     resultText: {
@@ -22,3 +22,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       },
 })
+
+export default NutResult;

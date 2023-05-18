@@ -27,7 +27,6 @@ const CaloriesResult = ({ route, navigation }) => {
 }
 
 
-export default CaloriesResult;
 
 const styles = StyleSheet.create({
     resultText: {
@@ -36,3 +35,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
       },
 })
+
+
+export default CaloriesResult;

@@ -62,8 +62,7 @@ const SetGoal = ({ navigation }) => {
     )
 };
 
-export default SetGoal;
-  
+
 
 
 const styles = StyleSheet.create({
@@ -92,5 +91,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 10,
     },
 });
+
+export default SetGoal;
   
 
