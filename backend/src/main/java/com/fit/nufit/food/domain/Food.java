@@ -11,11 +11,6 @@ import javax.persistence.*;
 @Entity
 public class Food extends BaseEntity {
 
-    @PrePersist
-    public void prePersist() {
-        this.brand = this.brand == null ? "NOTBRAND":this.brand;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food_id")
