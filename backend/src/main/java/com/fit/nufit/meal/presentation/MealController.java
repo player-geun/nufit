@@ -4,6 +4,7 @@ import com.fit.nufit.meal.application.MealDetailService;
 import com.fit.nufit.meal.application.MealService;
 import com.fit.nufit.meal.dto.request.MealCreateRequest;
 import com.fit.nufit.meal.dto.request.MealDetailCreateRequest;
+import com.fit.nufit.meal.dto.response.MealDailyCaloriesResponse;
 import com.fit.nufit.meal.dto.response.MealDetailResponse;
 import com.fit.nufit.meal.dto.response.MealDetailsResponse;
 import com.fit.nufit.meal.dto.response.MealResponse;
@@ -30,6 +31,12 @@ public class MealController {
     public ResponseEntity<MealDetailResponse> saveMealDetail(@PathVariable Long mealId,
                                                              @RequestBody MealDetailCreateRequest request) {
         MealDetailResponse response = mealDetailService.save(mealId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/me/calories")
+    public ResponseEntity<MealDailyCaloriesResponse> findDailyCaloriesByMealId(@RequestParam Long memberId) {
+        MealDailyCaloriesResponse response = mealService.findDailyCaloriesByMemberId(memberId);
         return ResponseEntity.ok(response);
     }
 
