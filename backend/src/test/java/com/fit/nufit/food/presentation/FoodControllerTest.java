@@ -1,10 +1,16 @@
 package com.fit.nufit.food.presentation;
 
 import com.fit.nufit.common.ControllerTest;
+import com.fit.nufit.food.dto.request.FoodCreateRequest;
+import com.fit.nufit.food.dto.request.FoodNutrientCreateRequest;
+import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -31,5 +37,24 @@ class FoodControllerTest extends ControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    void 새로운_음식을_등록한다() throws Exception {
+        // given
+        FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
+        FoodNutrientCreateRequest fat = new FoodNutrientCreateRequest("지방", 5);
+        FoodCreateRequest request = new FoodCreateRequest("파스타", "오뚜기", 1,
+                "g", "brand", 500, List.of(carb, fat));
 
+        given(foodService.save(any(FoodCreateRequest.class)))
+                .willReturn(new FoodResponse());
+
+        // when & then
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/foods/create")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
