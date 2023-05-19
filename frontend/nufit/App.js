@@ -1,9 +1,6 @@
 import React from 'react';
-
 import { NavigationContainer } from "@react-navigation/native"; 
 import { createStackNavigator } from "@react-navigation/stack";
-
-
 import CaloriesResult from './screens/CaloriesResult';
 import ChooseSearch from './screens/ChooseSearch';
 import NutResult from './screens/NutResult';
@@ -27,4 +24,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-

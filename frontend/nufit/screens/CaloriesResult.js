@@ -13,7 +13,6 @@ const CaloriesResult = ({ route, navigation }) => {
         return;
     }
  
-    
   function handlePress() {
     navigation.navigate('NutResult', { result : bmr });
     }
@@ -26,8 +25,6 @@ const CaloriesResult = ({ route, navigation }) => {
   );
 }
 
-
-
 const styles = StyleSheet.create({
     resultText: {
         marginTop: 20,
@@ -36,6 +33,4 @@ const styles = StyleSheet.create({
       },
 })
 
-
 export default CaloriesResult;
-

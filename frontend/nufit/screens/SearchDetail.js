@@ -12,7 +12,6 @@ const SearchDetail = ({ route }) => {
   );
 }
 
-
 const styles = StyleSheet.create({
     resultText: {
         marginTop: 20,
@@ -22,4 +21,3 @@ const styles = StyleSheet.create({
 })
 
 export default SearchDetail;
-

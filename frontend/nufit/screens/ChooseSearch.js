@@ -3,12 +3,10 @@ import { Text, StyleSheet, View, Button } from 'react-native'
 
 const ChooseSearch = ({ navigation }) => {
 
-    
     function handlePress2() {
         navigation.navigate('Search');
     }
   
-
   return (
     <View style={styles.container}>
         <Text style={styles.text}>어떻게 기록할까?</Text>
@@ -24,7 +22,6 @@ const ChooseSearch = ({ navigation }) => {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -55,6 +52,4 @@ const styles = StyleSheet.create({
    
 })
 
-
 export default ChooseSearch;
-

@@ -3,14 +3,12 @@ import { Button, TextInput, StyleSheet, Text, View } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
 
 
-
 const SetGoal = ({ navigation }) => {
     const [gender, setGender] = useState('male');
     const [age, setAge] = useState('');
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     
-
     function handlePress() {
     navigation.navigate('CaloriesResult', { gen:gender, a:age, he:height, we:weight });
   
@@ -55,15 +53,10 @@ const SetGoal = ({ navigation }) => {
                     keyboardType="numeric"
                 />
             </View>
-            <Button title="다음" onPress={handlePress} />
-            
-            
+            <Button title="다음" onPress={handlePress} />  
         </View>
     )
 };
-
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -93,4 +86,3 @@ const styles = StyleSheet.create({
 });
 
 export default SetGoal;
-  
