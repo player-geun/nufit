@@ -36,6 +36,14 @@ public class Food extends BaseEntity {
     @Column(name = "food_calorie")
     private double calorie;
 
+    public Food(String name, int amount, FoodUnit unit, FoodType type, double calorie) {
+        this.name = name;
+        this.amount = amount;
+        this.unit = unit;
+        this.type = type;
+        this.calorie = calorie;
+    }
+
     public Food(String name, int amount, FoodUnit unit, String brand, FoodType foodType, double calorie) {
         this.name = name;
         this.brand = brand;
@@ -46,7 +54,7 @@ public class Food extends BaseEntity {
     }
 
     public static Food toEntity(FoodCreateRequest request) {
-        return new Food(request.getName(), request.getAmount(), request.getUnit(),
-                request.getBrand(), request.getType(), request.getCalorie());
+        return new Food(request.getName(), request.getAmount(), FoodUnit.from(request.getUnit()),
+                request.getBrand(), FoodType.from(request.getType()), request.getCalorie());
     }
 }

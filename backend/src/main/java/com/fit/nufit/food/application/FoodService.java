@@ -5,11 +5,13 @@ import com.fit.nufit.food.domain.FoodNutrient;
 import com.fit.nufit.food.domain.FoodNutrientRepository;
 import com.fit.nufit.food.domain.FoodRepository;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
+import com.fit.nufit.food.dto.request.FoodNutrientCreateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
 import com.fit.nufit.meal.domain.MealDetail;
 import com.fit.nufit.meal.domain.MealDetailRepository;
 import com.fit.nufit.nutrient.domain.Nutrient;
+import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.dto.response.NutrientResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,9 +34,18 @@ public class FoodService {
 
     private final FoodNutrientRepository foodNutrientRepository;
 
+    private final NutrientRepository nutrientRepository;
+
     @Transactional
     public FoodResponse save(FoodCreateRequest request) {
         Food food = foodRepository.save(Food.toEntity(request));
+        List<FoodNutrientCreateRequest> nutrients = request.getNutrients();
+        for (FoodNutrientCreateRequest nutrient : nutrients) {
+            String name = nutrient.getName();
+            Nutrient findNutrient = nutrientRepository.getByName(name);
+            FoodNutrient foodNutrient = new FoodNutrient(food, findNutrient, nutrient.getAmount());
+            foodNutrientRepository.save(foodNutrient);
+        }
         return new FoodResponse(food);
     }
 

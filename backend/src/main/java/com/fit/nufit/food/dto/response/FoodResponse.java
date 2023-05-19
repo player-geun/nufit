@@ -5,6 +5,7 @@ import com.fit.nufit.food.domain.FoodType;
 import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class FoodResponse {
 
@@ -16,6 +17,7 @@ public class FoodResponse {
     private int calorie;
 
     public FoodResponse(Food food) {
+        this.id = food.getId();
         this.name = food.getName();
         this.brand = food.getBrand();
         this.amount = food.getAmount();
