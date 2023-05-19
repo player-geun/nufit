@@ -3,13 +3,16 @@ package com.fit.nufit.food.application;
 import com.fit.nufit.food.domain.*;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import com.fit.nufit.food.dto.request.FoodNutrientCreateRequest;
+import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
+import com.fit.nufit.food.exception.NoSuchFoodException;
 import com.fit.nufit.meal.domain.*;
 import com.fit.nufit.member.domain.Member;
 import com.fit.nufit.member.domain.MemberRepository;
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.domain.NutrientUnit;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,5 +111,27 @@ class FoodServiceTest {
         Food pasta = foodRepository.getByName("파스타");
         List<FoodNutrient> foodNutrients = foodNutrientRepository.getByFoodId(pasta.getId());
         assertThat(foodNutrients.size()).isEqualTo(2);
+    }
+
+    @Test
+    void 등록한_음식을_삭제한다() {
+        // given
+        FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
+        FoodNutrientCreateRequest fat = new FoodNutrientCreateRequest("지방", 5);
+        FoodCreateRequest foodCreateRequest = new FoodCreateRequest("파스타", "오뚜기", 1,
+                "g", "brand", 500, List.of(carb, fat));
+        FoodResponse response = foodService.save(foodCreateRequest);
+        Long foodId = response.getId();
+
+        // when
+        foodService.delete(foodId);
+
+        // then
+        assertThatThrownBy(() -> {
+                    foodRepository.getById(foodId);
+                })
+                .isInstanceOf(NoSuchFoodException.class)
+                .hasMessage("존재하지 않는 음식입니다.");
+        assertThat(foodNutrientRepository.getByFoodId(foodId).size()).isEqualTo(0);
     }
 }
