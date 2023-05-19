@@ -27,4 +27,10 @@ public class FoodController {
         FoodResponse response = foodService.save(request);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{foodId}")
+    public ResponseEntity<Void> deleteFood(@PathVariable Long foodId) {
+        foodService.delete(foodId);
+        return ResponseEntity.noContent().build();
+    }
 }
