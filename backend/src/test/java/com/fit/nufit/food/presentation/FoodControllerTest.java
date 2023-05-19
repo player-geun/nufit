@@ -2,11 +2,9 @@ package com.fit.nufit.food.presentation;
 
 import com.fit.nufit.common.ControllerTest;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
-import com.fit.nufit.food.dto.request.FoodNutrientCreateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
 import com.fit.nufit.nutrient.domain.Nutrient;
-import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.domain.NutrientUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,10 +12,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,11 +49,7 @@ class FoodControllerTest extends ControllerTest {
     @Test
     void 새로운_음식을_등록한다() throws Exception {
         // given
-        FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
-        FoodNutrientCreateRequest fat = new FoodNutrientCreateRequest("지방", 5);
-        FoodCreateRequest request = new FoodCreateRequest("파스타", "오뚜기", 1,
-                "g", "brand", 500, List.of(carb, fat));
-
+        FoodCreateRequest request = new FoodCreateRequest();
         given(foodService.save(any(FoodCreateRequest.class)))
                 .willReturn(new FoodResponse());
 
@@ -66,5 +61,20 @@ class FoodControllerTest extends ControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void 등록한_음식을_삭제한다() throws Exception{
+        // given
+        Long foodId = 1L;
+        willDoNothing().given(foodService).delete(any());
+
+        // when & then
+        mockMvc.perform(delete("/api/foods/{foodId}", foodId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
