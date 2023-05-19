@@ -12,7 +12,6 @@ import com.fit.nufit.member.domain.MemberRepository;
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.domain.NutrientUnit;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +49,10 @@ class FoodServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        nutrientRepository.save(new Nutrient("탄수화물", NutrientUnit.G));
+        Nutrient carb = nutrientRepository.save(new Nutrient("탄수화물", NutrientUnit.G));
         nutrientRepository.save(new Nutrient("지방", NutrientUnit.G));
         nutrientRepository.save(new Nutrient("단백질", NutrientUnit.G));
+        nutrientRepository.save(new Nutrient("당", NutrientUnit.G, carb));
     }
 
     @Test
@@ -72,17 +72,13 @@ class FoodServiceTest {
         MealDetail mealDetail = new MealDetail(meal, pasta, 2);
         mealDetailRepository.save(mealDetail);
 
-        Nutrient carb = new Nutrient("탄수화물", NutrientUnit.G);
-        nutrientRepository.save(carb);
-        Nutrient sugar = new Nutrient("당", NutrientUnit.G);
-        sugar.setParentNutrient(carb);
-        nutrientRepository.save(sugar);
+        Nutrient carb = nutrientRepository.getByName("탄수화물");
+        Nutrient sugar = nutrientRepository.getByName("당");
 
         FoodNutrient foodNutrient1 = new FoodNutrient(pasta, carb, 50);
         FoodNutrient foodNutrient2 = new FoodNutrient(pasta, sugar, 15);
         foodNutrientRepository.save(foodNutrient1);
         foodNutrientRepository.save(foodNutrient2);
-
         // when
         NutrientDetailResponse response = foodService.getNutrientDetailByMealDetailId(mealDetail.getId());
 
@@ -95,13 +91,13 @@ class FoodServiceTest {
     }
 
     @Test
+    @Transactional
     void 새로운_음식을_등록한다() {
         // given
         FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
         FoodNutrientCreateRequest fat = new FoodNutrientCreateRequest("지방", 5);
         FoodCreateRequest foodCreateRequest = new FoodCreateRequest("파스타", "오뚜기", 1,
                 "g", "brand", 500, List.of(carb, fat));
-
         // when
         foodService.save(foodCreateRequest);
 
@@ -114,6 +110,7 @@ class FoodServiceTest {
     }
 
     @Test
+    @Transactional
     void 등록한_음식을_삭제한다() {
         // given
         FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
@@ -128,8 +125,8 @@ class FoodServiceTest {
 
         // then
         assertThatThrownBy(() -> {
-                    foodRepository.getById(foodId);
-                })
+            foodRepository.getById(foodId);
+        })
                 .isInstanceOf(NoSuchFoodException.class)
                 .hasMessage("존재하지 않는 음식입니다.");
         assertThat(foodNutrientRepository.getByFoodId(foodId).size()).isEqualTo(0);
