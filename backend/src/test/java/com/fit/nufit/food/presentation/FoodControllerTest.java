@@ -24,12 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(FoodController.class)
 class FoodControllerTest extends ControllerTest {
 
-    @BeforeEach
-    void beforeEach() {
-        nutrientRepository.save(new Nutrient("탄수화물", NutrientUnit.G));
-        nutrientRepository.save(new Nutrient("지방", NutrientUnit.G));
-    }
-
     @Test
     void 음식의_영양성분_상세를_조회한다() throws Exception {
         // given
