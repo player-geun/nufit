@@ -13,8 +13,6 @@ const NutResult = ({ route }) => {
   );
 }
 
-
-
 const styles = StyleSheet.create({
     resultText: {
         marginTop: 20,
