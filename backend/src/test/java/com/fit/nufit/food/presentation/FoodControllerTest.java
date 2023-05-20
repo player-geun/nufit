@@ -2,6 +2,7 @@ package com.fit.nufit.food.presentation;
 
 import com.fit.nufit.common.ControllerTest;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
+import com.fit.nufit.food.dto.request.FoodNutrientUpdateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
 import org.junit.jupiter.api.Test;
@@ -55,7 +56,26 @@ class FoodControllerTest extends ControllerTest {
     }
 
     @Test
-    void 등록한_음식을_삭제한다() throws Exception{
+    void 등록한_음식의_영양소를_수정한다() throws Exception {
+        // given
+        Long foodId = 1L;
+        FoodNutrientUpdateRequest request = new FoodNutrientUpdateRequest();
+        given(foodNutrientService.update(any(FoodNutrientUpdateRequest.class)))
+                .willReturn(new NutrientDetailResponse());
+
+        // when & then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/foods/{foodId}/nutrients", foodId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+
+    @Test
+    void 등록한_음식을_삭제한다() throws Exception {
         // given
         Long foodId = 1L;
         willDoNothing().given(foodService).deleteFoodAndFoodNutrientById(any());
