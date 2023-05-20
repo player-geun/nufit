@@ -2,6 +2,7 @@ package com.fit.nufit.food.domain;
 
 import com.fit.nufit.food.exception.NoSuchFoodException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -22,6 +23,12 @@ public interface FoodNutrientRepository extends JpaRepository<FoodNutrient, Long
     }
 
     List<FoodNutrient> findByNutrientId(Long nutrientId);
+
+    @Modifying
+    @Query("DELETE " +
+            "FROM FoodNutrient fn " +
+            "WHERE fn.food.id = :foodId")
+    void deleteAllByFoodId(Long foodId);
 
     @Query("SELECT fn " +
             "FROM FoodNutrient fn " +

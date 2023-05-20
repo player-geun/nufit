@@ -38,6 +38,12 @@ public class Nutrient extends BaseEntity {
         this.unit = unit;
     }
 
+    public Nutrient(String name, NutrientUnit unit, Nutrient parentNutrient) {
+        this.name = name;
+        this.unit = unit;
+        this.parentNutrient = parentNutrient;
+    }
+
     public void setParentNutrient(Nutrient parentNutrient) {
         if (this.parentNutrient != null) {
             this.parentNutrient.getChildNutrients().remove(this);

@@ -40,13 +40,17 @@ public class FoodService {
     public FoodResponse save(FoodCreateRequest request) {
         Food food = foodRepository.save(Food.toEntity(request));
         List<FoodNutrientCreateRequest> nutrients = request.getNutrients();
+        createFoodNutrients(food, nutrients);
+        return new FoodResponse(food);
+    }
+
+    public void createFoodNutrients(Food food, List<FoodNutrientCreateRequest> nutrients) {
         for (FoodNutrientCreateRequest nutrient : nutrients) {
             String name = nutrient.getName();
             Nutrient findNutrient = nutrientRepository.getByName(name);
             FoodNutrient foodNutrient = new FoodNutrient(food, findNutrient, nutrient.getAmount());
             foodNutrientRepository.save(foodNutrient);
         }
-        return new FoodResponse(food);
     }
 
     public FoodResponse findById(Long id) {
@@ -103,8 +107,8 @@ public class FoodService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void deleteFoodAndFoodNutrientById(Long id) {
+        foodNutrientRepository.deleteAllByFoodId(id);
         foodRepository.deleteById(id);
     }
-
 }
