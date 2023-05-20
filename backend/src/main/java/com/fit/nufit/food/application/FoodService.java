@@ -69,7 +69,7 @@ public class FoodService {
         return new NutrientDetailResponse(foodName, calorieTotal, nutrientResponses);
     }
 
-    private List<NutrientResponse> getNutrientResponses(Long foodId, int foodCount) {
+    public List<NutrientResponse> getNutrientResponses(Long foodId, int foodCount) {
         List<FoodNutrient> foodNutrients = foodNutrientRepository.findByFoodId(foodId);
         Map<Long, NutrientResponse> parentNutrientResponses = new HashMap<>();
 
