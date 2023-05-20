@@ -30,7 +30,7 @@ public class FoodController {
 
     @DeleteMapping("/{foodId}")
     public ResponseEntity<Void> deleteFood(@PathVariable Long foodId) {
-        foodService.delete(foodId);
+        foodService.deleteFoodAndFoodNutrientById(foodId);
         return ResponseEntity.noContent().build();
     }
 }

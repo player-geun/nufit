@@ -4,9 +4,6 @@ import com.fit.nufit.common.ControllerTest;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
-import com.fit.nufit.nutrient.domain.Nutrient;
-import com.fit.nufit.nutrient.domain.NutrientUnit;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -61,7 +58,7 @@ class FoodControllerTest extends ControllerTest {
     void 등록한_음식을_삭제한다() throws Exception{
         // given
         Long foodId = 1L;
-        willDoNothing().given(foodService).delete(any());
+        willDoNothing().given(foodService).deleteFoodAndFoodNutrientById(any());
 
         // when & then
         mockMvc.perform(delete("/api/foods/{foodId}", foodId)

@@ -107,7 +107,7 @@ public class FoodService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void deleteFoodAndFoodNutrientById(Long id) {
         foodNutrientRepository.deleteAllByFoodId(id);
         foodRepository.deleteById(id);
     }
