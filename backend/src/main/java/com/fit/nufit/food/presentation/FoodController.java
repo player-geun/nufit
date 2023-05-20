@@ -38,8 +38,8 @@ public class FoodController {
     }
 
     @DeleteMapping("/{foodId}")
-    public ResponseEntity<Void> deleteFood(@PathVariable Long foodId) {
-        foodService.deleteFoodAndFoodNutrientById(foodId);
+    public ResponseEntity<Void> deleteFoodAndFoodNutrients(@PathVariable Long foodId) {
+        foodService.deleteFoodAndFoodNutrientsById(foodId);
         return ResponseEntity.noContent().build();
     }
 }

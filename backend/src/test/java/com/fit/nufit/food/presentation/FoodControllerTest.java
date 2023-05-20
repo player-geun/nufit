@@ -78,7 +78,7 @@ class FoodControllerTest extends ControllerTest {
     void 등록한_음식을_삭제한다() throws Exception {
         // given
         Long foodId = 1L;
-        willDoNothing().given(foodService).deleteFoodAndFoodNutrientById(any());
+        willDoNothing().given(foodService).deleteFoodAndFoodNutrientsById(any());
 
         // when & then
         mockMvc.perform(delete("/api/foods/{foodId}", foodId)
