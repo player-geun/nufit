@@ -41,22 +41,6 @@ public class Food extends BaseEntity {
     @Column(name = "food_calorie")
     private double calorie;
 
-    public Food(String name, int amount, FoodUnit unit, FoodType type, double calorie) {
-        this.name = name;
-        this.amount = amount;
-        this.unit = unit;
-        this.type = type;
-        this.calorie = calorie;
-    }
-    public Food(String name, Member member, int amount, FoodUnit unit, FoodType type, double calorie) {
-        this.name = name;
-        this.member = member;
-        this.amount = amount;
-        this.unit = unit;
-        this.type = type;
-        this.calorie = calorie;
-    }
-
     public Food(String name, int amount, FoodUnit unit, String brand, FoodType foodType, double calorie) {
         this.name = name;
         this.brand = brand;
