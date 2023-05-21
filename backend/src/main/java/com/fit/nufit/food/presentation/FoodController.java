@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RequestMapping("/api/foods")
 @RequiredArgsConstructor
@@ -22,6 +23,12 @@ public class FoodController {
     @GetMapping("/details/{mealDetailId}/nutrients")
     public ResponseEntity<NutrientDetailResponse> findNutrientDetailsByMealDetailId(@PathVariable Long mealDetailId) {
         NutrientDetailResponse response = foodService.getNutrientDetailByMealDetailId(mealDetailId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{memberId}")
+    public ResponseEntity<List<FoodResponse>> findFoodByMemberId(@PathVariable Long memberId) {
+        List<FoodResponse> response = foodService.getFoodsByMemberId(memberId);
         return ResponseEntity.ok(response);
     }
 

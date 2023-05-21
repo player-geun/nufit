@@ -1,6 +1,7 @@
 package com.fit.nufit.food.presentation;
 
 import com.fit.nufit.common.ControllerTest;
+import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import com.fit.nufit.food.dto.request.FoodNutrientUpdateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
@@ -11,9 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -23,22 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FoodControllerTest extends ControllerTest {
 
     @Test
-    void 음식의_영양성분_상세를_조회한다() throws Exception {
-        // given
-        Long mealDetailId = 1L;
-
-        given(foodService.getNutrientDetailByMealDetailId(any()))
-                .willReturn(new NutrientDetailResponse());
-        // when & then
-        mockMvc.perform(get("/api/foods/details/{mealDetailId}/nutrients", mealDetailId)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void 새로운_음식을_등록한다() throws Exception {
         // given
         FoodCreateRequest request = new FoodCreateRequest();
@@ -46,10 +35,42 @@ class FoodControllerTest extends ControllerTest {
                 .willReturn(new FoodResponse());
 
         // when & then
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/foods")
+        mockMvc.perform(post("/api/foods")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 등록한_음식을_조회한다() throws Exception {
+        // given
+        Long memberId = 1L;
+        given(foodService.getFoodsByMemberId(any()))
+                .willReturn(new ArrayList<>());
+
+        // when & then
+        mockMvc.perform(get("/api/foods/{memberId}", memberId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    void 음식의_영양성분_상세를_조회한다() throws Exception {
+        // given
+        Long mealDetailId = 1L;
+        given(foodService.getNutrientDetailByMealDetailId(any()))
+                .willReturn(new NutrientDetailResponse());
+        // when & then
+        mockMvc.perform(get("/api/foods/details/{mealDetailId}/nutrients", mealDetailId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -64,7 +85,7 @@ class FoodControllerTest extends ControllerTest {
                 .willReturn(new NutrientDetailResponse());
 
         // when & then
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/foods/{foodId}/nutrients", foodId)
+        mockMvc.perform(put("/api/foods/{foodId}/nutrients", foodId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
