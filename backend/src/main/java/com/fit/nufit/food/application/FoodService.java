@@ -10,6 +10,7 @@ import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
 import com.fit.nufit.meal.domain.MealDetail;
 import com.fit.nufit.meal.domain.MealDetailRepository;
+import com.fit.nufit.member.domain.MemberRepository;
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.dto.response.NutrientResponse;
@@ -21,12 +22,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
 public class FoodService {
+
+    private final MemberRepository memberRepository;
 
     private final FoodRepository foodRepository;
 
@@ -39,6 +43,7 @@ public class FoodService {
     @Transactional
     public FoodResponse save(FoodCreateRequest request) {
         Food food = foodRepository.save(Food.toEntity(request));
+        food.changeMember(memberRepository.getById(request.getMemberId()));
         List<FoodNutrientCreateRequest> nutrients = request.getNutrients();
         createFoodNutrients(food, nutrients);
         return new FoodResponse(food);
@@ -104,6 +109,13 @@ public class FoodService {
                 nutrientResponse.addChildNutrientResponses(new NutrientResponse(nutrient, (int) Math.round(totalNutrientAmount)));
             }
         }
+    }
+
+    public List<FoodResponse> getFoodsByMemberId(Long memberId) {
+        List<Food> foods = foodRepository.getByMemberId(memberId);
+        return foods.stream()
+                .map(FoodResponse::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional
