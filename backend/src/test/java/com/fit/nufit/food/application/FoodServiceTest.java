@@ -57,6 +57,49 @@ class FoodServiceTest {
 
     @Test
     @Transactional
+    void 새로운_음식을_등록한다() {
+        // given
+        Member member = new Member("태경@google.com");
+        memberRepository.save(member);
+
+        FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
+        FoodNutrientCreateRequest fat = new FoodNutrientCreateRequest("지방", 5);
+        FoodCreateRequest foodCreateRequest = new FoodCreateRequest(member.getId(), "파스타", "오뚜기",
+                1, "g", "brand", 500, List.of(carb, fat));
+        // when
+        foodService.save(foodCreateRequest);
+
+        // then
+        assertDoesNotThrow(() ->
+                foodRepository.getByName("파스타"));
+        Food pasta = foodRepository.getByName("파스타");
+        List<FoodNutrient> foodNutrients = foodNutrientRepository.getByFoodId(pasta.getId());
+        assertThat(foodNutrients.size()).isEqualTo(2);
+    }
+
+    @Test
+    @Transactional
+    void 등록한_음식을_조회한다() {
+        // given
+        Member member = new Member("태경@google.com");
+        memberRepository.save(member);
+
+        Food pasta = new Food("파스타", member, 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500);
+        Food pizza = new Food("피자", member, 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500);
+        Food rice = new Food("밥", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500);
+        foodRepository.save(pasta);
+        foodRepository.save(pizza);
+        foodRepository.save(rice);
+        // when
+        List<FoodResponse> foods = foodService.getFoodsByMemberId(member.getId());
+
+        // then
+        assertThat(foods.size()).isEqualTo(2);
+    }
+
+
+    @Test
+    @Transactional
     void 음식의_영양성분_상세를_조회한다() {
 
         // given
@@ -92,31 +135,15 @@ class FoodServiceTest {
 
     @Test
     @Transactional
-    void 새로운_음식을_등록한다() {
-        // given
-        FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
-        FoodNutrientCreateRequest fat = new FoodNutrientCreateRequest("지방", 5);
-        FoodCreateRequest foodCreateRequest = new FoodCreateRequest("파스타", "오뚜기", 1,
-                "g", "brand", 500, List.of(carb, fat));
-        // when
-        foodService.save(foodCreateRequest);
-
-        // then
-        assertDoesNotThrow(() ->
-                foodRepository.getByName("파스타"));
-        Food pasta = foodRepository.getByName("파스타");
-        List<FoodNutrient> foodNutrients = foodNutrientRepository.getByFoodId(pasta.getId());
-        assertThat(foodNutrients.size()).isEqualTo(2);
-    }
-
-    @Test
-    @Transactional
     void 등록한_음식을_삭제한다() {
         // given
+        Member member = new Member("태경@google.com");
+        memberRepository.save(member);
+
         FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
         FoodNutrientCreateRequest fat = new FoodNutrientCreateRequest("지방", 5);
-        FoodCreateRequest foodCreateRequest = new FoodCreateRequest("파스타", "오뚜기", 1,
-                "g", "brand", 500, List.of(carb, fat));
+        FoodCreateRequest foodCreateRequest = new FoodCreateRequest(member.getId(), "파스타", "오뚜기",
+                1, "g", "brand", 500, List.of(carb, fat));
         FoodResponse response = foodService.save(foodCreateRequest);
         Long foodId = response.getId();
 
