@@ -121,7 +121,7 @@ class FoodServiceTest {
         Long foodId = response.getId();
 
         // when
-        foodService.deleteFoodAndFoodNutrientById(foodId);
+        foodService.deleteFoodAndFoodNutrientsById(foodId);
 
         // then
         assertThatThrownBy(() -> {

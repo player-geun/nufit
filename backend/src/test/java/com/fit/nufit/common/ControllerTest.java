@@ -1,6 +1,7 @@
 package com.fit.nufit.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fit.nufit.food.application.FoodNutrientService;
 import com.fit.nufit.food.application.FoodService;
 import com.fit.nufit.food.domain.FoodRepository;
 import com.fit.nufit.meal.application.MealDetailService;
@@ -37,6 +38,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected FoodService foodService;
+
+    @MockBean
+    protected FoodNutrientService foodNutrientService;
 
     @MockBean
     protected FoodRepository foodRepository;
