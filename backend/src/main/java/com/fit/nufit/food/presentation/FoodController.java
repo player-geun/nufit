@@ -6,13 +6,11 @@ import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import com.fit.nufit.food.dto.request.FoodNutrientUpdateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 @RequestMapping("/api/foods")
 @RequiredArgsConstructor
@@ -36,7 +34,6 @@ public class FoodController {
 
     @PostMapping
     public ResponseEntity<FoodResponse> createFood(@RequestBody FoodCreateRequest request) {
-
         FoodResponse response = foodService.save(request);
         return ResponseEntity.ok(response);
     }
