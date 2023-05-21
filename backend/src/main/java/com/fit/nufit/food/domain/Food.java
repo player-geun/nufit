@@ -19,7 +19,7 @@ public class Food extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private Member writer;
 
     @Column(name = "food_name")
     private String name;
@@ -49,9 +49,9 @@ public class Food extends BaseEntity {
         this.type = foodType;
         this.calorie = calorie;
     }
-    public Food(String name, Member member, int amount, FoodUnit unit, String brand, FoodType foodType, double calorie) {
+    public Food(String name, Member writer, int amount, FoodUnit unit, String brand, FoodType foodType, double calorie) {
         this.name = name;
-        this.member = member;
+        this.writer = writer;
         this.brand = brand;
         this.amount = amount;
         this.unit = unit;
@@ -64,7 +64,7 @@ public class Food extends BaseEntity {
                 request.getBrand(), FoodType.from(request.getType()), request.getCalorie());
     }
 
-    public void changeMember(Member member) {
-        this.member = member;
+    public void changeWriter(Member writer) {
+        this.writer = writer;
     }
 }

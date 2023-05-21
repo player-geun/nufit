@@ -20,7 +20,7 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
 
     @Query("SELECT f " +
             "FROM Food f " +
-            "WHERE f.member.id = :memberId")
+            "WHERE f.writer.id = :memberId")
     List<Food> getByMemberId(Long memberId);
 
     default Food getByName(String name) {

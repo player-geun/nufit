@@ -43,7 +43,7 @@ public class FoodService {
     @Transactional
     public FoodResponse save(FoodCreateRequest request) {
         Food food = foodRepository.save(Food.toEntity(request));
-        food.changeMember(memberRepository.getById(request.getMemberId()));
+        food.changeWriter(memberRepository.getById(request.getMemberId()));
         List<FoodNutrientCreateRequest> nutrients = request.getNutrients();
         createFoodNutrients(food, nutrients);
         return new FoodResponse(food);
