@@ -15,6 +15,9 @@ import java.util.List;
 public class FoodCreateRequest {
 
     @NotBlank(message = "필수 입력값입니다.")
+    private Long memberId;
+
+    @NotBlank(message = "필수 입력값입니다.")
     @Size(min = 1, max = 30, message = "음식 이름은 최소 한 글자 이상 30자 이하여야 합니다.")
     private String name;
 

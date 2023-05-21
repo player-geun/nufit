@@ -2,6 +2,7 @@ package com.fit.nufit.food.domain;
 
 import com.fit.nufit.common.BaseEntity;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
+import com.fit.nufit.member.domain.Member;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,10 @@ public class Food extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "food_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column(name = "food_name")
     private String name;
@@ -43,9 +48,26 @@ public class Food extends BaseEntity {
         this.type = type;
         this.calorie = calorie;
     }
+    public Food(String name, Member member, int amount, FoodUnit unit, FoodType type, double calorie) {
+        this.name = name;
+        this.member = member;
+        this.amount = amount;
+        this.unit = unit;
+        this.type = type;
+        this.calorie = calorie;
+    }
 
     public Food(String name, int amount, FoodUnit unit, String brand, FoodType foodType, double calorie) {
         this.name = name;
+        this.brand = brand;
+        this.amount = amount;
+        this.unit = unit;
+        this.type = foodType;
+        this.calorie = calorie;
+    }
+    public Food(String name, Member member, int amount, FoodUnit unit, String brand, FoodType foodType, double calorie) {
+        this.name = name;
+        this.member = member;
         this.brand = brand;
         this.amount = amount;
         this.unit = unit;
@@ -56,5 +78,9 @@ public class Food extends BaseEntity {
     public static Food toEntity(FoodCreateRequest request) {
         return new Food(request.getName(), request.getAmount(), FoodUnit.from(request.getUnit()),
                 request.getBrand(), FoodType.from(request.getType()), request.getCalorie());
+    }
+
+    public void changeMember(Member member) {
+        this.member = member;
     }
 }
