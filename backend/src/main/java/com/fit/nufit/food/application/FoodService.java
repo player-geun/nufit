@@ -117,6 +117,10 @@ public class FoodService {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getFoodNamesBySearchWord(String searchWord) {
+        return foodRepository.getFoodNamesBySearchWord(searchWord);
+    }
+
     @Transactional
     public void deleteFoodAndFoodNutrientsById(Long id) {
         foodNutrientRepository.deleteAllByFoodId(id);
