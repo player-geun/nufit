@@ -135,6 +135,28 @@ class FoodServiceTest {
 
     @Test
     @Transactional
+    void 검색_단어를_기준으로_자동완성_기능을_제공한다() {
+        // given
+        foodRepository.save(new Food("커피우유", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("커피", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("커피땅콩", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("콩커피", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("강커피콩", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("초코커피", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("파스타", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+
+        // when
+        List<String> response = foodService.getFoodNamesBySearchWord("커피");
+
+        // then
+        assertThat(response.size()).isEqualTo(6);
+        assertThat(response.get(0)).isEqualTo("커피");
+        assertThat(response.get(5)).isEqualTo("강커피콩");
+    }
+
+
+    @Test
+    @Transactional
     void 등록한_음식을_삭제한다() {
         // given
         Member member = new Member("태경@google.com");
