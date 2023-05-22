@@ -27,4 +27,14 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
         return this.findByName(name)
                 .orElseThrow(NoSuchFoodException::new);
     }
+
+    @Query("SELECT f.name " +
+            "FROM Food f " +
+            "WHERE f.name LIKE '%'||:searchWord||'%' " +
+            "ORDER BY " +
+            "CASE WHEN f.name = :searchWord THEN 1 " +
+            "WHEN f.name LIKE :searchWord||'%' THEN 2 " +
+            "WHEN f.name LIKE '%'||:searchWord THEN 3 " +
+            "ELSE 4 END, f.name ASC")
+    List<String> getFoodNamesBySearchWord(String searchWord);
 }
