@@ -79,7 +79,7 @@ class FoodControllerTest extends ControllerTest {
         given(foodService.getFoodNamesBySearchWord(any()))
                 .willReturn(new ArrayList<>());
         // when & then
-        mockMvc.perform(get("/api/foods/search/{searchWord}", searchWord)
+        mockMvc.perform(get("/api/foods/autocomplete/{searchWord}", searchWord)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
