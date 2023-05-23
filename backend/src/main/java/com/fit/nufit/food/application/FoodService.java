@@ -15,6 +15,7 @@ import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.dto.response.NutrientResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,6 +116,11 @@ public class FoodService {
         return foods.stream()
                 .map(FoodResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    public List<String> getFoodNamesBySearchWord(String searchWord) {
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        return foodRepository.getFoodNamesBySearchWord(searchWord, pageRequest);
     }
 
     @Transactional

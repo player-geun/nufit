@@ -1,7 +1,6 @@
 package com.fit.nufit.food.presentation;
 
 import com.fit.nufit.common.ControllerTest;
-import com.fit.nufit.food.domain.Food;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import com.fit.nufit.food.dto.request.FoodNutrientUpdateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
@@ -9,11 +8,8 @@ import com.fit.nufit.food.dto.response.NutrientDetailResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -69,6 +65,21 @@ class FoodControllerTest extends ControllerTest {
                 .willReturn(new NutrientDetailResponse());
         // when & then
         mockMvc.perform(get("/api/foods/details/{mealDetailId}/nutrients", mealDetailId)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 검색_단어를_기준으로_자동완성_기능을_제공한다() throws Exception {
+        // given
+        given(foodService.getFoodNamesBySearchWord(any()))
+                .willReturn(new ArrayList<>());
+
+        // when & then
+        mockMvc.perform(get("/api/foods/names?q=커피")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
