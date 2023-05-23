@@ -75,11 +75,11 @@ class FoodControllerTest extends ControllerTest {
     @Test
     void 검색_단어를_기준으로_자동완성_기능을_제공한다() throws Exception {
         // given
-        String searchWord = "커피";
         given(foodService.getFoodNamesBySearchWord(any()))
                 .willReturn(new ArrayList<>());
+
         // when & then
-        mockMvc.perform(get("/api/foods/names?searchWord={searchWord}", searchWord)
+        mockMvc.perform(get("/api/foods/names?searchWord=커피")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
