@@ -118,7 +118,8 @@ public class FoodService {
     }
 
     public List<String> getFoodNamesBySearchWord(String searchWord) {
-        return foodRepository.getFoodNamesBySearchWord(searchWord);
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        return foodRepository.getFoodNamesBySearchWord(searchWord, pageRequest);
     }
 
     @Transactional

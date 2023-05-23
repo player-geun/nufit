@@ -36,5 +36,5 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
             "WHEN f.name LIKE :searchWord||'%' THEN 2 " +
             "WHEN f.name LIKE '%'||:searchWord THEN 3 " +
             "ELSE 4 END, f.name ASC")
-    List<String> getFoodNamesBySearchWord(String searchWord);
+    List<String> getFoodNamesBySearchWord(String searchWord, Pageable pageable);
 }
