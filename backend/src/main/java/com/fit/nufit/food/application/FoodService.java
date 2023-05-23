@@ -15,6 +15,7 @@ import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.dto.response.NutrientResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
