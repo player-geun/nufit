@@ -79,7 +79,7 @@ class FoodControllerTest extends ControllerTest {
                 .willReturn(new ArrayList<>());
 
         // when & then
-        mockMvc.perform(get("/api/foods/names?searchWord=커피")
+        mockMvc.perform(get("/api/foods/names?q=커피")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
