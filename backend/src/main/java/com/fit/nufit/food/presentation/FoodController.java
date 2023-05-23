@@ -32,8 +32,8 @@ public class FoodController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/autocomplete/{searchWord}")
-    public ResponseEntity<List<String>> findFoodNameBySearchWord(@PathVariable String searchWord) {
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> findFoodNamesBySearchWord(@RequestParam String searchWord) {
         List<String> response = foodService.getFoodNamesBySearchWord(searchWord);
         return ResponseEntity.ok(response);
     }
