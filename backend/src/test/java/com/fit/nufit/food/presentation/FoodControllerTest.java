@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -80,6 +81,21 @@ class FoodControllerTest extends ControllerTest {
 
         // when & then
         mockMvc.perform(get("/api/foods/names?q=커피")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 검색_단어를_기준으로_관련된_음식을_조회하는_기능을_제공한다() throws Exception {
+        // given
+        given(foodService.getFoodsByName(any(), anyInt()))
+                .willReturn(new ArrayList<>());
+
+        // when & then
+        mockMvc.perform(get("/api/foods/search?q=커피&page=0")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
