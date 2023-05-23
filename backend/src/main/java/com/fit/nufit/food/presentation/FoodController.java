@@ -38,6 +38,13 @@ public class FoodController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<FoodResponse>> findFoodsBySearchWord(@RequestParam("q") String name,
+                                                                    @RequestParam int page) {
+        List<FoodResponse> response = foodService.getFoodsByName(name, page);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity<FoodResponse> createFood(@RequestBody FoodCreateRequest request) {
         FoodResponse response = foodService.save(request);
