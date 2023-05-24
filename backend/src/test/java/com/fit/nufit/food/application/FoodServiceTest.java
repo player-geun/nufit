@@ -154,6 +154,28 @@ class FoodServiceTest {
         assertThat(response.get(5)).isEqualTo("강커피콩");
     }
 
+    @Test
+    @Transactional
+    void 검색_단어를_기준으로_관련된_음식을_조회하는_기능을_제공한다() {
+        // given
+        foodRepository.save(new Food("커피우유", 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("커피", 2, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("커피땅콩", 3, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("콩커피", 4, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("강커피콩", 5, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("초코커피", 6, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        foodRepository.save(new Food("파스타", 7, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500));
+        int pageStart = 0;
+
+        // when
+        List<FoodResponse> response = foodService.getFoodsByName("커피", pageStart);
+
+        // then
+        assertThat(response.size()).isEqualTo(6);
+        assertThat(response.get(0).getName()).isEqualTo("커피");
+        assertThat(response.get(5).getName()).isEqualTo("강커피콩");
+        assertThat(response.get(5).getAmount()).isEqualTo(5);
+    }
 
     @Test
     @Transactional

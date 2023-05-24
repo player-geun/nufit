@@ -118,6 +118,14 @@ public class FoodService {
                 .collect(Collectors.toList());
     }
 
+    public List<FoodResponse> getFoodsByName(String name, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        List<Food> foods = foodRepository.getFoodsByName(name, pageRequest);
+        return foods.stream()
+                .map(FoodResponse::new)
+                .collect(Collectors.toList());
+    }
+
     public List<String> getFoodNamesBySearchWord(String searchWord) {
         PageRequest pageRequest = PageRequest.of(0, 10);
         return foodRepository.getFoodNamesBySearchWord(searchWord, pageRequest);
