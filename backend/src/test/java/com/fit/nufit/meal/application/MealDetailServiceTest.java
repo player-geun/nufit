@@ -13,6 +13,8 @@ import com.fit.nufit.meal.dto.response.MealDetailsResponse;
 import com.fit.nufit.meal.exception.NoSuchMealDetailException;
 import com.fit.nufit.member.domain.Member;
 import com.fit.nufit.member.domain.MemberRepository;
+import com.fit.nufit.member.domain.Role;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,16 +37,23 @@ class MealDetailServiceTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    private Member member;
+
+    private Meal meal;
+
+    private Food food;
+
+    @BeforeEach
+    void setUp() {
+        member = new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER);
+        memberRepository.save(member);
+        meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
+        food = foodRepository.save(new Food("사과", 1, FoodUnit.G, "NO", FoodType.BRAND, 1));
+    }
+
     @Test
     void 식사상세를_생성한다() {
-        // given
-        Member member = new Member("근우@gmail.com");
-        memberRepository.save(member);
-        Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
-        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G,
-                                                    "NO", FoodType.BRAND, 1));
-
-        // when
+        // given & when
         MealDetailResponse result = mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
 
         // then
@@ -54,11 +63,6 @@ class MealDetailServiceTest {
     @Test
     void 식사에_해당하는_음식을_조회한다() {
         // given
-        Member member = new Member("근우@gmail.com");
-        memberRepository.save(member);
-        Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
-        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G,
-                                                    "NO", FoodType.BRAND, 1));
         mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
 
         // when
@@ -71,10 +75,6 @@ class MealDetailServiceTest {
     @Test
     void 식사상세를_삭제한다() {
         // given
-        Member member = new Member("근우@gmail.com");
-        memberRepository.save(member);
-        Meal meal = mealRepository.save(new Meal(member, MealType.BREAKFAST));
-        Food food = foodRepository.save(new Food("사과", 1, FoodUnit.G, "NO", FoodType.BRAND, 1));
         MealDetailResponse response =
                 mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
 

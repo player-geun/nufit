@@ -7,6 +7,7 @@ import com.fit.nufit.food.dto.request.FoodNutrientUpdateRequest;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.member.domain.Member;
 import com.fit.nufit.member.domain.MemberRepository;
+import com.fit.nufit.member.domain.Role;
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.domain.NutrientUnit;
@@ -51,7 +52,7 @@ class FoodNutrientServiceTest {
     @Transactional
     void 음식의_영양소를_수정한다() {
         // given
-        Member member = new Member("태경@gmail.com");
+        Member member = new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER);
         memberRepository.save(member);
 
         FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);

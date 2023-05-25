@@ -15,6 +15,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,6 +38,8 @@ class FoodControllerTest extends ControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
+                        .with(csrf())
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -52,6 +56,7 @@ class FoodControllerTest extends ControllerTest {
         mockMvc.perform(get("/api/foods/{memberId}", memberId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -68,6 +73,7 @@ class FoodControllerTest extends ControllerTest {
         mockMvc.perform(get("/api/foods/details/{mealDetailId}/nutrients", mealDetailId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -83,6 +89,7 @@ class FoodControllerTest extends ControllerTest {
         mockMvc.perform(get("/api/foods/names?q=커피")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -98,6 +105,7 @@ class FoodControllerTest extends ControllerTest {
         mockMvc.perform(get("/api/foods/search?q=커피&page=0")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -116,6 +124,8 @@ class FoodControllerTest extends ControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
+                        .with(csrf())
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -132,6 +142,8 @@ class FoodControllerTest extends ControllerTest {
         mockMvc.perform(delete("/api/foods/{foodId}", foodId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isNoContent());

@@ -10,8 +10,11 @@ import com.fit.nufit.meal.dto.response.MealResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import static org.mockito.BDDMockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,6 +37,8 @@ class MealControllerTest extends ControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
+                        .with(csrf())
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -53,6 +58,8 @@ class MealControllerTest extends ControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
+                        .with(csrf())
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -71,6 +78,7 @@ class MealControllerTest extends ControllerTest {
                         .param("memberId", String.valueOf(memberId))
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -88,6 +96,7 @@ class MealControllerTest extends ControllerTest {
         mockMvc.perform(get("/api/meals/{mealId}/details", mealId)
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
+                        .with(oauth2Login())
         )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -103,6 +112,8 @@ class MealControllerTest extends ControllerTest {
         mockMvc.perform(delete("/api/meals/details/{mealDetailId}", mealDetailId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf())
+                        .with(oauth2Login())
                 )
                 .andDo(print())
                 .andExpect(status().isNoContent());
