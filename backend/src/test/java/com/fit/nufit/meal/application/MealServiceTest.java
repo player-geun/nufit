@@ -13,6 +13,7 @@ import com.fit.nufit.meal.dto.response.MealDailyCaloriesResponse;
 import com.fit.nufit.meal.dto.response.MealResponse;
 import com.fit.nufit.member.domain.Member;
 import com.fit.nufit.member.domain.MemberRepository;
+import com.fit.nufit.member.domain.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,7 +41,8 @@ class MealServiceTest {
     @Test
     void 식사를_생성한다() {
         // given
-        Member member = memberRepository.save(new Member("근우@gmail.com"));
+        Member member = memberRepository.save(
+                new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER));
         MealCreateRequest request = new MealCreateRequest(MealType.BREAKFAST);
 
         // when
@@ -53,7 +55,8 @@ class MealServiceTest {
     @Test
     void 하루섭취_총칼로리를_조회한다() {
         // given
-        Member member = memberRepository.save(new Member("근우@gmail.com"));
+        Member member = memberRepository.save(
+                new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER));
         Meal breakfast = mealRepository.save(new Meal(member, MealType.BREAKFAST));
         Meal lunch = mealRepository.save(new Meal(member, MealType.LUNCH));
         Food apple = foodRepository.save(new Food("사과", 10, FoodUnit.G,

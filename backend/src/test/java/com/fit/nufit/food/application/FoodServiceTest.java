@@ -9,6 +9,7 @@ import com.fit.nufit.food.exception.NoSuchFoodException;
 import com.fit.nufit.meal.domain.*;
 import com.fit.nufit.member.domain.Member;
 import com.fit.nufit.member.domain.MemberRepository;
+import com.fit.nufit.member.domain.Role;
 import com.fit.nufit.nutrient.domain.Nutrient;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import com.fit.nufit.nutrient.domain.NutrientUnit;
@@ -59,7 +60,7 @@ class FoodServiceTest {
     @Transactional
     void 새로운_음식을_등록한다() {
         // given
-        Member member = new Member("태경@google.com");
+        Member member = new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER);
         memberRepository.save(member);
 
         FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
@@ -81,7 +82,7 @@ class FoodServiceTest {
     @Transactional
     void 등록한_음식을_조회한다() {
         // given
-        Member member = new Member("태경@google.com");
+        Member member = new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER);
         memberRepository.save(member);
 
         Food pasta = new Food("파스타", member, 1, FoodUnit.G, "오뚜기", FoodType.from("brand"), 500);
@@ -103,7 +104,7 @@ class FoodServiceTest {
     void 음식의_영양성분_상세를_조회한다() {
 
         // given
-        Member member = new Member("태경@google.com");
+        Member member = new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER);
         memberRepository.save(member);
 
         Meal meal = new Meal(member, MealType.LUNCH);
@@ -181,7 +182,7 @@ class FoodServiceTest {
     @Transactional
     void 등록한_음식을_삭제한다() {
         // given
-        Member member = new Member("태경@google.com");
+        Member member = new Member("이근우", "geunwoo.dev@gmail.com", "1", Role.USER);
         memberRepository.save(member);
 
         FoodNutrientCreateRequest carb = new FoodNutrientCreateRequest("탄수화물", 10);
