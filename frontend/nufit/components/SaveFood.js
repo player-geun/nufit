@@ -22,7 +22,7 @@ const FirstRoute = ({ res }) => {
       { name: '사과', size: '1개 중간 크기', kcal: '57 kcal' },
       { name: '바나나', size: '2개 소 크기', kcal: '90 kcal' },
       { name: '딸기', size: '10개 작은 크기', kcal: '30 kcal' },
-    ]; // Example data received from API
+    ]; //데이터 예시
 
     return (
       <ScrollView contentContainerStyle={styles.scrollContainer}>
