@@ -37,12 +37,12 @@ class MemberServiceTest {
     @Test
     void 회원의_상세정보를_수정한다() {
         // given
-        memberRepository.save(new Member("이근우", "geunwoo@gmail", "1", Role.USER));
+        memberRepository.save(new Member("이근우", "geunwoo@gmail", "2", Role.USER));
         MemberDetailRequest request = new MemberDetailRequest(Sex.MAN, 26, 181, 65);
 
         // when
-        memberService.updateDetailBySocialId("1", request);
-        MemberDetailResponse result = memberService.findDetailBySocialId("1");
+        memberService.updateDetailBySocialId("2", request);
+        MemberDetailResponse result = memberService.findDetailBySocialId("2");
 
         // then
         assertThat(result.getAge()).isEqualTo(request.getAge());
