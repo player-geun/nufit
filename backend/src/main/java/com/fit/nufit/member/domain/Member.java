@@ -38,12 +38,14 @@ public class Member {
 
     private int weight;
 
+    private ActivityAmount activityAmount;
+
     public Member(String nickname, String email, String socialId, Role role) {
-        this(nickname, email, socialId, role, Sex.MAN, 0, 0, 0);
+        this(nickname, email, socialId, role, Sex.MAN, 0, 0, 0, ActivityAmount.LOWER);
     }
 
     public Member(String nickname, String email, String socialId, Role role,
-                  Sex sex, int age, int height, int weight) {
+                  Sex sex, int age, int height, int weight, ActivityAmount activityAmount) {
         this.nickname = nickname;
         this.email = email;
         this.socialId = socialId;
@@ -52,12 +54,14 @@ public class Member {
         this.age = age;
         this.height = height;
         this.weight = weight;
+        this.activityAmount = activityAmount;
     }
 
-    public void changeDetail(Sex sex, int age, int height, int weight) {
+    public void changeDetail(Sex sex, int age, int height, int weight, ActivityAmount activityAmount) {
         this.sex = sex;
         this.age = age;
         this.height = height;
         this.weight = weight;
+        this.activityAmount = activityAmount;
     }
 }
