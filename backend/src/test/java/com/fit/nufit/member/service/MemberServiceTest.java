@@ -1,9 +1,6 @@
 package com.fit.nufit.member.service;
 
-import com.fit.nufit.member.domain.Member;
-import com.fit.nufit.member.domain.MemberRepository;
-import com.fit.nufit.member.domain.Role;
-import com.fit.nufit.member.domain.Sex;
+import com.fit.nufit.member.domain.*;
 import com.fit.nufit.member.dto.request.MemberDetailRequest;
 import com.fit.nufit.member.dto.response.MemberDetailResponse;
 import org.junit.jupiter.api.Test;
@@ -38,7 +35,8 @@ class MemberServiceTest {
     void 회원의_상세정보를_수정한다() {
         // given
         memberRepository.save(new Member("이근우", "geunwoo@gmail", "2", Role.USER));
-        MemberDetailRequest request = new MemberDetailRequest(Sex.MAN, 26, 181, 65);
+        MemberDetailRequest request =
+                new MemberDetailRequest(Sex.MAN, 26, 181, 65, ActivityAmount.LOWER);
 
         // when
         memberService.updateDetailBySocialId("2", request);
