@@ -1,5 +1,6 @@
 package com.fit.nufit.member.dto.request;
 
+import com.fit.nufit.member.domain.ActivityAmount;
 import com.fit.nufit.member.domain.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,4 +15,5 @@ public class MemberDetailRequest {
     private int age;
     private int height;
     private int weight;
+    private ActivityAmount activityAmount;
 }

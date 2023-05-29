@@ -1,5 +1,6 @@
 package com.fit.nufit.member.dto.response;
 
+import com.fit.nufit.member.domain.ActivityAmount;
 import com.fit.nufit.member.domain.Member;
 import com.fit.nufit.member.domain.Sex;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,10 @@ public class MemberDetailResponse {
     private int age;
     private int height;
     private int weight;
+    private ActivityAmount activityAmount;
 
     public MemberDetailResponse(Member member) {
-        this(member.getSex(), member.getAge(), member.getHeight(), member.getWeight());
+        this(member.getSex(), member.getAge(), member.getHeight(),
+                member.getWeight(), member.getActivityAmount());
     }
 }

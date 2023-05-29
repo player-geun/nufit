@@ -25,6 +25,6 @@ public class MemberService {
     public void updateDetailBySocialId(String socialId, MemberDetailRequest request) {
         Member member = memberRepository.getBySocialId(socialId);
         member.changeDetail(request.getSex(), request.getAge(),
-                request.getHeight(), request.getWeight());
+                request.getHeight(), request.getWeight(), request.getActivityAmount());
     }
 }
