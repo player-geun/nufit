@@ -29,10 +29,35 @@ public class Member {
     @Column(nullable = false)
     private Role role;
 
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
+
+    private int age;
+
+    private int height;
+
+    private int weight;
+
     public Member(String nickname, String email, String socialId, Role role) {
+        this(nickname, email, socialId, role, Sex.MAN, 0, 0, 0);
+    }
+
+    public Member(String nickname, String email, String socialId, Role role,
+                  Sex sex, int age, int height, int weight) {
         this.nickname = nickname;
         this.email = email;
         this.socialId = socialId;
         this.role = role;
+        this.sex = sex;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+    }
+
+    public void changeDetail(Sex sex, int age, int height, int weight) {
+        this.sex = sex;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
     }
 }
