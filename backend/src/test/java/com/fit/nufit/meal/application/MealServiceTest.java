@@ -64,8 +64,8 @@ class MealServiceTest {
         Food rice = foodRepository.save(new Food("밥", 10, FoodUnit.G,
                 "NO", FoodType.BRAND, 20));
 
-        mealDetailService.save(breakfast.getId(), new MealDetailCreateRequest(apple.getId()));
-        mealDetailService.save(lunch.getId(), new MealDetailCreateRequest(rice.getId()));
+        mealDetailService.save(breakfast.getId(), new MealDetailCreateRequest(apple.getId(), 1));
+        mealDetailService.save(lunch.getId(), new MealDetailCreateRequest(rice.getId(), 1));
 
         // when
         MealDailyCaloriesResponse response = mealService.findDailyCaloriesByMemberId(member.getId());

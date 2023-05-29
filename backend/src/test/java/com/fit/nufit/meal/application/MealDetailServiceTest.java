@@ -54,7 +54,8 @@ class MealDetailServiceTest {
     @Test
     void 식사상세를_생성한다() {
         // given & when
-        MealDetailResponse result = mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
+        MealDetailResponse result =
+                mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId(), 1));
 
         // then
         assertThat(result.getFoodId()).isEqualTo(food.getId());
@@ -63,7 +64,7 @@ class MealDetailServiceTest {
     @Test
     void 식사에_해당하는_음식을_조회한다() {
         // given
-        mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
+        mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId(), 1));
 
         // when
         MealDetailsResponse mealDetailsResponse = mealDetailService.findAllByMealId(meal.getId());
@@ -76,7 +77,7 @@ class MealDetailServiceTest {
     void 식사상세를_삭제한다() {
         // given
         MealDetailResponse response =
-                mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId()));
+                mealDetailService.save(meal.getId(), new MealDetailCreateRequest(food.getId(), 1));
 
         // when
         mealDetailService.delete(response.getId());
