@@ -15,4 +15,7 @@ public class MealDetailCreateRequest {
 
     @NotNull(message = "Null일 수 없습니다.")
     private Long foodId;
+
+    @NotNull(message = "Null일 수 없습니다.")
+    private int foodCount;
 }

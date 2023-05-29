@@ -9,6 +9,7 @@ import com.fit.nufit.meal.application.MealService;
 import com.fit.nufit.meal.domain.MealDetailRepository;
 import com.fit.nufit.meal.domain.MealRepository;
 import com.fit.nufit.meal.presentation.MealController;
+import com.fit.nufit.member.service.MemberService;
 import com.fit.nufit.nutrient.domain.NutrientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -38,6 +39,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected FoodService foodService;
+
+    @MockBean
+    protected MemberService memberService;
 
     @MockBean
     protected FoodNutrientService foodNutrientService;

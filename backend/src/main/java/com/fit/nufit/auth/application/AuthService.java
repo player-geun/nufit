@@ -44,7 +44,7 @@ public class AuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
 
     private Member getMember(KakaoUser kakaoUser) {
         Member member = memberRepository
-                .findBySocialId(kakaoUser.getId()).orElse(null);
+                .findFirstBySocialId(kakaoUser.getId()).orElse(null);
 
         if (member == null) {
             return saveMember(kakaoUser);
