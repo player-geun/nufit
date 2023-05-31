@@ -36,11 +36,11 @@ class MemberServiceTest {
     void 회원의_목표정보를_조회한다() {
         // given
         Member member = memberRepository.save(
-                new Member("이근우", "geunwoo@gmail", "1", Role.USER,
+                new Member("이근우", "geunwoo@gmail", "3", Role.USER,
                         Sex.MAN, 26, 181, 65, ActivityAmount.LOWER));
 
         // when
-        MemberGoalResponse result = memberService.findGoalsBySocialId("1");
+        MemberGoalResponse result = memberService.findGoalsBySocialId("3");
 
         // then
         assertThat(result.getCalorie()).isEqualTo((int) Math.round((181 - 100) * 0.9 * 25));
