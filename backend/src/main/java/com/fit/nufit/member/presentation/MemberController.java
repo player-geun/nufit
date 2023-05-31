@@ -3,6 +3,7 @@ package com.fit.nufit.member.presentation;
 import com.fit.nufit.meal.dto.response.MealDetailResponse;
 import com.fit.nufit.member.dto.request.MemberDetailRequest;
 import com.fit.nufit.member.dto.response.MemberDetailResponse;
+import com.fit.nufit.member.dto.response.MemberGoalResponse;
 import com.fit.nufit.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,14 @@ public class MemberController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/me/goals")
+    public ResponseEntity<MemberGoalResponse> findGoals(@AuthenticationPrincipal OAuth2User user) {
+        MemberGoalResponse response = memberService.findGoalsBySocialId(getSocialId(user));
+        return ResponseEntity.ok(response);
+    }
+
     @PatchMapping("/me/details")
-    public ResponseEntity<Void> updateDetailBySocialId(@AuthenticationPrincipal OAuth2User user,
+    public ResponseEntity<Void> updateDetail(@AuthenticationPrincipal OAuth2User user,
                                                        @RequestBody MemberDetailRequest request) {
         memberService.updateDetailBySocialId(getSocialId(user), request);
         return ResponseEntity.noContent().build();
