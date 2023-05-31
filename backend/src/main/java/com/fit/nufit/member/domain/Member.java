@@ -64,4 +64,21 @@ public class Member {
         this.weight = weight;
         this.activityAmount = activityAmount;
     }
+
+    public int calculateGoalCalorie() {
+        double averageWeight = (height - 100) * 0.9;
+        return (int) Math.round(activityAmount.calculateGoalCalorie(averageWeight));
+    }
+
+    public int calculateGoalCarbohydrate() {
+        return (int) Math.round(calculateGoalCalorie() * 0.5);
+    }
+
+    public int calculateGoalProtein() {
+        return (int) Math.round(calculateGoalCalorie() * 0.3);
+    }
+
+    public int calculateGoalFat() {
+        return (int) Math.round(calculateGoalCalorie() * 0.2);
+    }
 }
