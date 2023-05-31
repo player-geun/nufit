@@ -3,6 +3,7 @@ package com.fit.nufit.member.service;
 import com.fit.nufit.member.domain.*;
 import com.fit.nufit.member.dto.request.MemberDetailRequest;
 import com.fit.nufit.member.dto.response.MemberDetailResponse;
+import com.fit.nufit.member.dto.response.MemberGoalResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +30,20 @@ class MemberServiceTest {
 
         // then
         assertThat(result.getAge()).isEqualTo(0);
+    }
+
+    @Test
+    void 회원의_목표정보를_조회한다() {
+        // given
+        Member member = memberRepository.save(
+                new Member("이근우", "geunwoo@gmail", "1", Role.USER,
+                        Sex.MAN, 26, 181, 65, ActivityAmount.LOWER));
+
+        // when
+        MemberGoalResponse result = memberService.findGoalsBySocialId("1");
+
+        // then
+        assertThat(result.getCalorie()).isEqualTo((int) Math.round((181 - 100) * 0.9 * 25));
     }
 
     @Test

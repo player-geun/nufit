@@ -3,11 +3,10 @@ package com.fit.nufit.member.presentation;
 import com.fit.nufit.common.ControllerTest;
 import com.fit.nufit.member.dto.request.MemberDetailRequest;
 import com.fit.nufit.member.dto.response.MemberDetailResponse;
+import com.fit.nufit.member.dto.response.MemberGoalResponse;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
@@ -16,7 +15,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(MemberController.class)
 class MemberControllerTest extends ControllerTest {
 
     @Test
@@ -31,7 +29,22 @@ class MemberControllerTest extends ControllerTest {
         mockMvc.perform(get("/api/members/me/details")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .with(csrf())
+                        .with(oauth2Login())
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void 회원의_목표정보를_조회한다() throws Exception {
+        // given
+        given(memberService.findGoalsBySocialId(any()))
+                .willReturn(new MemberGoalResponse(1, 1, 1, 1));
+
+        // when & then
+        mockMvc.perform(get("/api/members/me/goals")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .with(oauth2Login())
                 )
                 .andDo(print())
