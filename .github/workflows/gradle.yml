@@ -38,3 +38,8 @@ jobs:
       
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        junit_files: ${{ github.workspace }}/backend/build/test-results/**/*.xml
