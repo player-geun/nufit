@@ -53,11 +53,8 @@ jobs:
       run: ./gradlew bootJar
 
     - name: Install AWS CLI
-      uses: aws-actions/aws-cli@v2
-      with:
+      env:
         region: ap-northeast-2
         access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-    - name: Upload to S3
       run: aws s3 cp build/libs/*.jar s3://nufit-bucket/build/nufit.jar
