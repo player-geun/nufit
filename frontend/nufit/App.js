@@ -46,13 +46,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="StaticPie" component={StaticPie} />
-        <Stack.Screen name="ChooseSearch" component={ChooseSearch} />
+        {/* <Stack.Screen  options={{headerShown: false,}} name="ChooseSearch" component={ChooseSearch} />
         <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="SearchDetail" component={SearchDetail} />
-        <Stack.Screen name="SetGoal" component={SetGoal} />
-        <Stack.Screen name="CaloriesResult" component={CaloriesResult} />
-        <Stack.Screen name="NutResult" component={NutResult} />
+        <Stack.Screen name="SearchDetail" component={SearchDetail} /> */}
+        <Stack.Screen options={{headerShown: false,}} name="SetGoal" component={SetGoal} />
+        <Stack.Screen options={{headerShown: false,}} name="CaloriesResult" component={CaloriesResult} />
+        <Stack.Screen options={{headerShown: false,}} name="NutResult" component={NutResult} />
+        <Stack.Screen 
+          name="StaticPie" 
+          options={{headerShown: false,}}
+          component={StaticPie} />
       </Stack.Navigator> 
     </NavigationContainer>
   );
