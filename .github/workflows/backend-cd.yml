@@ -56,7 +56,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Upload to S3
-      working-directory: ./bnackend
+      working-directory: ./backend
       run: |
         aws deploy push \
           --application-name nufit-CD \
