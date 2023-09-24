@@ -56,7 +56,14 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Upload to S3
-      run: aws s3 cp build/libs/*.jar s3://nufit-bucket/build/nufit.jar
+      working-directory: ./bnackend
+      run: |
+        aws deploy push \
+          --application-name nufit-CD \
+          --ignore-hidden-files \
+          --s3-locatioon s3://nufit-bucket/build/$GITHUB_SHA.zip \
+          --source .
+      
 
     - name: Deploy to AWS EC2 from S3
       run: |
@@ -64,4 +71,4 @@ jobs:
           --application-name nufit-CD \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name spring-deploy-group \
-          --s3-location bucket=nufit-bucket,key=build/nufit.jar,bundleType=jar
+          --s3-location bucket=nufit-bucket,key=build/$GITHUB_SHA.zip,bundleType=zip
