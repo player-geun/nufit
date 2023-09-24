@@ -57,3 +57,11 @@ jobs:
 
     - name: Upload to S3
       run: aws s3 cp build/libs/*.jar s3://nufit-bucket/build/nufit.jar
+
+    - name: Deploy to AWS EC2 from S3
+      run: |
+        aws deploy create-deployment \
+          --application-name nufit-CD \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name spring-deploy-group \
+          --s3-location bucket=nufit-bucket,key=build/nufit.jar,bundleType=jar
