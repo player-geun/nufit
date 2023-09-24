@@ -68,6 +68,7 @@ jobs:
       run: |
         aws deploy create-deployment \
           --application-name nufit-CD \
+          --file-exists-behavior OVERWRITE \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --deployment-group-name spring-deploy-group \
           --s3-location bucket=nufit-bucket,key=build/$GITHUB_SHA.zip,bundleType=zip
