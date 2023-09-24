@@ -61,7 +61,7 @@ jobs:
         aws deploy push \
           --application-name nufit-CD \
           --ignore-hidden-files \
-          --s3-locatioon s3://nufit-bucket/build/$GITHUB_SHA.zip \
+          --s3-location s3://nufit-bucket/build/$GITHUB_SHA.zip \
           --source .
       
 
