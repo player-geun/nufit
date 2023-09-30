@@ -8,5 +8,6 @@ import SetGoal from "./SetGoal";
 import StaticPie from "./StaticPie";
 import MyPage from "./MyPage";
 import Temp from "./Temp";
+import Home from "./Home";
 
-export { CaloriesResult, ChooseSearch, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp };
+export { CaloriesResult, ChooseSearch, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home };
