@@ -6,5 +6,7 @@ import Search from "./Search";
 import SearchDetail from "./SearchDetail";
 import SetGoal from "./SetGoal";
 import StaticPie from "./StaticPie";
+import MyPage from "./MyPage";
+import Temp from "./Temp";
 
-export { CaloriesResult, ChooseSearch, LoginScreen, NutResult, Search, SearchDetail, Profile, SetGoal, StaticPie};
+export { CaloriesResult, ChooseSearch, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp };
