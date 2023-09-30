@@ -74,6 +74,7 @@ import SetGoal from './screens/SetGoal';
 import StaticPie from './screens/StaticPie';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import Navigation from './navigations';
 
 
 const Stack = createStackNavigator();
@@ -108,19 +109,20 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {/* <Stack.Screen  options={{headerShown: false,}} name="ChooseSearch" component={ChooseSearch} />
-        <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="SearchDetail" component={SearchDetail} /> */}
-        <Stack.Screen options={{headerShown: false,}} name="SetGoal" component={SetGoal} />
-        <Stack.Screen options={{headerShown: false,}} name="CaloriesResult" component={CaloriesResult} />
-        <Stack.Screen options={{headerShown: false,}} name="NutResult" component={NutResult} />
-        <Stack.Screen 
-          name="StaticPie" 
-          options={{headerShown: false,}}
-          component={StaticPie} />
-      </Stack.Navigator> 
-    </NavigationContainer>
+    <Navigation/>
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     {/* <Stack.Screen  options={{headerShown: false,}} name="ChooseSearch" component={ChooseSearch} />
+    //     <Stack.Screen name="Search" component={Search} />
+    //     <Stack.Screen name="SearchDetail" component={SearchDetail} /> */}
+    //     <Stack.Screen options={{headerShown: false,}} name="SetGoal" component={SetGoal} />
+    //     <Stack.Screen options={{headerShown: false,}} name="CaloriesResult" component={CaloriesResult} />
+    //     <Stack.Screen options={{headerShown: false,}} name="NutResult" component={NutResult} />
+    //     <Stack.Screen 
+    //       name="StaticPie" 
+    //       options={{headerShown: false,}}
+    //       component={StaticPie} />
+    //   </Stack.Navigator> 
+    // </NavigationContainer>
   );
 }
