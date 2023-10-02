@@ -1,0 +1,6 @@
+spring:
+  config:
+    import: application-oauth.yml
+
+  profiles:
+    include: oauth, test
