@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, Button } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 
 const CaloriesResult = ({ route, navigation }) => {
   const { gen, a, he, we } = route.params;
@@ -13,21 +13,24 @@ const CaloriesResult = ({ route, navigation }) => {
         return;
     }
  
-  function handlePress() {
+  function goNext() {
     navigation.navigate('NutResult', { result : bmr });
     }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>목표 칼로리를 {'\n'}계산해드렸어요</Text>
-      <Text>일일 권장 섭취량은 {Math.round(bmr)}kcal 입니다.{'\n'}{'\n'} </Text>
-      
-      <Text style={styles.resultText}>목표 섭취 칼로리</Text>
-      <View style={styles.res}>
-        <Text >{Math.round(bmr)}                                                                        kcal</Text>
-      </View>
-      <Text style={styles.adv}>권장 섭취량보다 하루 500kcal 정도{'\n'}적게 먹으면 감량 효과를 기대할 수 있어요! </Text>
-      <Button color="#000000" title="다음" onPress={handlePress} />
+      <View style={styles.resBox}>
+        <Text>일일 권장 섭취량은 <Text style={{color: '#00E9CD'}}>{Math.round(bmr)}kcal</Text> 입니다.{'\n'}{'\n'} </Text>
+        <Text style={styles.resultText}>목표 섭취 칼로리</Text>
+        <View style={styles.res}>
+          <Text >{Math.round(bmr)}                                                                      kcal</Text>
+        </View>
+        <Text style={styles.adv}>권장 섭취량보다 <Text style={{color: '#00E9CD'}}>하루 500kcal 정도{'\n'}</Text>적게 먹으면 감량 효과를 기대할 수 있어요! </Text>
+        <TouchableOpacity style={styles.nextBtn} onPress={goNext}>
+          <Text style={{color: '#fff'}}>다음</Text>
+        </TouchableOpacity> 
+      </View> 
     </View>
   );
 }
@@ -35,9 +38,10 @@ const CaloriesResult = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      justifyContent: 'flex-start',
       backgroundColor: '#fff',
-      padding: 30,
-      paddingVertical: 50,
+      padding: 20,
+      paddingVertical: 30,
       paddingTop: 100,
   
     },
@@ -50,7 +54,8 @@ const styles = StyleSheet.create({
     title:{
       fontSize:20,
       fontWeight: 'bold',
-      marginBottom: 40,
+      marginBottom: 50,
+      marginLeft: 10,
       
     },
     res:{
@@ -64,8 +69,19 @@ const styles = StyleSheet.create({
       borderColor: '#ecebeb',
       paddingHorizontal: 20,
     },
-    adv: {
-      marginBottom: 320,
+    
+    nextBtn: {
+      borderWidth: 1,
+      backgroundColor: '#000',
+      borderRadius: 30,
+      padding: 14,
+      marginVertical: 10,
+      width: '100%',
+      alignItems: 'center',
+      marginTop: 270
+    },
+    resBox: {
+      marginHorizontal: 10
     }
 
 })

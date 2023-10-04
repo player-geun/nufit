@@ -48,6 +48,7 @@ const Search = ({ navigation }) => {
     return (
       <TouchableOpacity onPress={() => handleItemClick(item)}>
         <View style={styles.item}>
+          <Image style={styles.searchimg} source={searchImg}/>
           <Text>{item.title}</Text>
         </View>
       </TouchableOpacity>
@@ -94,8 +95,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: '#f3f3f3',
     paddingHorizontal: 30,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 80,
+    paddingBottom: 10,
     // borderRadius: 8,
     // marginHorizontal: 10,
     // marginTop: 20,
@@ -117,8 +118,11 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    fontSize: 18,
-    height: 44,
+    fontSize: 20,
+    height: 50,
+    paddingLeft: 30,
+    flexDirection: 'row',
+    marginTop: 10
   },
   noResultContainer: {
     alignItems: 'center',
@@ -133,8 +137,8 @@ const styles = StyleSheet.create({
     flex: 15,
   },
   searchimg: {
-    width: 15,
-    height: 15,
+    width: 18,
+    height: 18,
     marginRight: 15,
   }
 });
