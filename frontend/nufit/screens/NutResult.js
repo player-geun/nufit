@@ -1,23 +1,19 @@
 import React from 'react'
-import { Text, StyleSheet, View, Button } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 
 const NutResult = ({ route, navigation }) => {
   const { result } = route.params;
 
-  function handlePress() {
+  function goNext() {
     navigation.navigate('StaticPie');
-    }
+  }
 
   return (
-    // <View>
-    //   <Text style={styles.resultText}>목표 탄수화물량은 {Math.round(result * 0.4)}kcal입니다.</Text>
-    //   <Text style={styles.resultText}>목표 단백질량은 {Math.round(result * 0.4)}kcal입니다.</Text>
-    //   <Text style={styles.resultText}>목표 지방량은 {Math.round(result * 0.2)}kcal입니다.</Text>
-    // </View>
+    
 
     <View style={styles.container}>
       <Text style={styles.title}>목표 탄단지를 {'\n'}계산해드렸어요</Text>
-      <Text>일일 권장 섭취량은 다음과 같습니다.{'\n'}{'\n'} </Text>
+      <Text>목표에 맞는 <Text style={{color: '#00E9CD'}}>탄단지 섭취량</Text>은 다음과 같습니다.{'\n'}{'\n'} </Text>
 
       <Text style={styles.resultText}>목표 탄수화물 섭취량</Text>
       <View style={styles.res}>
@@ -32,7 +28,9 @@ const NutResult = ({ route, navigation }) => {
         <Text >{Math.round(result * 0.2)}                                                                        kcal</Text>
       </View>
       <Text>{'\n'}</Text>
-      <Button color="#000000" title="완료" onPress={handlePress}   />
+      <TouchableOpacity style={styles.nextBtn} onPress={goNext}>
+        <Text style={{color: '#fff'}}>완료</Text>
+      </TouchableOpacity> 
     </View>
   );
 }
@@ -40,26 +38,29 @@ const NutResult = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
-      padding: 30,
-      paddingVertical: 50,
+      justifyContent: 'flex-start',
+      padding: 20,
+      paddingVertical: 30,
       paddingTop: 100,
+      marginHorizontal: 10,
+      backgroundColor: '#fff'
 
     },
     resultText: {
-        marginTop: 20,
-        fontSize: 18,
-        fontWeight: 'bold',
+      marginTop: 20,
+      fontSize: 16,
+      fontWeight: 'bold',
+     
     },
     title:{
       fontSize:20,
       fontWeight: 'bold',
-      marginBottom: 40,
+      marginBottom: 50,
       
     },
     res:{
       justifyContent: 'center',
-      marginBottom: 50,
+      marginBottom: 20,
       marginTop: 10,
       backgroundColor: '#fafafa',
       height: 50,
@@ -67,6 +68,16 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       borderColor: '#ecebeb',
       paddingHorizontal: 20,
+    },
+    nextBtn: {
+      borderWidth: 1,
+      backgroundColor: '#000',
+      borderRadius: 30,
+      padding: 14,
+      marginVertical: 10,
+      width: '100%',
+      alignItems: 'center',
+      marginTop: 60,
     },
 })
 
