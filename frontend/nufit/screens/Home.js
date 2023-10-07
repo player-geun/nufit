@@ -24,9 +24,11 @@ const Home = ({ navigation }) => {
     ]
   return (
     <View style={styles.container}>
-      <TopBar/>
+      <View style={styles.topbar}>
+        <TopBar/>
+      </View>
+      
       <Carousel gap={16} offset={36} pages={PAGES} pageWidth={screenWidth-(16+36)*2}/>
-      <Text>Home</Text>
       <Button title="+" onPress={handlePress}/>
     </View>
   )
@@ -38,6 +40,11 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         justifyContent: 'center'
+    },
+    topbar: {
+      alignItems:'center',
+      justifyContent: 'center',
+      paddingBottom:70,
     }
 
 })
