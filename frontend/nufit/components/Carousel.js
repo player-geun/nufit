@@ -46,5 +46,25 @@ const Carousel = ({ pages, pageWidth, gap, offset}) => {
 export default Carousel
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent:'center',
+    alignItems: 'center',
+    height: '60%',
+    // backgroundColor: 'red'
+  },
+  indicatorWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 16
+  }
 
+})
+const dstyles = (focused) => StyleSheet.create({
+  indicator: {
+    margin: 5,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: focused ? 'red' :'blue'
+  },
 })
