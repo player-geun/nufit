@@ -1,5 +1,6 @@
 import CaloriesResult from "./CaloriesResult";
 import ChooseSearch from "./ChooseSearch";
+import CameraScreen from "./CameraScreen";
 import LoginScreen from "./LoginScreen";
 import NutResult from "./NutResult";
 import Search from "./Search";
@@ -10,4 +11,4 @@ import MyPage from "./MyPage";
 import Temp from "./Temp";
 import Home from "./Home";
 
-export { CaloriesResult, ChooseSearch, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home };
+export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home };
