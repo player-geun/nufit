@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems: 'center',
     height: '60%',
-    // backgroundColor: 'red'
+// backgroundColor: 'red'
   },
   indicatorWrapper: {
     flexDirection: 'row',
