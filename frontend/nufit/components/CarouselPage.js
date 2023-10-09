@@ -57,3 +57,5 @@ const dstyles = (item, style) => StyleSheet.create({
     backgroundColor : 'skyblue'
   }
 })
+
+const styles = StyleSheet.create({})
