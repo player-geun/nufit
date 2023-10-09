@@ -8,16 +8,25 @@ const Home = () => {
     const screenWidth = Math.round(Dimensions.get('window').width);
     const PAGES = [
       {
-        num:1,
-        color:'red'
+        time:'아침',
+        kcal:'433',
+        carbohydrate:'53.2',
+        protein:'23.1',
+        fat:'11.4'
       },
       {
-        num:2,
-        color: 'blue'
+        time:'점심',
+        kcal:'1422',
+        carbohydrate:'233.2',
+        protein:'43.1',
+        fat:'7.4'
       },
       {
-        num:3,
-        color: 'green'
+        time:'저녁',
+        kcal:'974',
+        carbohydrate:'54.1',
+        protein:'20.6',
+        fat:'25.4'
       }
     ]
   return (
