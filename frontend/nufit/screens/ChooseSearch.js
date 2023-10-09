@@ -1,6 +1,9 @@
 import React from 'react'
-import { Text, StyleSheet, View, Button,Alert } from 'react-native'
+import { Text, StyleSheet, View, Alert, TouchableOpacity, Image} from 'react-native'
 import {Camera} from "expo-camera";
+import search from '../assets/search.png'
+import arrow from '../assets/right_arrow_ico.png'
+import camera from '../assets/take_photo_ico.png'
 
 const ChooseSearch = ({ navigation }) => {
 
@@ -17,22 +20,33 @@ const ChooseSearch = ({ navigation }) => {
       };
 
 
-    function handlePress2() {
+    function openSearch() {
         navigation.navigate('Search');
+    }
+
+    function close() {
+        navigation.goBack();
     }
   
   return (
     <View style={styles.container}>
-        <Text style={styles.text}>어떻게 기록할까?</Text>
+        <Text style={styles.text}>어떻게 기록할까요?</Text>
         <View style={styles.chooseContainer}>
-            <View style={styles.choose1}>
-                <Button title="사진으로 기록하기" onPress={openCameraHandler}/>
-            </View>
-            <View style={styles.choose2}>
-                <Button title="검색으로 기록하기" onPress={handlePress2} />
-            </View>
+            <TouchableOpacity style={styles.choose1} onPress={openCameraHandler}>
+                <Image source={camera}/>
+                <Text>사진으로{'\n'}기록하기</Text>
+                <Image source={arrow}/>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.choose2} onPress={openSearch}>
+                <Image source={search}/>
+                <Text>검색으로{'\n'}기록하기</Text>
+                <Image source={arrow}/>
+            </TouchableOpacity>
         </View>
-        
+        <TouchableOpacity style={styles.nextBtn} onPress={close}>
+          <Text style={{color: '#fff'}}>닫기</Text>
+        </TouchableOpacity>
     </View>
   );
 }
@@ -42,27 +56,57 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent : 'center',
         alignItems : 'center',
+        padding: 30,
+        backgroundColor: '#fff',
+        paddingVertical: 200
         
     },
     text: {
-        marginTop: 200,
+        marginTop: 0,
         fontSize: 18,
         fontWeight: 'bold',
     },
     chooseContainer: {
+        width: '85%',
         flex:1,
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems : 'center',
         flexDirection : 'row',
-        marginHorizontal : 20,
+        
         
     },
     choose1: {
-        flex:1,
+        width: 130,
+        height: 160,
+        borderColor: '#00D7BD',
+        borderRadius: 10,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        paddingVertical: 15
     },
     choose2: {
-        flex:1,
+        width: 130,
+        height: 160,
+        borderColor: '#00D7BD',
+        borderRadius: 10,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        paddingVertical: 15
     },
+    nextBtn: {
+        borderWidth: 1,
+        backgroundColor: '#000',
+        borderRadius: 30,
+        padding: 14,
+        marginVertical: 10,
+        width: '100%',
+        alignItems: 'center',
+        marginTop: 0
+      },
    
 })
 
