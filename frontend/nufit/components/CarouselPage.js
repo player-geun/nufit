@@ -47,6 +47,84 @@ const CarouselPage = ({ item, style }) => {
 
 export default CarouselPage
 
+const styles = StyleSheet.create({
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    width: '90%',
+    marginTop: 10,
+    marginBottom:30,
+    paddingHorizontal:10,
+    paddingVertical: 10
+  },
+  date: {
+    
+    paddingHorizontal:10,
+    paddingVertical: 10,
+    justifyContent:'center'
+  },
+  dateText: {
+    fontWeight: '800',
+    fontSize: 20
+  },
+  kcal: {
+    paddingHorizontal:10,
+    paddingVertical: 10,
+    justifyContent:'center',
+    alignItems:'flex-end',
+  },
+  kcalText: {
+    fontSize: 15,
+    marginBottom: 5
+  },
+  kcalNum: {
+    fontSize:20,
+    color: '#00D7BD',
+    fontWeight: '700'
+  },
+  infoContainer: {
+    marginTop: 80,
+    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  nutInfo: {
+    flexDirection: 'row',
+    marginTop:10,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    width: 260,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  nutText: {
+    fontSize: 15,
+  },
+  nutNum: {
+    fontSize: 15,
+    textAlign:'right'
+  },
+  buttonContainer: {
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10
+  },
+  button: {
+      borderWidth: 1,
+      borderColor:'#00D7BD',
+      width: '100%',
+      padding: 15,
+      borderRadius: 30,
+      alignItems: 'center'
+  },
+  buttonText: {
+      color: '#00D7BD',
+      fontWeight: '500',
+      fontSize: 16
+  }
+})
+
 const dstyles = (item, style) => StyleSheet.create({
   container: {
     justifyContent: 'center',
@@ -54,8 +132,6 @@ const dstyles = (item, style) => StyleSheet.create({
     borderRadius: 20,
     width : style.width,
     marginHorizontal : style.marginHorizontal,
-    backgroundColor : 'skyblue'
+    backgroundColor : '#FFFFFF'
   }
 })
-
-const styles = StyleSheet.create({})

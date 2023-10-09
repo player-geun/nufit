@@ -65,6 +65,6 @@ const dstyles = (focused) => StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: focused ? 'red' :'blue'
+    backgroundColor: focused ? '#00D7BD' :'white',
   },
 })
