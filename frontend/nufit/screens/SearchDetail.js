@@ -9,6 +9,10 @@ const SearchDetail = ({ route, navigation }) => {
   const goNext = () => {
     navigation.navigate('ChooseSearch');
   }
+
+  const goFirst = () => {
+    navigation.popToTop();
+  }
   //임시 data
   const kcalData = 132
   const carb = 30
@@ -43,7 +47,7 @@ const SearchDetail = ({ route, navigation }) => {
       <ScrollView style={styles.whiteBox}> 
         <NutDetail kcal={kcal} carb={carb} sugar={sugar} protein={protein} totalf={totalf} transf={transf} satf={satf} chol={chol} na={na}/>
       </ScrollView>
-      <TouchableOpacity style={styles.nextBtn}>
+      <TouchableOpacity style={styles.nextBtn} onPress={goFirst}>
         <Text style={{color: '#fff'}}>식단 추가</Text>
       </TouchableOpacity> 
     </View>
