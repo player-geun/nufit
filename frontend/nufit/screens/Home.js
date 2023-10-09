@@ -1,12 +1,10 @@
-import { Button, Dimensions, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import Carousel from '../components/Carousel';
-import TopBar from '../components/TopBar';
+import TopBarTemp from '../components/TopBarTemp';
 
-const Home = ({ navigation }) => {
-    const handlePress = () => {
-        navigation.navigate('ChooseSearch');
-    }
+const Home = () => {
+
     const screenWidth = Math.round(Dimensions.get('window').width);
     const PAGES = [
       {
@@ -25,11 +23,11 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.topbar}>
-        <TopBar/>
+        <TopBarTemp/>
       </View>
       
       <Carousel gap={16} offset={36} pages={PAGES} pageWidth={screenWidth-(16+36)*2}/>
-      <Button title="+" onPress={handlePress}/>
+      {/* <Button title="+" onPress={handlePress}/> */}
     </View>
   )
 }
@@ -39,7 +37,8 @@ export default Home
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor:'#FAFAFA'
     },
     topbar: {
       alignItems:'center',
