@@ -132,6 +132,6 @@ const dstyles = (item, style) => StyleSheet.create({
     borderRadius: 20,
     width : style.width,
     marginHorizontal : style.marginHorizontal,
-    backgroundColor : 'skyblue'
+    backgroundColor : '#FFFFFF'
   }
 })
