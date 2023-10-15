@@ -4,8 +4,10 @@ import com.fit.nufit.food.application.FoodNutrientService;
 import com.fit.nufit.food.application.FoodService;
 import com.fit.nufit.food.dto.request.FoodCreateRequest;
 import com.fit.nufit.food.dto.request.FoodNutrientUpdateRequest;
+import com.fit.nufit.food.dto.response.CreatedFoodResponse;
 import com.fit.nufit.food.dto.response.FoodResponse;
 import com.fit.nufit.food.dto.response.NutrientDetailResponse;
+import com.fit.nufit.food.dto.response.SearchFoodResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,34 +22,41 @@ public class FoodController {
     private final FoodService foodService;
     private final FoodNutrientService foodNutrientService;
 
+    @GetMapping("/{foodId}")
+    public ResponseEntity<FoodResponse> findFoodById(@PathVariable Long foodId) {
+        FoodResponse response = foodService.getFoodById(foodId);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/details/{mealDetailId}/nutrients")
     public ResponseEntity<NutrientDetailResponse> findNutrientDetailsByMealDetailId(@PathVariable Long mealDetailId) {
         NutrientDetailResponse response = foodService.getNutrientDetailByMealDetailId(mealDetailId);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{memberId}")
-    public ResponseEntity<List<FoodResponse>> findFoodByMemberId(@PathVariable Long memberId) {
-        List<FoodResponse> response = foodService.getFoodsByMemberId(memberId);
+    @GetMapping("/member/{memberId}")
+    public ResponseEntity<List<CreatedFoodResponse>> findFoodByMemberId(@PathVariable Long memberId) {
+        List<CreatedFoodResponse> response = foodService.getFoodsByMemberId(memberId);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/names")
-    public ResponseEntity<List<String>> findFoodNamesBySearchWord(@RequestParam("q") String searchWord) {
-        List<String> response = foodService.getFoodNamesBySearchWord(searchWord);
+    public ResponseEntity<List<SearchFoodResponse>> findFoodNamesBySearchWord(@RequestParam("q") String searchWord) {
+        List<SearchFoodResponse> response = foodService.getFoodNamesBySearchWord(searchWord);
+        System.out.println("searchWord = " + searchWord);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<FoodResponse>> findFoodsBySearchWord(@RequestParam("q") String name,
-                                                                    @RequestParam int page) {
-        List<FoodResponse> response = foodService.getFoodsByName(name, page);
+    public ResponseEntity<List<CreatedFoodResponse>> findFoodsBySearchWord(@RequestParam("q") String name,
+                                                                           @RequestParam int page) {
+        List<CreatedFoodResponse> response = foodService.getFoodsByName(name, page);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<FoodResponse> createFood(@RequestBody FoodCreateRequest request) {
-        FoodResponse response = foodService.save(request);
+    public ResponseEntity<CreatedFoodResponse> createFood(@RequestBody FoodCreateRequest request) {
+        CreatedFoodResponse response = foodService.save(request);
         return ResponseEntity.ok(response);
     }
 
