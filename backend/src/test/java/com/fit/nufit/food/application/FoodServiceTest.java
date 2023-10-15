@@ -152,8 +152,8 @@ class FoodServiceTest {
 
         // then
         assertThat(response.size()).isEqualTo(6);
-        assertThat(response.get(0)).isEqualTo("커피");
-        assertThat(response.get(5)).isEqualTo("강커피콩");
+        assertThat(response.get(0).getName()).isEqualTo("커피");
+        assertThat(response.get(5).getName()).isEqualTo("강커피콩");
     }
 
     @Test

@@ -70,3 +70,7 @@ tasks.named('test') {
 build {
 	dependsOn copyDocument
 }
+
+jar {
+	enabled = false
+}

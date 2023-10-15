@@ -43,7 +43,6 @@ public class FoodController {
     @GetMapping("/names")
     public ResponseEntity<List<SearchFoodResponse>> findFoodNamesBySearchWord(@RequestParam("q") String searchWord) {
         List<SearchFoodResponse> response = foodService.getFoodNamesBySearchWord(searchWord);
-        System.out.println("searchWord = " + searchWord);
         return ResponseEntity.ok(response);
     }
 
