@@ -10,5 +10,7 @@ import StaticPie from "./StaticPie";
 import MyPage from "./MyPage";
 import Temp from "./Temp";
 import Home from "./Home";
-
-export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home };
+import RegisterFoodName from "./RegisterFoodName";
+import RegisterFoodQuantity from "./RegisterFoodQuantity";
+import RegisterFoodNutrition from "./RegisterFoodNutrition";
+export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition };
