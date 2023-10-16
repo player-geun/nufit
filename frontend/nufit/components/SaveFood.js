@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, Animated, View, TouchableOpacity, StyleSheet, StatusBar, Text, Image } from 'react-native';
 import char from '../assets/blank_data_ico.png'
 import { TabView, SceneMap } from 'react-native-tab-view';
+import { useNavigation } from '@react-navigation/native';
 
 const FirstRoute = ({ res }) => {
   if (res === 0) {
@@ -45,14 +46,28 @@ const FirstRoute = ({ res }) => {
   }
 };
 
-const SecondRoute = () => (
+
+const SecondRoute = ({navigation}) => (
+  
   <View style={[styles.container, { backgroundColor: '#ffffff' }]}>
-    <Image style={styles.img} source={char} />
-    <Text style={styles.text}>음식을 등록해보세요</Text>
+    <View style={styles.regContainer}>
+      <Text style={styles.regText}>찾는 음식이 없나요?</Text>
+      <TouchableOpacity
+            style={styles.button}
+            onPress={()=>{navigation.navigate('RegisterFoodName');}}
+        >
+            <Text style={styles.buttonText}>음식 등록</Text>
+        </TouchableOpacity>
+    </View>
+    <View style={styles.foodContainer}>
+      <Image style={styles.img} source={char} />
+      <Text style={styles.text}>음식을 등록해보세요</Text>
+    </View>
   </View>
 );
 
 const SaveFood = () => {
+  const navigation = useNavigation();
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: 'first', title: '저장한 음식' },
@@ -64,7 +79,7 @@ const SaveFood = () => {
 
   const renderTabBar = (props) => {
     const inputRange = props.navigationState.routes.map((x, i) => i);
-
+  
     return (
       <View style={styles.tabBar}>
         {props.navigationState.routes.map((route, i) => {
@@ -89,7 +104,7 @@ const SaveFood = () => {
 
   const renderScene = SceneMap({
     first: () => <FirstRoute res={res} />,
-    second: SecondRoute,
+    second: () => <SecondRoute navigation={navigation}/>
   });
 
   return (
@@ -147,7 +162,7 @@ const styles = StyleSheet.create({
   },
   img: {
     marginBottom: 10,
-  }
+}
 });
 
 export default SaveFood;
