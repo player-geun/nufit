@@ -51,8 +51,10 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // justifyContent: 'center',
     paddingVertical: 0,
-    backgroundColor: '#f2f2f2',
-    paddingTop: 70,
+    backgroundColor: '#FAFAFA',
+    paddingTop: 30,
+    marginTop: 40,
+    // marginBottom: 10
     
   },
   button: {
@@ -62,8 +64,6 @@ const styles = StyleSheet.create({
   headerbox: {
     marginTop: 10,
     flexDirection: 'row',
-    
-    
   },
   datebox: {
     flexDirection: 'row',
