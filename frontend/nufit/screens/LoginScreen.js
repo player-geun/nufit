@@ -54,6 +54,54 @@ const LoginScreen = () => {
       )
 }
 
-const styles = StyleSheet.create({});
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mainText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical:3
+  },
+  mainTextView:{
+      marginVertical:10
+  },
+  subText: {
+    fontSize: 15,
+    textAlign: 'center',
+    color: 'grey',
+    marginBottom: 50,
+  },
+  promiseTextView:{
+      marginTop:15,
+      
+  },
+  promiseText: {
+    fontSize: 12,
+    color: 'grey',
+    paddingVertical: 2,
+    textAlign: 'center',
+  },
+  ment:{
+  },
+  imgLogo:{
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      height: 340
+    },
+  info:{
+      marginTop:25,
+      position: 'absolute',
+      top:0
+  },
+  textLogo:{
+      marginTop:60,
+      marginVertical:20,
+      alignSelf:'center'
+  },
+});
 export default LoginScreen
