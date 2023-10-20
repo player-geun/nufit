@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import { Home, MyPage, StatisticsRecord, Temp } from '../screens';
+import { Home, MyPage, Temp, StatisticsRecord } from '../screens';
 
 const Tab = createBottomTabNavigator();
 
