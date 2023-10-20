@@ -33,4 +33,36 @@ const StatisticsRecord = () => {
 
 export default StatisticsRecord
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'#FAFAFA'
+    },
+    buttonsContainer: {
+        flex:0.1,
+        flexDirection:'row',
+        justifyContent: 'flex-center',
+        alignItems: 'center',
+        // backgroundColor: 'blue',
+        marginLeft: 50,
+        width: '100%'
+    },
+    chart: {
+        flex: 0.9
+    },
+    button: {
+        backgroundColor:'#FAFAFA',
+        // width: '50%',
+        padding: 10,
+        borderRadius: 10,
+        alignItems: 'flex-start',
+        justifyContent:'flex-start',
+        marginRight: 10
+    },
+    buttonText: {
+        fontWeight: '500',
+        fontSize: 16
+    }
+})
