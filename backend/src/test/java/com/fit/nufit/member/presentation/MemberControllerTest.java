@@ -22,7 +22,7 @@ class MemberControllerTest extends ControllerTest {
         // given
         MemberDetailRequest request = new MemberDetailRequest();
 
-        given(memberService.findDetailBySocialId(any()))
+        given(memberService.findDetailById(any()))
                 .willReturn(new MemberDetailResponse());
 
         // when & then
@@ -38,7 +38,7 @@ class MemberControllerTest extends ControllerTest {
     @Test
     void 회원의_목표정보를_조회한다() throws Exception {
         // given
-        given(memberService.findGoalsBySocialId(any()))
+        given(memberService.findGoalsById(any()))
                 .willReturn(new MemberGoalResponse(1, 1, 1, 1));
 
         // when & then
@@ -56,7 +56,7 @@ class MemberControllerTest extends ControllerTest {
         // given
         MemberDetailRequest request = new MemberDetailRequest();
 
-        willDoNothing().given(memberService).updateDetailBySocialId(any(), any(MemberDetailRequest.class));
+        willDoNothing().given(memberService).updateDetailById(any(), any(MemberDetailRequest.class));
 
         // when & then
         mockMvc.perform(patch("/api/members/me/details")

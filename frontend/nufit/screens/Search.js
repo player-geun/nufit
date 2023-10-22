@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, View, FlatList, Text, TouchableOpacity, Image } from 'react-native';
 import searchImg from '../assets/add_by_search_ico.png'
 import SaveFood from '../components/SaveFood';
+import axios from 'axios';
 
 const Search = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,6 +34,33 @@ const Search = ({ navigation }) => {
     }
     setShowFlatList(searchTerm !== '');
   }, [searchTerm]);
+
+  /*
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+
+        const headers = {
+          ContentType: `application/json`,
+          Accept: `application/json`,
+        };
+
+        const response = await axios.get(`https://43.202.91.101/api/foods/names?q=${searchTerm}`, {
+          headers, // 설정한 헤더를 요청에 포함
+        }); 
+        setFilteredData(response.data); 
+        setShowFlatList(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (searchTerm === '') {
+      setFilteredData([]);
+    } else {
+      fetchData();
+    }
+  }, [searchTerm]);*/
 
   const handleItemClick = (item) => {
     navigation.navigate('SearchDetail', { title: item.title });

@@ -17,20 +17,16 @@ public class Member {
     private Long id;
 
     @Column(nullable = false)
-    private String nickname;
+    private String name;
 
     @Column(nullable = false)
     private String email;
-
-    @Column(nullable = false)
-    private String socialId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
-    private Sex sex;
+    private String gender;
 
     private int age;
 
@@ -40,25 +36,38 @@ public class Member {
 
     private ActivityAmount activityAmount;
 
-    public Member(String nickname, String email, String socialId, Role role) {
-        this(nickname, email, socialId, role, Sex.MAN, 0, 0, 0, ActivityAmount.LOWER);
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SocialType socialType;
+
+    @Column(nullable = false)
+    private String socialId;
+
+    public Member(String gender, String email) {
+        this.gender = gender;
+        this.email = email;
     }
 
-    public Member(String nickname, String email, String socialId, Role role,
-                  Sex sex, int age, int height, int weight, ActivityAmount activityAmount) {
-        this.nickname = nickname;
+    public  Member(String name, String email, Role role, SocialType socialType, String socialId) {
+        this(name, email, role, "M", 0, 0, 0, ActivityAmount.LOWER, socialType, socialId);
+    }
+
+    public Member(String name, String email, Role role, String gender, int age, int height, int weight,
+                  ActivityAmount activityAmount, SocialType socialType, String socialId) {
+        this.name = name;
         this.email = email;
-        this.socialId = socialId;
         this.role = role;
-        this.sex = sex;
+        this.gender = gender;
         this.age = age;
         this.height = height;
         this.weight = weight;
         this.activityAmount = activityAmount;
+        this.socialType = socialType;
+        this.socialId = socialId;
     }
 
-    public void changeDetail(Sex sex, int age, int height, int weight, ActivityAmount activityAmount) {
-        this.sex = sex;
+    public void changeDetail(String gender, int age, int height, int weight, ActivityAmount activityAmount) {
+        this.gender = gender;
         this.age = age;
         this.height = height;
         this.weight = weight;

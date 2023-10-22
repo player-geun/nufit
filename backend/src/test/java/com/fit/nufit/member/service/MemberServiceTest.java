@@ -1,5 +1,6 @@
 package com.fit.nufit.member.service;
 
+import com.fit.nufit.member.application.MemberService;
 import com.fit.nufit.member.domain.*;
 import com.fit.nufit.member.dto.request.MemberDetailRequest;
 import com.fit.nufit.member.dto.response.MemberDetailResponse;
@@ -26,7 +27,7 @@ class MemberServiceTest {
                 new Member("이근우", "geunwoo@gmail", "1", Role.USER));
 
         // when
-        MemberDetailResponse result = memberService.findDetailBySocialId("1");
+        MemberDetailResponse result = memberService.findDetailById("1");
 
         // then
         assertThat(result.getAge()).isEqualTo(0);
@@ -40,7 +41,7 @@ class MemberServiceTest {
                         Sex.MAN, 26, 181, 65, ActivityAmount.LOWER));
 
         // when
-        MemberGoalResponse result = memberService.findGoalsBySocialId("3");
+        MemberGoalResponse result = memberService.findGoalsById("3");
 
         // then
         assertThat(result.getCalorie()).isEqualTo((int) Math.round((181 - 100) * 0.9 * 25));
@@ -54,8 +55,8 @@ class MemberServiceTest {
                 new MemberDetailRequest(Sex.MAN, 26, 181, 65, ActivityAmount.LOWER);
 
         // when
-        memberService.updateDetailBySocialId("2", request);
-        MemberDetailResponse result = memberService.findDetailBySocialId("2");
+        memberService.updateDetailById("2", request);
+        MemberDetailResponse result = memberService.findDetailById("2");
 
         // then
         assertThat(result.getAge()).isEqualTo(request.getAge());

@@ -5,7 +5,7 @@ const NutResult = ({ route, navigation }) => {
   const { result } = route.params;
 
   function goNext() {
-    navigation.navigate('StaticPie');
+    navigation.popToTop()
   }
 
   return (
