@@ -18,6 +18,9 @@ const MainStack = () => {
       <Stack.Screen name='RegisterFoodName' component={RegisterFoodName} options={{ headerShown: false }}/>
       <Stack.Screen name='RegisterFoodQuantity' component={RegisterFoodQuantity} options={{ headerShown: false }}/>
       <Stack.Screen name='RegisterFoodNutrition' component={RegisterFoodNutrition} options={{ headerShown: false }}/>
+      <Stack.Screen name='SetGoal' component={SetGoal} options={{ headerShown: false }}/>
+      <Stack.Screen name='CaloriesResult' component={CaloriesResult} options={{ headerShown: false }}/>
+      <Stack.Screen name='NutResult' component={NutResult} options={{ headerShown: false }}/>
     </Stack.Navigator>
   )
 }

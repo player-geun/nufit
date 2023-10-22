@@ -1,10 +1,10 @@
 package com.fit.nufit.member.presentation;
 
-import com.fit.nufit.meal.dto.response.MealDetailResponse;
+import com.fit.nufit.auth.dto.LoginMember;
 import com.fit.nufit.member.dto.request.MemberDetailRequest;
-import com.fit.nufit.member.dto.response.MemberDetailResponse;
 import com.fit.nufit.member.dto.response.MemberGoalResponse;
-import com.fit.nufit.member.service.MemberService;
+import com.fit.nufit.member.application.MemberService;
+import com.fit.nufit.member.dto.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,21 +21,21 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/me/details")
-    public ResponseEntity<MemberDetailResponse> findDetail(@AuthenticationPrincipal OAuth2User user) {
-        MemberDetailResponse response = memberService.findDetailBySocialId(getSocialId(user));
+    public ResponseEntity<MemberResponse> findMe(@AuthenticationPrincipal LoginMember member) {
+        MemberResponse response = memberService.findById(member.getId());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/me/goals")
-    public ResponseEntity<MemberGoalResponse> findGoals(@AuthenticationPrincipal OAuth2User user) {
-        MemberGoalResponse response = memberService.findGoalsBySocialId(getSocialId(user));
+    public ResponseEntity<MemberGoalResponse> findGoals(@AuthenticationPrincipal LoginMember member) {
+        MemberGoalResponse response = memberService.findGoalsById(member.getId());
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/me/details")
-    public ResponseEntity<Void> updateDetail(@AuthenticationPrincipal OAuth2User user,
-                                                       @RequestBody MemberDetailRequest request) {
-        memberService.updateDetailBySocialId(getSocialId(user), request);
+    public ResponseEntity<Void> updateDetail(@AuthenticationPrincipal LoginMember member,
+                                             @RequestBody MemberDetailRequest request) {
+        memberService.updateDetailById(member.getId(), request);
         return ResponseEntity.noContent().build();
     }
 

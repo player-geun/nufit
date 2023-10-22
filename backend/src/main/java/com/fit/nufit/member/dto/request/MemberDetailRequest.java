@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MemberDetailRequest {
 
-    private Sex sex;
+    private String gender;
     private int age;
     private int height;
     private int weight;
