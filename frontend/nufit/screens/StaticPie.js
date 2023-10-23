@@ -75,7 +75,7 @@ const StaticPie = ({}) => {
     
     <View style={styles.container}>
         
-        <TopBar/>
+        {/* <TopBar/> */}
         
         <View style={styles.shadowbox}>
             <Text style={styles.todaytext}>오늘 하루</Text>
@@ -194,12 +194,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: '#00D7BD',
-        paddingHorizontal: 0,
+        paddingHorizontal: 20,
         paddingBottom: 5,
         borderRadius: 15,
         marginHorizontal: 30,
-        marginVertical: 50,
-        marginBottom: 80,
+        // marginVertical: 50,
+        marginBottom: 30,
         shadowColor: '#19C1AD',
         shadowOffset: {
           width: 0,

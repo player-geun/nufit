@@ -10,5 +10,6 @@ import StaticPie from "./StaticPie";
 import MyPage from "./MyPage";
 import Temp from "./Temp";
 import Home from "./Home";
+import StatisticsRecord from "./StatisticsRecord";
 
-export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home };
+export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home, StatisticsRecord };

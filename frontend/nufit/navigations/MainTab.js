@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import { Home, MyPage, StaticPie, Temp } from '../screens';
+import { Home, MyPage, Temp, StatisticsRecord } from '../screens';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +32,7 @@ const MainTab = () => {
       })}
     >
       <Tab.Screen name="Home" component={Home} options={{tabBarLabel : '홈'}}/>
-      <Tab.Screen name="Graph" component={StaticPie} options={{tabBarLabel : '기록 및 통계'}}/>
+      <Tab.Screen name="Graph" component={StatisticsRecord} options={{tabBarLabel : '기록 및 통계'}}/>
       <Tab.Screen name="Temp" component={Temp} options={{tabBarLabel : 'temp'}}/>
       <Tab.Screen name="MyPage" component={MyPage} options={{tabBarLabel : '마이'}}/>
     </Tab.Navigator>
