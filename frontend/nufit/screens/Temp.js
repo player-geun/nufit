@@ -3,7 +3,7 @@ import React from 'react'
 
 const Temp = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Temp</Text>
     </View>
   )
@@ -11,4 +11,10 @@ const Temp = () => {
 
 export default Temp
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})

@@ -25,7 +25,7 @@ const TopBarTemp = () => {
   return (
     
     <View style={styles.container}>
-      <View>
+      <View style={styles.imgContainer}>
         <Image style={styles.img} source={poster}/>
       </View>
       <View style={styles.headerbox}>
