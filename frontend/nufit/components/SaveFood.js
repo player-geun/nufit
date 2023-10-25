@@ -162,7 +162,34 @@ const styles = StyleSheet.create({
   },
   img: {
     marginBottom: 10,
-}
+  },
+  regContainer: {
+    flex:0.1,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20
+  },
+  foodContainer: {
+    flex:0.9,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 100 //임시
+  },
+  button: {
+    backgroundColor:'#00D7BD',
+    width: '23%',
+    padding: 10,
+    borderRadius: 20,
+    alignItems: 'center',
+  },
+  regText: {
+    fontSize: 15,
+  },
+  buttonText: {
+    color: 'white'
+  }
 });
 
 export default SaveFood;
