@@ -30,6 +30,19 @@ const LoginButton = ({ onSubmit }) => {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    button: {
+    flexDirection:'row',
+    backgroundColor: 'black',
+    paddingVertical: 20,
+    paddingHorizontal: 100,
+    borderRadius: 50,
+  },
+  buttonText: {
+    marginHorizontal:10,
+    color: 'white',
+    fontSize: 16,
+  },
+});
 
 export default LoginButton;
