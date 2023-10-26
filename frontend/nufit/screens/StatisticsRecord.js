@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     buttonsContainer: {
         flex:0.1,
         flexDirection:'row',
-        justifyContent: 'flex-center',
+        //justifyContent: 'flex-center',
         alignItems: 'center',
         // backgroundColor: 'blue',
         marginLeft: 50,
