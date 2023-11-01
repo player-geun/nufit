@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { ScrollView } from 'react-native';
+import { Button, Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView, View } from 'react-native';
 
 
 const RegisterFoodQuantity = ({navigation, route}) => {
@@ -15,9 +16,10 @@ const RegisterFoodQuantity = ({navigation, route}) => {
 
   return (
     <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss();}}>
-        <View style={styles.container}>
-            <Text style={styles.intro}>기본 단위를 입력해주세요</Text>
-        <View style={styles.register}>
+      <KeyboardAvoidingView style={styles.container}>
+            
+        <ScrollView style={styles.register}>
+        <Text style={styles.intro}>기본 단위를 입력해주세요</Text>
             <Text style={styles.label}>단위</Text>
             <View style={styles.unitContainer}>
                 <TouchableOpacity
@@ -41,14 +43,15 @@ const RegisterFoodQuantity = ({navigation, route}) => {
                 keyboardType="numeric"
                 placeholder={`0 ${unit === 'g' ? 'g' : 'ml'} `}
             />
-        </View>
-        <TouchableOpacity
+            <TouchableOpacity
             style={[styles.button, !isInputValid && styles.buttonDisabled]}
             onPress={onSubmit}
             disabled={!isInputValid}>
             <Text style={[styles.text, !isInputValid && styles.textDisabled]}>다음</Text>
         </TouchableOpacity>
-        </View>
+        </ScrollView >
+        
+        </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
@@ -58,15 +61,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#fff'
   },
   intro:{
     flex:0.1,
     width: '100%',
     marginTop: 130,
-    paddingHorizontal: 20,
-    marginBottom: 30,
+    marginBottom: 70,
     textAlign: 'left',
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   register: {
@@ -76,24 +79,26 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15,
     marginBottom: 10,
+    fontFamily: 'Pretendard-Bold',
   },
   input: {
-    borderRadius: 10,
+    borderRadius: 5,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     marginBottom: 20,
-    backgroundColor: '#ECEBEB',
-    fontSize: 20
+    fontSize: 15,
+    backgroundColor: '#fafafa',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ecebeb',
   },
   button: {
     borderWidth: 1,
     backgroundColor: '#000',
     borderRadius: 30,
     padding: 14,
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 40,
     alignSelf: 'center',
     shadowColor: "#000",
     shadowOffset: {
@@ -103,18 +108,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 8,
+    marginTop: 300
   },
   buttonDisabled: {
     borderWidth: 1,
     backgroundColor: '#ECEBEB',
     borderRadius: 30,
     padding: 14,
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 40,
     alignSelf: 'center',
-    shadowColor: "#000",
+    shadowColor: "#ECEBEB",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -151,10 +155,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     marginBottom: 20,
-    backgroundColor: '#ECEBEB',
     fontSize: 20,
     marginRight: 25,
-    width: '45%'
+    width: '45%',
+    backgroundColor: '#fafafa',
+    borderWidth: 1,
+    borderColor: '#ecebeb',
   },
   unitTextSelected: {
     color: 'white',

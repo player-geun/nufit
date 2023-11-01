@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     paddingRight: 25,
   },
   img: {
-    width: 40,
-    height: 40,
+    width: 42,
+    height: 35,
   }
 });
 

@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     },
     container3: {
         alignItems: 'flex-start',
-       
+        marginLeft: 12,
         flex: 1, 
         marginTop: 20,
     },
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
+        marginTop: 14,
       
        
     },

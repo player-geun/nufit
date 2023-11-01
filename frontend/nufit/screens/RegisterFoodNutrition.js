@@ -8,9 +8,11 @@ const RegisterFoodNutrition = ({ route }) => {
   const [carbohydrates, setCarbohydrates] = useState('');
   const [protein, setProtein] = useState('');
   const [fat, setFat] = useState('');
+  const [fat2, setFat2] = useState('');
+  const [fat3, setFat3] = useState('');
   const [cholesterol, setCholesterol] = useState('');
   const [sodium, setSodium] = useState('');
-  const [potassium, setPotassium] = useState('');
+ // const [potassium, setPotassium] = useState('');
 
   const navigation = useNavigation();
   const onSubmit = () => {
@@ -23,23 +25,26 @@ const RegisterFoodNutrition = ({ route }) => {
       carbohydrates,
       protein,
       fat,
+      fat2,
+      fat3,
       cholesterol,
       sodium,
-      potassium,
+      //potassium,
     });
   };
 
   const isInputValid = calories && carbohydrates && protein && fat;
 
   return (
-    <KeyboardAvoidingView 
-      behavior={Platform.OS ==='ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
+    // <KeyboardAvoidingView 
+    //   behavior={Platform.OS ==='ios' ? 'padding' : 'height'}
+    //   style={styles.container}
+    // >
+    <KeyboardAvoidingView  style={styles.container}>
     <Text style={styles.intro}>영양 정보를 입력해주세요</Text>
       <ScrollView style={styles.inner}>
         <View>
-            <Text style={styles.label}>칼로리*</Text>
+            <Text style={styles.label}>칼로리</Text>
             <TextInput
             style={styles.input}
             value={calories}
@@ -49,7 +54,7 @@ const RegisterFoodNutrition = ({ route }) => {
             />
         </View>
         <View>
-            <Text style={styles.label}>탄수화물*</Text>
+            <Text style={styles.label}>탄수화물</Text>
             <TextInput
             style={styles.input}
             value={carbohydrates}
@@ -59,7 +64,7 @@ const RegisterFoodNutrition = ({ route }) => {
             />
         </View>
         <View>
-            <Text style={styles.label}>단백질*</Text>
+            <Text style={styles.label}>단백질</Text>
             <TextInput
             style={styles.input}
             value={protein}
@@ -69,11 +74,31 @@ const RegisterFoodNutrition = ({ route }) => {
             />
         </View>
         <View>
-            <Text style={styles.label}>지방*</Text>
+            <Text style={styles.label}>지방</Text>
             <TextInput
             style={styles.input}
             value={fat}
             onChangeText={setFat}
+            placeholder="0 g"
+            keyboardType="numeric"
+            />
+        </View>
+        <View>
+            <Text style={styles.label}>트랜스지방</Text>
+            <TextInput
+            style={styles.input}
+            value={fat2}
+            onChangeText={setFat2}
+            placeholder="0 g"
+            keyboardType="numeric"
+            />
+        </View>
+        <View>
+            <Text style={styles.label}>포화지방</Text>
+            <TextInput
+            style={styles.input}
+            value={fat3}
+            onChangeText={setFat3}
             placeholder="0 g"
             keyboardType="numeric"
             />
@@ -98,16 +123,7 @@ const RegisterFoodNutrition = ({ route }) => {
             keyboardType="numeric"
             />
         </View>
-        <View>
-            <Text style={styles.label}>칼륨</Text>
-            <TextInput
-            style={styles.input}
-            value={potassium}
-            onChangeText={setPotassium}
-            placeholder="0 mg"
-            keyboardType="numeric"
-            />
-        </View>
+       
         </ScrollView>
 
         <TouchableOpacity
@@ -116,8 +132,7 @@ const RegisterFoodNutrition = ({ route }) => {
           disabled={!isInputValid}>
           <Text style={[styles.text, !isInputValid && styles.textDisabled]}>다음</Text>
         </TouchableOpacity>
-      
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView >
   );
 };
 
@@ -126,6 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#fff'
   },
   intro:{
     width: '100%',
@@ -133,20 +149,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: 30,
     textAlign: 'left',
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   label: {
     fontSize: 15,
     marginBottom: 10,
+    fontFamily: 'Pretendard-Bold',
   },
   input: {
-    borderRadius: 10,
+    borderRadius: 5,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     marginBottom: 20,
-    backgroundColor: '#ECEBEB',
-    fontSize: 20
+    fontSize: 15,
+    backgroundColor: '#fafafa',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ecebeb',
   },
   button: {
     borderWidth: 1,
