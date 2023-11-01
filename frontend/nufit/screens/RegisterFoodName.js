@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback,  View } from 'react-native';
 
 const RegisterFoodName = ({navigation}) => {
   const [brand, setBrand] = useState('');
@@ -12,10 +13,12 @@ const RegisterFoodName = ({navigation}) => {
   const isInputValid = brand && food;
 
   return (
+    
     <TouchableWithoutFeedback onPress={()=>{Keyboard.dismiss();}}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
+            
+            <ScrollView style={styles.register}>
             <Text style={styles.intro}>음식의 이름을 알려주세요</Text>
-            <View style={styles.register}>
                 <Text style={styles.label}>브랜드 이름</Text>
                 <TextInput
                     style={styles.input}
@@ -30,14 +33,15 @@ const RegisterFoodName = ({navigation}) => {
                     onChangeText={(text) => setFood(text)}
                     placeholder="음식 이름"
                 />
-            </View>
-            <TouchableOpacity
+                <TouchableOpacity
                 style={[styles.button, !isInputValid && styles.buttonDisabled]}
                 onPress={onSubmit}
                 disabled={!isInputValid}>
                 <Text style={[styles.text, !isInputValid && styles.textDisabled]}>다음</Text>
             </TouchableOpacity>
-        </View>
+            </ScrollView>
+            
+        </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
 
   );
@@ -48,15 +52,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#fff'
   },
   intro:{
-    flex:0.1,
+    flex:1,
     width: '100%',
     marginTop: 130,
-    paddingHorizontal: 20,
-    marginBottom: 30,
+    marginBottom: 70,
     textAlign: 'left',
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   register: {
@@ -68,10 +72,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     borderRadius: 30,
     padding: 14,
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 40,
     alignSelf: 'center',
     shadowColor: "#000",
     shadowOffset: {
@@ -81,30 +83,33 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 8,
+    marginTop: 300
   },
   label: {
     fontSize: 15,
     marginBottom: 10,
+    fontFamily: 'Pretendard-Bold',
   },
   input: {
-    borderRadius: 10,
+    borderRadius: 5,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     marginBottom: 20,
-    backgroundColor: '#ECEBEB',
-    fontSize: 20
+    fontSize: 15,
+    backgroundColor: '#fafafa',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ecebeb',
   },
   buttonDisabled: {
     borderWidth: 1,
     backgroundColor: '#ECEBEB',
     borderRadius: 30,
     padding: 14,
-    width: '90%',
+    width: '100%',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 40,
     alignSelf: 'center',
-    shadowColor: "#000",
+    shadowColor: "#ECEBEB",
     shadowOffset: {
       width: 0,
       height: 4,

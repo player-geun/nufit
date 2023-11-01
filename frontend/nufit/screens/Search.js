@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TextInput, View, FlatList, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, TextInput, View, FlatList, Text, TouchableOpacity, Image} from 'react-native';
 import searchImg from '../assets/add_by_search_ico.png'
 import SaveFood from '../components/SaveFood';
 import axios from 'axios';
@@ -8,48 +8,15 @@ const Search = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [showFlatList, setShowFlatList] = useState(false);
-
-  const data = [
-    { id: 1, title: '사과' },
-    { id: 2, title: '아오리사과' },
-    { id: 3, title: '풋사과' },
-    { id: 4, title: '사과잼' },
-    { id: 5, title: '딸기' },
-    { id: 6, title: '딸기우유' },
-    { id: 7, title: '초코우유' },
-    { id: 8, title: '딸기주스' },
-    { id: 9, title: '사과주스' },
-    { id: 10, title: '사과청' },
-  ];
-
-  useEffect(() => {
-    if (searchTerm === '') {
-      setFilteredData([]);
-    } else {
-      setFilteredData(
-        data.filter((item) =>
-          item.title.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    }
-    setShowFlatList(searchTerm !== '');
-  }, [searchTerm]);
-
-  /*
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        const headers = {
-          ContentType: `application/json`,
-          Accept: `application/json`,
-        };
-
-        const response = await axios.get(`https://43.202.91.101/api/foods/names?q=${searchTerm}`, {
-          headers, // 설정한 헤더를 요청에 포함
-        }); 
+        const response = await axios.get(`http://43.202.91.101:8080/api/foods/names?q=${searchTerm}`); 
+        console.log(response.data)
         setFilteredData(response.data); 
         setShowFlatList(true);
+        
       } catch (error) {
         console.error(error);
       }
@@ -60,10 +27,15 @@ const Search = ({ navigation }) => {
     } else {
       fetchData();
     }
-  }, [searchTerm]);*/
+  }, [searchTerm]);
 
   const handleItemClick = (item) => {
-    navigation.navigate('SearchDetail', { title: item.title });
+    
+    const itemToPass = {
+      id: item.id,
+      title: item.name,
+    };
+    navigation.navigate('SearchDetail', { item: itemToPass });
   };
 
   const renderSearchResult = () => {
@@ -77,7 +49,7 @@ const Search = ({ navigation }) => {
       <TouchableOpacity onPress={() => handleItemClick(item)}>
         <View style={styles.item}>
           <Image style={styles.searchimg} source={searchImg}/>
-          <Text>{item.title}</Text>
+          <Text>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -100,7 +72,7 @@ const Search = ({ navigation }) => {
             style={styles.list}
             data={filteredData}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => (item ? item.id.toString() : '')}
           />
         ) : (
           renderSearchResult()

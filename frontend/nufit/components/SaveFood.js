@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Animated, View, TouchableOpacity, StyleSheet, StatusBar, Text, Image } from 'react-native';
+import { ScrollView, Animated, View, TouchableOpacity, StyleSheet, StatusBar, Text, Image, KeyboardAvoidingView } from 'react-native';
 import char from '../assets/blank_data_ico.png'
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
@@ -7,10 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 const FirstRoute = ({ res }) => {
   if (res === 0) {
     return (
-      <View style={[styles.container, { backgroundColor: '#ffffff' }]}>
-         <Image style={styles.img} source={char} />
-        <Text style={styles.text}>자주 먹는 음식을 저장해보세요</Text>
-      </View>
+      <KeyboardAvoidingView style={[styles.container, { backgroundColor: '#ffffff' }]}>
+        <ScrollView style={{width: '100%', marginTop: 250}}>
+        <View style={styles.foodContainer}>
+          <Image style={styles.img} source={char} />
+          <Text style={styles.text}>자주 먹는 음식을 저장해보세요</Text>
+        </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   } else {
     const data = [
@@ -49,21 +53,24 @@ const FirstRoute = ({ res }) => {
 
 const SecondRoute = ({navigation}) => (
   
-  <View style={[styles.container, { backgroundColor: '#ffffff' }]}>
-    <View style={styles.regContainer}>
-      <Text style={styles.regText}>찾는 음식이 없나요?</Text>
-      <TouchableOpacity
-            style={styles.button}
-            onPress={()=>{navigation.navigate('RegisterFoodName');}}
-        >
-            <Text style={styles.buttonText}>음식 등록</Text>
-        </TouchableOpacity>
-    </View>
-    <View style={styles.foodContainer}>
-      <Image style={styles.img} source={char} />
-      <Text style={styles.text}>음식을 등록해보세요</Text>
-    </View>
-  </View>
+  <KeyboardAvoidingView style={[styles.container, { backgroundColor: '#ffffff' }]}>
+    <ScrollView style={{width: '100%'}}>
+      <View style={styles.regContainer}>
+        <Text style={styles.regText}>찾는 음식이 없나요?</Text>
+        <TouchableOpacity
+              style={styles.button}
+              onPress={()=>{navigation.navigate('RegisterFoodName');}}
+          >
+              <Text style={styles.buttonText}>음식 등록</Text>
+          </TouchableOpacity>
+      </View>
+      <View style={styles.foodContainer}>
+        <Image style={styles.img} source={char} />
+        <Text style={styles.text}>음식을 등록해보세요</Text>
+      </View>
+    </ScrollView>
+  
+  </KeyboardAvoidingView>
 );
 
 const SaveFood = () => {
@@ -73,7 +80,7 @@ const SaveFood = () => {
     { key: 'first', title: '저장한 음식' },
     { key: 'second', title: '등록한 음식' },
   ]);
-  const [res] = useState(1); // api 연결 후 json 데이터에 따라
+  const [res] = useState(0); // api 연결 후 json 데이터에 따라
 
   const handleIndexChange = (index) => setIndex(index);
 
@@ -92,7 +99,7 @@ const SaveFood = () => {
             <TouchableOpacity
               style={styles.tabItem}
               onPress={() => setIndex(i)}
-              key={i} // Added key prop
+              key={i} 
             >
               <Animated.Text style={{ opacity }}>{route.title}</Animated.Text>
             </TouchableOpacity>
@@ -164,12 +171,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   regContainer: {
-    flex:0.1,
+    flex: 1,
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    marginBottom: 200
   },
   foodContainer: {
     flex:0.9,
@@ -180,9 +188,10 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor:'#00D7BD',
     width: '23%',
-    padding: 10,
+    padding: 8,
     borderRadius: 20,
     alignItems: 'center',
+    marginTop: 8
   },
   regText: {
     fontSize: 15,

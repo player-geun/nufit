@@ -17,9 +17,7 @@ const NutrientBarChart = () => {
         <View style={styles.chart}>
           <StackedBarChart/>
         </View>
-        <View style={styles.graphText}>
-          <Text style={styles.graph}>그래프 설명 보기</Text>
-        </View>
+        
       </View>
     </View>
 

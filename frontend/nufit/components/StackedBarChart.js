@@ -53,13 +53,14 @@ const StackedBarChart = () => {
       <VictoryChart style={{axis:{stroke:'white'}, background: { fill: "#8655B7" }}} domainPadding={20}>
       <VictoryAxis
           style={{
+            tickLabels: { fill: "white", fontSize: '11' },
+            axis: { stroke: "white" }  
           }}/>
         <VictoryStack>
         <VictoryBar 
-            barWidth={5}
+            barWidth={3}
             style={{ data: { fill: "navy" } }}
             labels={({ datum }) => [`지방 ${datum.fat}g`,`단백질 ${datum.protein}g`,`순탄수 ${datum.carbohydrate}g`]}
-
             labelComponent={
               <VictoryTooltip
               center={{ x: 225, y: 30 }}
@@ -81,8 +82,8 @@ const StackedBarChart = () => {
               }
               data={Data} x="date" y="fat" />
           <VictoryBar 
-            barWidth={5}
-            style={{ data: { fill: "yellow" } }}
+            barWidth={3}
+            style={{ data: { fill: "#D5F12B" } }}
             labels={({ datum }) => [`지방 ${datum.fat}g`,`단백질 ${datum.protein}g`,`순탄수 ${datum.carbohydrate}g`]}
             labelComponent={
               <VictoryTooltip
@@ -106,7 +107,7 @@ const StackedBarChart = () => {
               data={Data} x="date" y="protein" />
           <VictoryBar 
           
-            barWidth={5}
+            barWidth={3}
             style={{ data: { fill: "#FFFFFF" } }}
             labels={({ datum }) => [`지방 ${datum.fat}g`,`단백질 ${datum.protein}g`,`순탄수 ${datum.carbohydrate}g`]}
 
