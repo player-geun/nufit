@@ -36,6 +36,9 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         MemberResponse member = memberService.findById(id);
         if (member.getWeight() == 0) {
             String accessToken = jwtProvider.createAccessToken(String.valueOf(id));
+            System.out.println("==================");
+            System.out.println(request.getRequestURI());
+            System.out.println("==================");
             setHeadersWithTokens(response, accessToken);
             response.sendRedirect(FRONT_URL + "/login?token=" + BEARER + accessToken);
             return;
