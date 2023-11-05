@@ -16,14 +16,12 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
 
     private String gender;
@@ -37,10 +35,8 @@ public class Member {
     private ActivityAmount activityAmount;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private SocialType socialType;
 
-    @Column(nullable = false)
     private String socialId;
 
     public Member(String gender, String email) {
