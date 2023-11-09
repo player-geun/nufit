@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 const CarouselPage = ({ item, style }) => {
   const navigation = useNavigation();
   const handlePress = () => {
-    navigation.navigate('ChooseSearch');
+    navigation.navigate('MealDetail');
   }
   return (
     <View style={dstyles( item, style ).container}>

@@ -1,32 +1,63 @@
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
-import { Image, Linking, StyleSheet, Text, View } from 'react-native'
+import React, {useState} from 'react'
+import { Alert, Image, StyleSheet, Text, View, } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import imageLogo from '../assets/image_logo.png'
 import textLogo from '../assets/text_logo.png'
 import LoginButton from '../components/LoginButton'
 import { useNavigation } from '@react-navigation/native'
+import * as AuthSession from 'expo-auth-session'
+import * as WebBrowser from 'expo-web-browser';
+import * as Linking from 'expo-linking'
 
 const LoginScreen = () => {
-  const navigation = useNavigation();
-  const onSubmit = () => {
-    navigation.navigate('SetGoal')
-    // try {
-    //   // const response = await axios.get('http://13.125.241.115:8080/oauth2/authorization/kakao');
-    //   // console.log(response)
-    //   const url = 'http://13.125.241.115:8080/oauth2/authorization/kakao'
-    //   const canOpen = await Linking.canOpenURL(url);
+  
+  
+
+  // _handleRedirect = event => {
+  //   // Linking 이벤트 리스너 제거
+  //   _removeLinkingListener();
+  
+  //   // redirect URL 값 파싱
+  //   let data = Linking.parse(event.url);
+    
+  //   console.log(data);
+  // };
+  
+  // _addLinkingListener = () => {
+  //   Linking.addEventListener('url', _handleRedirect);
+  // };
+  
+  // _removeLinkingListener = () => {
+  //   Linking.removeEventListener('url', _handleRedirect);
+  // };
+  
+  // onSubmit = async () => {
+  //   try {
+  //     _addLinkingListener();
       
-    //   if (canOpen) {
-    //     Linking.openURL(url);
-    //   } else {
-    //     console.log(`Don't know how to open fthis URL: ${url}`);
-    //   }
+  //     let result = await WebBrowser.openAuthSessionAsync(
+  //       'http://43.202.91.101:8080/auth/authorize/kakao','exp://192.168.0.100:19000/--/setgoal'
+  //     );
+  
       
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
+  //     console.log(result);
+      
+  //   } catch (error) {
+  //     alert(error);
+  //     console.log(error);
+  //   } finally {
+  //     _removeLinkingListener();
+  //   }
+  // };
+
+  
+
+  // const onSubmit = async () => {
+
+  //   const result = await WebBrowser.openAuthSessionAsync( `http://43.202.91.101:8080/auth/authorize/kakao` , `exp://172.16.211.246:19000/--/setgoal`,{  showInRecents: true} ).then(()=> console.log(result))
+
+  // };
 
     return (
         <SafeAreaProvider>

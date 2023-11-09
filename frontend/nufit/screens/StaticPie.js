@@ -1,5 +1,5 @@
 import React from 'react'
-// import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 // import { Alert} from 'react-native'
 import { Text, StyleSheet, View, Image, Button } from 'react-native'
 import morningimg from '../assets/morning_ico_white.png'
@@ -8,9 +8,29 @@ import dinnerimg from '../assets/night_ico_white.png'
 import ProgressCircle from '../components/ProgressCircle';
 import ProgressBar from '../components/ProgressBar';
 import TopBar from '../components/TopBar';
-//import axios from 'axios';
+import axios from 'axios';
 
 const StaticPie = ({}) => {
+
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://43.202.91.101:8080/api/meals/me/calories?memberId=1`); 
+        console.log(response.data)
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const morning = data ? data.calories.BREAKFAST : 0;
+  const lunch = data ? data.calories.LUNCH: 0;
+  const dinner = data ? data.calories.DINNER : 0;
 
     const carbgoal =200;
     const carbprogress = 50;
@@ -18,9 +38,9 @@ const StaticPie = ({}) => {
     const proteinprogress = 12;
     const fatgoal = 40;
     const fatprogress = 20;
-    const morning = 500;
-    const lunch = 500;
-    const dinner = 500;
+    // const morning = 500;
+    // const lunch = 500;
+    // const dinner = 500;
     const remainCalories = 1200;
     const progressValue = 1000;
     const carbsValue = 20;
