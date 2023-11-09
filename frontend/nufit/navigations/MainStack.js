@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import MainTab from './MainTab';
-import { ChooseSearch, Home, Search, SearchDetail, CameraScreen, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition, SetGoal,CaloriesResult, NutResult } from '../screens';
+import { ChooseSearch, Home, Search, SearchDetail, CameraScreen, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition, SetGoal,CaloriesResult, NutResult, MealDetail } from '../screens';
 import SaveFood from '../components/SaveFood';
 
 const Stack = createStackNavigator();
@@ -11,6 +11,7 @@ const MainStack = () => {
     <Stack.Navigator>
       <Stack.Screen name='MainTab' component={MainTab} options={{ headerShown: false }}/>
       <Stack.Screen name='Home' component={Home} options={{ headerShown: false }}/>
+      <Stack.Screen name='MealDetail' component={MealDetail} options={{ headerShown: false }}/>
       <Stack.Screen name='ChooseSearch' component={ChooseSearch} options={{ headerShown: false }}/>
       <Stack.Screen name='CameraScreen' component={CameraScreen} options={{ headerShown: false }}/>
       <Stack.Screen name='Search' component={Search} options={{ headerShown: false }}/>

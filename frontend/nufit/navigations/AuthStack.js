@@ -1,12 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { CaloriesResult, LoginScreen, NutResult, SetGoal } from '../screens';
+import { CaloriesResult, LoginScreen, NutResult, SetGoal} from '../screens';
 
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator >
       <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }}/>
       <Stack.Screen name='SetGoal' component={SetGoal} options={{ headerShown: false }}/>
       <Stack.Screen name='CaloriesResult' component={CaloriesResult} options={{ headerShown: false }}/>
