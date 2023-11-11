@@ -1,33 +1,41 @@
-
+import axios from 'axios';
 import { Text, StyleSheet, View,TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import NutBox from '../components/NutBox';
 
-const MealDetail = ({navigation}) => {
+const MealDetail = ({route, navigation}) => {
+
+  const [foods, setFoods] = useState([]);
+  const { mealId } = route.params;
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://43.202.91.101:8080/api/meals/${mealId}/details`);
+                setFoods(response.data.foodSimpleResponses);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
 
     const goNext = () => {
-        navigation.navigate('ChooseSearch');
+        navigation.navigate('ChooseSearch', {mealId});
     }
 
-    const name='사과';
+    const goBefore = () => {
+      navigation.popToTop();
+  }
+
     const carb = 24;
     const protein = 24;
     const totalf = 24;
     const carbsPercentage = 3;
     const proteinPercentage = 5;
     const fatPercentage = 5;
-
-    const data = [
-        { name: '사과', size: '1개 중간 크기', kcal: '57 kcal' },
-        { name: '바나나', size: '2개 소 크기', kcal: '90 kcal' },
-        { name: '딸기', size: '10개 작은 크기', kcal: '30 kcal' },
-        { name: '사과', size: '1개 중간 크기', kcal: '57 kcal' },
-        { name: '바나나', size: '2개 소 크기', kcal: '90 kcal' },
-        { name: '딸기', size: '10개 작은 크기', kcal: '30 kcal' },
-        { name: '사과', size: '1개 중간 크기', kcal: '57 kcal' },
-        { name: '바나나', size: '2개 소 크기', kcal: '90 kcal' },
-        { name: '딸기', size: '10개 작은 크기', kcal: '30 kcal' },
-      ]; //데이터 예시
 
 
   return (
@@ -52,20 +60,20 @@ const MealDetail = ({navigation}) => {
         <Text style={{marginLeft: 10, fontWeight: 700}}>아침에 먹었어요</Text>
         <View style={styles.wrapper}>
             
-        {data.map((item, index) => (
-            <View style={styles.context} key={index}>
-              <View>
-                <Text style={styles.text}>{item.name}</Text>
+          {foods.map((item, index) => (
+              <View style={styles.context} key={index}>
+                  <View>
+                      <Text style={styles.text}>{item.foodName}</Text>
+                  </View>
+                  <View style={styles.righttext}>
+                      <Text style={styles.text}>{item.calorie} kcal</Text>
+                      <Text style={styles.minitext}>삭제</Text>
+                  </View>
               </View>
-              <View style={styles.righttext}>
-                <Text style={styles.text}>{item.kcal}</Text>
-                <Text style={styles.minitext}>삭제</Text>
-              </View>
-            </View>
           ))}
-          </View>
+        </View>
       </ScrollView>
-      <TouchableOpacity style={styles.nextBtn}>
+      <TouchableOpacity style={styles.nextBtn} onPress={goBefore}>
         <Text style={{color: '#fff'}}>기록 완료</Text>
       </TouchableOpacity> 
     </View>

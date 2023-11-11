@@ -1,9 +1,41 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+
+import React, {useEffect, useState} from 'react'
 import char from '../assets/active3.png'
 import blank from '../assets/blank_data_ico.png'
+import axios from 'axios'
 
 const MyPage = ({navigation}) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://43.202.91.101:8080/api/members/me/goals?memberId=1`); 
+        console.log(response.data)
+        setData(response.data)
+        
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    
+    fetchData();
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchData();
+    });
+
+    return unsubscribe;
+    
+  }, [navigation]);
+
+  const startWeight = data ? data.startWeight : 0;
+  const goalWeight = data ? data.goalWeight : 0;
+  const goalCalorie = data ? data.goalCalorie : 0;
+  //const name = data ? data.name : '이름';
+  
 
   function goSetGoal() {
     navigation.navigate('SetGoal')
@@ -23,15 +55,15 @@ const MyPage = ({navigation}) => {
         <View style={styles.info}>
           <View style={{alignItems: 'center', flex:1}}>
             <Text style={styles.title}>시작 체중</Text>
-            <Text style={styles.sub}>90 kg</Text>
+            <Text style={styles.sub}>{startWeight} kg</Text>
           </View>
           <View style={{alignItems: 'center', flex:1}}>
             <Text style={styles.title}>목표 체중</Text>
-            <Text style={styles.sub}>80 kg</Text>
+            <Text style={styles.sub}>{goalWeight} kg</Text>
           </View>
           <View style={{alignItems: 'center', flex:1}}>
             <Text style={styles.title}>칼로리</Text>
-            <Text style={styles.sub}>1300 kcal</Text>
+            <Text style={styles.sub}>{goalCalorie} kcal</Text>
           </View>
         </View>
       </View>

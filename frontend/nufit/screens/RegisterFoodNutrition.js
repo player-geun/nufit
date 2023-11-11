@@ -1,36 +1,55 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
+import axios from 'axios';
 
 const RegisterFoodNutrition = ({ route }) => {
   const { brand, food, unit, quantity } = route.params;
   const [calories, setCalories] = useState('');
   const [carbohydrates, setCarbohydrates] = useState('');
+  const [sweet, setSweet] = useState('');
+
   const [protein, setProtein] = useState('');
   const [fat, setFat] = useState('');
   const [fat2, setFat2] = useState('');
   const [fat3, setFat3] = useState('');
   const [cholesterol, setCholesterol] = useState('');
   const [sodium, setSodium] = useState('');
- // const [potassium, setPotassium] = useState('');
 
   const navigation = useNavigation();
-  const onSubmit = () => {
-    navigation.replace('Search', {
-      brand,
-      food,
-      unit,
-      quantity,
-      calories,
-      carbohydrates,
-      protein,
-      fat,
-      fat2,
-      fat3,
-      cholesterol,
-      sodium,
-      //potassium,
-    });
+  
+
+  const onSubmit = async () => {
+    const url = 'http://43.202.91.101:8080/api/foods';
+    const payload = {
+      memberId: 1, 
+      name: food,
+      brand: brand,
+      amount: quantity,
+      unit: unit,
+      type: 'brand', 
+      calorie: calories,
+      nutrients: [
+        { name: '탄수화물', amount: carbohydrates },
+        { name: '당', amount: sweet },
+        { name: '단백질', amount: protein },
+        { name: '지방', amount: fat },
+        { name: '트랜스지방', amount: fat2 },
+        { name: '포화지방', amount: fat3 },
+        { name: '콜레스테롤', amount: cholesterol },
+        { name: '나트륨', amount: sodium },
+       
+      ],
+    };
+  
+    try {
+      const response = await axios.post(url, payload);
+      console.log('success')
+      console.log(response.data);
+      navigation.popToTop();
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const isInputValid = calories && carbohydrates && protein && fat;
@@ -59,6 +78,16 @@ const RegisterFoodNutrition = ({ route }) => {
             style={styles.input}
             value={carbohydrates}
             onChangeText={setCarbohydrates}
+            placeholder="0 g"
+            keyboardType="numeric"
+            />
+        </View>
+        <View>
+            <Text style={styles.label}>당</Text>
+            <TextInput
+            style={styles.input}
+            value={sweet}
+            onChangeText={setSweet}
             placeholder="0 g"
             keyboardType="numeric"
             />

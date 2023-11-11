@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTooltip } from "victory-native";
+import React, { useState } from "react";
+import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from "victory-native";
 
 const Data = [
   {
@@ -48,95 +48,175 @@ const Data = [
 ];
 
 const StackedBarChart = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [tooltipData, setTooltipData] = useState(null);
+  const [modalTextVisible, setModalTextVisible] = useState(false);
+  // modalTextVisible
+  const handlePress = (datum) => {
+    setTooltipData(datum);
+    setModalVisible(false);
+    setModalVisible(true);
+  };
+
   return (
     <View style={styles.container}>
-      <VictoryChart style={{axis:{stroke:'white'}, background: { fill: "#8655B7" }}} domainPadding={20}>
-      <VictoryAxis
+      <Modal
+        
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
+          <View style={styles.modal}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>지방: {tooltipData?.fat}g</Text>
+              <Text style={styles.modalText}>단백질: {tooltipData?.protein}g</Text>
+              <Text style={styles.modalText}>순탄수: {tooltipData?.carbohydrate}g</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      <VictoryChart
+        style={{axis:{stroke:'white'}, background: { fill: "#8655B7" }}}
+        domainPadding={20}
+      >
+        <VictoryAxis
           style={{
             tickLabels: { fill: "white", fontSize: '11' },
             axis: { stroke: "white" }  
-          }}/>
+          }}
+        />
         <VictoryStack>
-        <VictoryBar 
-            barWidth={3}
+          <VictoryBar 
+            data={Data} x="date" y="fat"
+            barWidth={5}
             style={{ data: { fill: "navy" } }}
-            labels={({ datum }) => [`지방 ${datum.fat}g`,`단백질 ${datum.protein}g`,`순탄수 ${datum.carbohydrate}g`]}
-            labelComponent={
-              <VictoryTooltip
-              center={{ x: 225, y: 30 }}
-              flyoutWidth={150}
-              flyoutHeight={150}
-              pointerLength={0}
-              cornerRadius={0}
-                flyoutStyle={{
-                  stroke: "#868C97",
-                  strokeWidth: 2,
-                  fill: "#FFFFFF"
-                }}
-                style={{
-                  fill: "black",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  textAnchor: "middle",
-                }}/>
+            events={[{
+              target: "data",
+              eventHandlers: {
+                onPressIn: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: (props) => {
+                        handlePress(props.datum);
+                        return null;
+                      }
+                    }
+                  ];
+                }
               }
-              data={Data} x="date" y="fat" />
-          <VictoryBar 
-            barWidth={3}
+            }]}
+          />
+        <VictoryBar 
+            data={Data} x="date" y="protein" 
+            barWidth={5}
             style={{ data: { fill: "#D5F12B" } }}
-            labels={({ datum }) => [`지방 ${datum.fat}g`,`단백질 ${datum.protein}g`,`순탄수 ${datum.carbohydrate}g`]}
-            labelComponent={
-              <VictoryTooltip
-              center={{ x: 225, y: 30 }}
-              flyoutWidth={150}
-              flyoutHeight={150}
-              pointerLength={0}
-              cornerRadius={0}
-                flyoutStyle={{
-                  stroke: "#868C97",
-                  strokeWidth: 2,
-                  fill: "#FFFFFF"
-                }}
-                style={{
-                  fill: "black",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  textAnchor: "middle",
-                }}/>
+            events={[{
+              target: "data",
+              eventHandlers: {
+                onPressIn: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: (props) => {
+                        handlePress(props.datum);
+                        return null;
+                      }
+                    }
+                  ];
+                }
               }
-              data={Data} x="date" y="protein" />
-          <VictoryBar 
-          
-            barWidth={3}
+            }]}
+          />
+        <VictoryBar 
+            data={Data} x="date" y="carbohydrate"
+            barWidth={5}
             style={{ data: { fill: "#FFFFFF" } }}
-            labels={({ datum }) => [`지방 ${datum.fat}g`,`단백질 ${datum.protein}g`,`순탄수 ${datum.carbohydrate}g`]}
-
-            labelComponent={
-              <VictoryTooltip
-              center={{ x: 225, y: 30 }}
-              flyoutWidth={150}
-              flyoutHeight={150}
-              pointerLength={0}
-              cornerRadius={0}
-                flyoutStyle={{
-                  stroke: "#868C97",
-                  strokeWidth: 2,
-                  fill: "#FFFFFF"
-                }}
-                style={{
-                  fill: "black",
-                  fontSize: 15,
-                  fontWeight: 500,
-                  textAnchor: "middle",
-                }}/>
+            events={[{
+              target: "data",
+              eventHandlers: {
+                onPressIn: () => {
+                  return [
+                    {
+                      target: "data",
+                      mutation: (props) => {
+                        handlePress(props.datum);
+                        return null;
+                      }
+                    }
+                  ];
+                }
               }
-              data={Data} x="date" y="carbohydrate" />
+            }]}
+          />
+
+          
         </VictoryStack>
       </VictoryChart>
+      <Modal
+        
+        animationType="fade"
+        transparent={true}
+        visible={modalTextVisible}
+        onRequestClose={() => {
+          setModalTextVisible(!modalTextVisible);
+        }}
+      >
+        <TouchableWithoutFeedback  style={styles.graphtext} onPress={() => setModalTextVisible(!modalTextVisible)}>
+          <View style={styles.modalTextContainer}>
+            <View >
+              <Text style={styles.graphTextDetail}>일간 탄단지 섭취량이 표시됩니다.</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
+
+      <TouchableWithoutFeedback onPress={() => setModalTextVisible(!modalTextVisible)}>
+        <Text style={styles.graphtext}>그래프 설명 보기</Text>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
 
 export default StackedBarChart
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  modal: {
+    flex:0.1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 350,
+    paddingTop: 20,
+    paddingBottom: 20,
+    width: 100,
+    marginLeft: 180,
+    backgroundColor: 'white',
+    borderRadius: 10
+  },
+  modalTextContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 650,
+    paddingTop: 5,
+    paddingBottom:5,
+    width: 180,
+    marginLeft: 180,
+    backgroundColor: 'white',
+    borderRadius: 5
+
+  },
+  graphTextDetail: {
+    fontSize: 12
+  },
+  graphtext: {
+    textAlign: 'right',
+    marginRight: 50,
+    color: 'white',
+    fontSize: 11
+  }
+})

@@ -13,11 +13,12 @@ const SetGoal = ({ navigation }) => {
     const [gender, setGender] = useState('male');
     const [age, setAge] = useState('');
     const [height, setHeight] = useState('');
-    const [weight, setWeight] = useState('');
+    const [startWeight, setStartWeight] = useState('');
+    const [goalWeight, setGoalWeight] = useState('');
     const [active, setActive] = useState('m');
     
     function goNext() {
-    navigation.navigate('CaloriesResult', { gen:gender, a:age, he:height, we:weight });
+    navigation.navigate('CaloriesResult', { gen:gender, a:age, he:height, sw:startWeight, gw: goalWeight });
   
     }
     return (
@@ -69,6 +70,9 @@ const SetGoal = ({ navigation }) => {
                     <Text style={styles.label}>시작 체중</Text>
                     <TextInput
                         style={styles.input}
+                        value={startWeight}
+                        onChangeText={(text) => setStartWeight(text)}
+                        keyboardType="numeric"
                        
                     />
                 </View>
@@ -77,8 +81,8 @@ const SetGoal = ({ navigation }) => {
                     <Text style={styles.label}>목표 체중</Text>
                     <TextInput
                         style={styles.input}
-                        value={weight}
-                        onChangeText={(text) => setWeight(text)}
+                        value={goalWeight}
+                        onChangeText={(text) => setGoalWeight(text)}
                         keyboardType="numeric"
                     />
                 </View>

@@ -57,10 +57,7 @@ const styles = StyleSheet.create({
     // marginBottom: 10
     
   },
-  button: {
-    fontSize: 20,
-    
-  },
+  
   headerbox: {
     marginTop: 10,
     flexDirection: 'row',

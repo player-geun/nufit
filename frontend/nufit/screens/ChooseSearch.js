@@ -5,15 +5,16 @@ import search from '../assets/search.png'
 import arrow from '../assets/right_arrow_ico.png'
 import camera from '../assets/take_photo_ico.png'
 
-const ChooseSearch = ({ navigation }) => {
+const ChooseSearch = ({ route, navigation }) => {
 
+    const {mealId} = route.params;
     const openCameraHandler = async () => { 
         // 카메라에 대한 접근 권한 물어보는 함수
           const { status } = await Camera.requestCameraPermissionsAsync();
        
        // 권한을 획득하면 status가 granted 상태가 됨
           if (status === 'granted') {
-            navigation.navigate('CameraScreen');
+            navigation.navigate('CameraScreen',{mealId});
           } else {
             Alert.alert('카메라 접근 허용은 필수입니다.');
           }
@@ -21,7 +22,7 @@ const ChooseSearch = ({ navigation }) => {
 
 
     function openSearch() {
-        navigation.navigate('Search');
+        navigation.navigate('Search', {mealId});
     }
 
     function close() {
