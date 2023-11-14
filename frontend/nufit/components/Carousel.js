@@ -36,7 +36,7 @@ const Carousel = ({ pages, pageWidth, gap, offset}) => {
       />
       <View style={styles.indicatorWrapper}>
         {Array.from({ length: pages.length }, (_, i) => i).map((i) => (
-          <View style={dstyles(i===page).indicator} key={`indicator_${i}`} />
+          <View style={dstyles(i===page).indicator} key={`indicator_${i}_${pages[i].num}`} />
         ))}
       </View>
     </View>

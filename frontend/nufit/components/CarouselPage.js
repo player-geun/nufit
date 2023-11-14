@@ -1,17 +1,30 @@
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const CarouselPage = ({ item, style }) => {
+  const time = item.time === 'BREAKFAST' ? '아침' : item.time === 'LUNCH' ? '점심' : item.time === 'DINNER' ? '저녁' : item.time;
   const navigation = useNavigation();
-  const handlePress = () => {
-    navigation.navigate('MealDetail');
+  const URL = 'http://43.202.91.101:8080/api/meals?memberId=1'
+  const handlePress = async () => {
+    try {
+      const response = await axios.post(URL, {
+        date: '2023-11-10',
+        mealType: item.time,
+      });
+      // console.log(response.data.id)
+      const mealId = response.data.id;
+      navigation.navigate('MealDetail', { mealId: mealId }); // 다음 페이지에 mealId를 파라미터로 전달
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <View style={dstyles( item, style ).container}>
       <View style={styles.topContainer}>
         <View style={styles.date}>
-          <Text style={styles.dateText}>{item.time}</Text>
+          <Text style={styles.dateText}>{time}</Text>
         </View>
         <View style={styles.kcal}>
           <Text style={styles.kcalText}>총 칼로리</Text>

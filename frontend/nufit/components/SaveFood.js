@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, Animated, View, TouchableOpacity, StyleSheet, StatusBar, Text, Image, KeyboardAvoidingView } from 'react-native';
 import char from '../assets/blank_data_ico.png'
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const FirstRoute = ({ res }) => {
   if (res === 0) {
@@ -51,7 +52,24 @@ const FirstRoute = ({ res }) => {
 };
 
 
-const SecondRoute = ({navigation}) => (
+const SecondRoute = ({navigation}) => {
+
+  const [foods, setFoods] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://43.202.91.101:8080/api/foods/member/1'); 
+        setFoods(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return(
   
   <KeyboardAvoidingView style={[styles.container, { backgroundColor: '#ffffff' }]}>
     <ScrollView style={{width: '100%'}}>
@@ -64,14 +82,25 @@ const SecondRoute = ({navigation}) => (
               <Text style={styles.buttonText}>음식 등록</Text>
           </TouchableOpacity>
       </View>
-      <View style={styles.foodContainer}>
-        <Image style={styles.img} source={char} />
-        <Text style={styles.text}>음식을 등록해보세요</Text>
-      </View>
+      
+        {/* <Image style={styles.img} source={char} />
+        <Text style={styles.text}>음식을 등록해보세요</Text> */}
+        {foods.map((food) => (
+          <View key={food.id} style={styles.context}>
+            <View>
+              <Text style={styles.text}>{food.name}</Text>
+            </View>
+            <View style={styles.righttext}>
+              <Text style={styles.text}>{food.calorie}kcal</Text>
+            </View>
+          </View>
+        ))}
+      
     </ScrollView>
   
   </KeyboardAvoidingView>
-);
+  );
+ };
 
 const SaveFood = () => {
   const navigation = useNavigation();
@@ -161,7 +190,7 @@ const styles = StyleSheet.create({
     borderColor: '#CDCDCD',
     marginVertical: 6,
     paddingHorizontal: 40,
-    paddingVertical: 20,
+    paddingVertical: 30,
     justifyContent: 'space-between',
   },
   righttext: {
@@ -177,7 +206,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    marginBottom: 200
+    marginBottom: 10
   },
   foodContainer: {
     flex:0.9,

@@ -4,7 +4,8 @@ import { AutoFocus, Camera } from 'expo-camera';
 import { Alert } from 'react-native';
 import axios from 'axios';
 
-const CameraScreen = ({navigation}) => {
+const CameraScreen = ({route, navigation}) => {
+  const {mealId} = route.params;
   const cameraRef = useRef(null);
 
   const takePictureHandler = async () => { 
@@ -35,6 +36,7 @@ const CameraScreen = ({navigation}) => {
       const itemToPass = {
         id: response.data.food[0].id,
         title: response.data.food[0].name,
+        mealId: mealId
       };
       navigation.navigate('SearchDetail', { item: itemToPass });
     })

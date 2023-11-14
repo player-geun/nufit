@@ -2,19 +2,19 @@ import React from 'react';
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 
 const CaloriesResult = ({ route, navigation }) => {
-  const { gen, a, he, we } = route.params;
+  const { gen, a, he, sw, gw } = route.params;
 
   let bmr;
     if (gen === 'male') {
-        bmr = 66.5 + (13.75 * we) + (5.003 * he) - (6.75 * a);
+        bmr = 66.5 + (13.75 * gw) + (5.003 * he) - (6.75 * a);
     } else if (gen === 'female') {
-        bmr = 655.1 + (9.563 * we) + (1.850 * he) - (4.676 * a);
+        bmr = 655.1 + (9.563 * gw) + (1.850 * he) - (4.676 * a);
     } else {
         return;
     }
  
   function goNext() {
-    navigation.navigate('NutResult', { result : bmr });
+    navigation.navigate('NutResult', { result : Math.round(bmr), sw: sw, gw: gw });
     }
 
   return (

@@ -9,6 +9,7 @@ const SearchDetail = ({ route, navigation }) => {
   const item = route.params.item;
   const name = item.title;
   const id = item.id;
+  const mealId = item.mealId;
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -24,6 +25,24 @@ const SearchDetail = ({ route, navigation }) => {
 
     fetchData();
   }, []);
+
+
+  const addFood = async () => {
+    const url = `http://43.202.91.101:8080/api/meals/${mealId}`;
+    const payload = {
+      "foodId" : id,
+      "foodCount" : 1
+    };
+  
+    try {
+      const response = await axios.post(url, payload);
+      console.log('success')
+      console.log(response.data);
+      navigation.popToTop()
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const goNext = () => {
     navigation.navigate('ChooseSearch');
@@ -71,7 +90,7 @@ const SearchDetail = ({ route, navigation }) => {
       <ScrollView style={styles.whiteBox}> 
         <NutDetail kcal={kcal} carb={carb} sugar={sugar} protein={protein} totalf={totalf} transf={transf} satf={satf} chol={chol} na={na}/>
       </ScrollView>
-      <TouchableOpacity style={styles.nextBtn}>
+      <TouchableOpacity style={styles.nextBtn} onPress={addFood}>
         <Text style={{color: '#fff'}}>식단 추가</Text>
       </TouchableOpacity> 
     </View>

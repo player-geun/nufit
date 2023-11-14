@@ -4,7 +4,9 @@ import searchImg from '../assets/add_by_search_ico.png'
 import SaveFood from '../components/SaveFood';
 import axios from 'axios';
 
-const Search = ({ navigation }) => {
+const Search = ({ route, navigation }) => {
+  const {mealId} = route.params;
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [showFlatList, setShowFlatList] = useState(false);
@@ -32,6 +34,7 @@ const Search = ({ navigation }) => {
   const handleItemClick = (item) => {
     
     const itemToPass = {
+      mealId: mealId,
       id: item.id,
       title: item.name,
     };
