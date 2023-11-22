@@ -25,16 +25,17 @@ const Temp = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>에이라이프 라이브 마켓✨</Text>
-      <Text style={styles.subTitle}>에이라이프는 맛과 건강은 물론,{'\n'}간편하고 즐거운 식생활 제공을 위해 노력합니다</Text>
+      <Text style={styles.title}>뉴핏 라이브 마켓✨</Text>
+      <Text style={styles.subTitle}>건강한 식습관을 위한 완벽한 선택{'\n'}라이브 방송 동안만 제공되는 특별 할인도 놓치지 마세요</Text>
       <View style={styles.videoInfo}>
-        <Text style={styles.videoTitle}>[강마켓] 수제 5종 베이커리</Text>
+        <Text style={styles.videoTitle}>[NUFIT] 수제 5종 베이커리</Text>
         <Text style={styles.live}>LIVE</Text>
       </View>
       <YoutubePlayer
         height={300}
         videoId={playlist}
       />
+      
     </View>
   )
 }

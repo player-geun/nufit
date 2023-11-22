@@ -6,7 +6,7 @@ const NutResult = ({ route, navigation }) => {
   const { result, sw, gw} = route.params;
 
   const onSubmit = async () => {
-    const url = 'http://43.202.91.101:8080/api/members/me/goals?memberId=1';
+    const url = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/members/me/goals?memberId=1';
     const payload = {
       goalCalorie: result, //칼로리
       startWeight: sw, //시작체중

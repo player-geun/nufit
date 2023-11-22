@@ -20,7 +20,7 @@ const RegisterFoodNutrition = ({ route }) => {
   
 
   const onSubmit = async () => {
-    const url = 'http://43.202.91.101:8080/api/foods';
+    const url = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/foods';
     const payload = {
       memberId: 1, 
       name: food,
