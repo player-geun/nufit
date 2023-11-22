@@ -4,18 +4,34 @@ import React from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const CarouselPage = ({ item, style }) => {
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; 
+    const day = date.getDate();
+  
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedDay = day < 10 ? `0${day}` : day;
+  
+    return `${year}-${formattedMonth}-${formattedDay}`;
+  };
+
+  const currentDate = getCurrentDate();
+
   const time = item.time === 'BREAKFAST' ? '아침' : item.time === 'LUNCH' ? '점심' : item.time === 'DINNER' ? '저녁' : item.time;
   const navigation = useNavigation();
   const URL = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals?memberId=1'
   const handlePress = async () => {
     try {
       const response = await axios.post(URL, {
-        date: '2023-11-10',
+        date: currentDate,
         mealType: item.time,
       });
       // console.log(response.data.id)
       const mealId = response.data.id;
-      navigation.navigate('MealDetail', { mealId: mealId }); // 다음 페이지에 mealId를 파라미터로 전달
+      const mealTime = time; 
+      navigation.navigate('MealDetail', { mealId: mealId, mealTime: mealTime }); // 다음 페이지에 mealId를 파라미터로 전달
     } catch (error) {
       console.error(error);
     }

@@ -42,7 +42,7 @@ const Shop = () => {
         top: 120,
         left: 25,
         color: '#fff',
-        fontFamily: 'Pretendard',
+        fontFamily: 'Pretendard-Bold',
         fontSize: 24,
         fontWeight: 700
     },
@@ -51,13 +51,13 @@ const Shop = () => {
         top: 160,
         left: 25,
         color: '#fff',
-        fontFamily: 'Pretendard',
+        fontFamily: 'Pretendard-Regular',
         fontSize: 14,
         fontWeight: 400
     },
     brand: {
         color: '#000',
-        fontFamily: 'Pretendard',
+        fontFamily: 'Pretendard-Regular',
         fontSize: 24,
         fontWeight: 700,
         padding: 30

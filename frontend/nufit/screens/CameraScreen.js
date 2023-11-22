@@ -34,7 +34,7 @@ const CameraScreen = ({route, navigation}) => {
       console.log(response.data);
 
       const itemToPass = {
-        id: response.data.food[0].id,
+        //id: response.data.food[0].id,
         title: response.data.food[0].name,
         mealId: mealId
       };

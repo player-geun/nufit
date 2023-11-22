@@ -21,10 +21,24 @@ const StackedBarChart = () => {
   const [modalTextVisible, setModalTextVisible] = useState(false);
   const [data, setData] = useState([]);
 
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; 
+    const day = date.getDate();
+  
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedDay = day < 10 ? `0${day}` : day;
+  
+    return `${year}-${formattedMonth}-${formattedDay}`;
+  };
+
+  const currentDate = getCurrentDate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const date = "2023-11-10";
+        const date = currentDate;
         const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/1/bar?date=${date}`);
         const serverData = response.data.calories;
         const transformedData = Object.keys(serverData)
