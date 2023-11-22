@@ -3,6 +3,7 @@ import { Dimensions, StyleSheet, View } from 'react-native';
 import Carousel from '../components/Carousel';
 import TopBarTemp from '../components/TopBarTemp';
 import axios from 'axios';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Home = () => {
 
@@ -13,11 +14,34 @@ const Home = () => {
     { num: 3, time: 'DINNER', kcal: '', carbohydrate: '', protein: '', fat: '' }
   ]);
 
-  useEffect(() => {
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; 
+    const day = date.getDate();
+  
+    const formattedMonth = month < 10 ? `0${month}` : month;
+    const formattedDay = day < 10 ? `0${day}` : day;
+  
+    return `${year}-${formattedMonth}-${formattedDay}`;
+  };
+
+  const currentDate = getCurrentDate();
+
+  
+
+  useFocusEffect(React.useCallback(() => {
       const fetchData = async () => {
           try {
-              const response = await axios.get('http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/intake?memberId=1');
+            const serverAddress = "http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080";
+            const memberId = 1;  
+            const date = currentDate; 
+            const url = `${serverAddress}/api/meals/intake?memberId=${memberId}&date=${date}`;
+
+            const response = await axios.get(url);
+              //const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/intake?memberId=1`);
               const data = response.data;
+              console.log(data)
               const updatedPages = pages.map(page => {
                   const mealData = data.find(meal => meal.type === page.time);
                   if (mealData) {
@@ -39,7 +63,7 @@ const Home = () => {
       };
 
       fetchData();
-  }, []);
+  }, [currentDate]));
 
   return (
     <View style={styles.container}>

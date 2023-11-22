@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const ProgressBar = ({ label, goal, progress }) => {
-  const fillPercentage = (progress / goal) * 100;
+  //const fillPercentage = (progress / goal) * 100;
+  const fillPercentage = progress > goal ? 100 : (progress / goal) * 100;
   const progressBarWidth = 100; // 프로그레스바 전체 너비
   const fillWidth = (progressBarWidth * fillPercentage) / 100;
   const remainingWidth = progressBarWidth - fillWidth;

@@ -28,7 +28,7 @@ const SearchDetail = ({ route, navigation }) => {
 
 
   const addFood = async () => {
-    const url = `http://43.202.91.101:8080/api/meals/${mealId}`;
+    const url = `http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/${mealId}`;
     const payload = {
       "foodId" : id,
       "foodCount" : 1

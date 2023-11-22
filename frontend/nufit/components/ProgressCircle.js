@@ -4,22 +4,21 @@ import { VictoryPie } from 'victory-native';
 
 const ProgressCircle = ({ progress, carbspercent, proteinpercent, fatpercent }) => {
 
- 
-
-
-  const data = [
-    { x: 'Carbs', y: carbspercent },
-    { x: 'Protein', y: proteinpercent },
-    { x: 'Fat', y: fatpercent },
-  ];
-
-  
-
+  let data;
+  if (carbspercent === 0 && proteinpercent === 0 && fatpercent === 0) {
+    data = [{ x: 'None', y: 100 }];
+  } else {
+    data = [
+      { x: 'Carbs', y: carbspercent },
+      { x: 'Protein', y: proteinpercent },
+      { x: 'Fat', y: fatpercent },
+    ];
+  }
   return (
     <View style={styles.container}>
       <VictoryPie
         data={data}
-        colorScale={['#fff', '#D5F12B', '#000000']}
+        colorScale={data.length === 1 ? ['#17AE9C'] : ['#fff', '#D5F12B', '#000000']}
         innerRadius={95}
         labels={() => null}
         width={300} height={300}

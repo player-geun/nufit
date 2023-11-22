@@ -9,19 +9,56 @@ import ProgressCircle from '../components/ProgressCircle';
 import ProgressBar from '../components/ProgressBar';
 import TopBar from '../components/TopBar';
 import axios from 'axios';
+import { useFocusEffect } from '@react-navigation/native';
 
 const StaticPie = ({}) => {
+
+    const getCurrentDate = () => {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; 
+        const day = date.getDate();
+      
+        const formattedMonth = month < 10 ? `0${month}` : month;
+        const formattedDay = day < 10 ? `0${day}` : day;
+      
+        return `${year}-${formattedMonth}-${formattedDay}`;
+      };
+    
+      const currentDate = getCurrentDate();
 
   const [data, setData] = useState(null);
   const [chart, setChart]= useState(null);
 
-  useEffect(() => {
+  useFocusEffect(React.useCallback(() => {
     const fetchData = async () => {
       try {
-        const date = "2023-11-10"; 
+        const date = currentDate; 
         const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/1/circle?date=${date}`); 
         console.log(response.data)
-        setData(response.data.mealTypeCaloriesResponses);
+        
+        const mealData = response.data.mealTypeCalories;
+
+      let breakfastCal = 0, lunchCal = 0, dinnerCal = 0;
+
+      mealData.forEach(meal => {
+        switch (meal.type) {
+          case 'BREAKFAST':
+            breakfastCal = meal.calorie;
+            break;
+          case 'LUNCH':
+            lunchCal = meal.calorie;
+            break;
+          case 'DINNER':
+            dinnerCal = meal.calorie;
+            break;
+          default:
+            break; 
+        }
+      });
+
+      setData({ breakfast: breakfastCal, lunch: lunchCal, dinner: dinnerCal });
+
         setChart(response.data)
       } catch (error) {
         console.error(error);
@@ -29,26 +66,26 @@ const StaticPie = ({}) => {
     };
 
     fetchData();
-  }, []);
+  }, [currentDate]));
 
-    const morning = data ? data[0].calorie : 0;
-    const lunch = data ? data[1].calorie: 0;
-    const dinner = data ? data[2].calorie : 0;
+  const morning = data ? data.breakfast : 0;
+  const lunch = data ? data.lunch : 0;
+  const dinner = data ? data.dinner : 0;
 
-    const carbgoal =200;
-    const carbprogress = chart ? chart.carbAmount : 0;
-    const proteingoal = 110;
-    const proteinprogress = chart ? chart.proteinAmount : 0;
-    const fatgoal = 40;
-    const fatprogress = chart ? chart.fatAmount : 0;
+    
+
+    const carbgoal = chart ? chart.goalCarbAmount : 0; 
+    let carbprogress = chart ? chart.carbAmount : 0;
+    const proteingoal = chart ? chart.goalProteinAmount : 0; 
+    let proteinprogress = chart ? chart.proteinAmount : 0;
+    const fatgoal = chart ? chart.goalFatAmount : 0; 
+    let fatprogress = chart ? chart.fatAmount : 0;
 
     const progressValue = chart ? chart.calorieTotal : 0;
     const carbsValue = chart ? chart.carbPercent : 0;
     const proteinValue = chart ? chart.proteinPercent : 0;
     const fatValue = chart ? chart.fatPercent : 0;
 
-    
-        
 
   return (
     
@@ -159,13 +196,14 @@ const styles = StyleSheet.create({
        
     },
     container6: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         flex: 0.8, 
         backgroundColor: '#17AE9C',
         marginBottom: 30,
         width: 300,
         borderRadius: 10,
+        paddingLeft: 30,
         
 
     },
@@ -204,6 +242,7 @@ const styles = StyleSheet.create({
     percentfont: {
         color: '#fff',
         fontSize: 17,
+        width: 100
     },
     circle1: {
         width: 8,
@@ -224,9 +263,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000',
     },
     container7: {
+        width: 240,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         height: 35,
         marginTop: 3,
 

@@ -8,20 +8,30 @@ const MealDetail = ({route, navigation}) => {
   const [foods, setFoods] = useState([]);
   const [data, setData] = useState([]);
   const { mealId } = route.params;
+  const { mealTime } = route.params;
+
+  const handleDelete = async (mealDetailId) => {
+    try {
+      const deleteUrl = `http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/details/${mealDetailId}`;
+      await axios.delete(deleteUrl);
+      console.log('삭제')
+      const updatedFoods = foods.filter(item => item.mealDetailId !== mealDetailId);
+      setFoods(updatedFoods);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
     
     useEffect(() => {
         const fetchData = async () => {
             try {
 
-              const serverAddress = "http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080";
-              const memberId = 1;
-              const date = "2023-11-10"; 
-              const url = `${serverAddress}/api/meals/intake?memberId=${memberId}&date=${date}`;
-  
-              const response = await axios.get(url);
-                //const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/${mealId}/details`);
+                const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/${mealId}/details`);
                 setFoods(response.data.foodSimpleResponses);
                 setData(response.data);
+                console.log(response.data.foodSimpleResponses)
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -67,7 +77,7 @@ const MealDetail = ({route, navigation}) => {
         </View>
       </View>
       <ScrollView style={styles.whiteBox}> 
-        <Text style={{marginLeft: 10, fontWeight: 700}}>아침에 먹었어요</Text>
+        <Text style={{marginLeft: 10, fontWeight: 700}}>{mealTime}에 먹었어요</Text>
         <View style={styles.wrapper}>
             
           {foods.map((item, index) => (
@@ -77,7 +87,10 @@ const MealDetail = ({route, navigation}) => {
                   </View>
                   <View style={styles.righttext}>
                       <Text style={styles.text}>{item.calorie} kcal</Text>
-                      <Text style={styles.minitext}>삭제</Text>
+                      <TouchableOpacity onPress={() => handleDelete(item.mealDetailId)}>
+                        <Text style={styles.minitext}>삭제</Text>
+                      </TouchableOpacity>
+                      
                   </View>
               </View>
           ))}
