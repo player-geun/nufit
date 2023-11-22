@@ -11,7 +11,7 @@ const MyPage = ({navigation}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://43.202.91.101:8080/api/members/me/goals?memberId=1`); 
+        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/members/me/goals?memberId=1`); 
         console.log(response.data)
         setData(response.data)
         

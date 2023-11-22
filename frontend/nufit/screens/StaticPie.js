@@ -13,13 +13,16 @@ import axios from 'axios';
 const StaticPie = ({}) => {
 
   const [data, setData] = useState(null);
+  const [chart, setChart]= useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://43.202.91.101:8080/api/meals/me/calories?memberId=1`); 
+        const date = "2023-11-10"; 
+        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/1/circle?date=${date}`); 
         console.log(response.data)
-        setData(response.data);
+        setData(response.data.mealTypeCaloriesResponses);
+        setChart(response.data)
       } catch (error) {
         console.error(error);
       }
@@ -28,67 +31,23 @@ const StaticPie = ({}) => {
     fetchData();
   }, []);
 
-  const morning = data ? data.calories.BREAKFAST : 0;
-  const lunch = data ? data.calories.LUNCH: 0;
-  const dinner = data ? data.calories.DINNER : 0;
+    const morning = data ? data[0].calorie : 0;
+    const lunch = data ? data[1].calorie: 0;
+    const dinner = data ? data[2].calorie : 0;
 
     const carbgoal =200;
-    const carbprogress = 50;
+    const carbprogress = chart ? chart.carbAmount : 0;
     const proteingoal = 110;
-    const proteinprogress = 12;
+    const proteinprogress = chart ? chart.proteinAmount : 0;
     const fatgoal = 40;
-    const fatprogress = 20;
-    // const morning = 500;
-    // const lunch = 500;
-    // const dinner = 500;
-    const remainCalories = 1200;
-    const progressValue = 1000;
-    const carbsValue = 20;
-    const proteinValue = 30;
-    const fatValue = 50;
+    const fatprogress = chart ? chart.fatAmount : 0;
 
-    //api 통신 할 때 사용
-    // const [carbgoal, setCarbGoal] = useState(0);
-    // const [carbprogress, setCarbProgress] = useState(0);
-    // const [proteingoal, setProteinGoal] = useState(0);
-    // const [proteinprogress, setProteinProgress] = useState(0);
-    // const [fatgoal, setFatGoal] = useState(0);
-    // const [fatprogress, setFatProgress] = useState(0);
-    // const [morning, setMorning] = useState(0);
-    // const [lunch, setLunch] = useState(0);
-    // const [dinner, setDinner] = useState(0);
-    // const [remainCalories, setRemainCalories] = useState(0);
-    // const [progressValue, setProgressValue] = useState(0);
-    // const [carbsValue, setCarbsValue] = useState(0);
-    // const [proteinValue, setProteinValue] = useState(0);
-    // const [fatValue, setFatValue] = useState(0);
+    const progressValue = chart ? chart.calorieTotal : 0;
+    const carbsValue = chart ? chart.carbPercent : 0;
+    const proteinValue = chart ? chart.proteinPercent : 0;
+    const fatValue = chart ? chart.fatPercent : 0;
+
     
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
-    
-    // const fetchData = async () => {
-    //     try {
-    //     const response = await axios.get('엔드포인트');
-    //     const data = response.data;
-    
-    //     setCarbGoal(data.carbgoal);
-    //     setCarbProgress(data.carbprogress);
-    //     setProteinGoal(data.proteingoal);
-    //     setProteinProgress(data.proteinprogress);
-    //     setFatGoal(data.fatgoal);
-    //     setFatProgress(data.fatprogress);
-    //     setMorning(data.morning);
-    //     setLunch(data.lunch);
-    //     setDinner(data.dinner);
-    //     setRemainCalories(data.remainCalories);
-    //     setProgressValue(data.progressValue);
-    //     setCarbsValue(data.carbsValue);
-    //     setProteinValue(data.proteinValue);
-    //     setFatValue(data.fatValue);
-    //     } catch (error) {
-    //     Alert.alert('error');
-    //     }
         
 
   return (
@@ -132,7 +91,7 @@ const StaticPie = ({}) => {
                 <ProgressBar label="지방" goal={fatgoal} progress={fatprogress} />
             </View>
             <View style={styles.container6}>
-                <Text style={[{color: '#fff'}, {fontSize: 14}]}>{remainCalories}kcal 더 먹을 수 있어요</Text>
+                {/* <Text style={[{color: '#fff'}, {fontSize: 14}]}>{remainCalories}kcal 더 먹을 수 있어요</Text> */}
                 <View style={styles.container7}>
                     <Image source={morningimg}/>
                     <Text style={styles.timefont}> 아침</Text>

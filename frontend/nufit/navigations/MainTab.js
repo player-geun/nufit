@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import { Home, MyPage, Temp, StatisticsRecord } from '../screens';
+import { Home, MyPage, Temp, StatisticsRecord, Shop } from '../screens';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,6 +14,8 @@ const liveIcon = require('../assets/live.png');
 const liveIconFocused = require('../assets/live-focused.png');
 const myIcon = require('../assets/my.png');
 const myIconFocused = require('../assets/my-focused.png');
+const shopIcon = require('../assets/shop.png');
+const shopIconFocused = require('../assets/shop-focused.png');
 
 
 const MainTab = () => {
@@ -37,15 +39,18 @@ const MainTab = () => {
             iconName = focused ? liveIconFocused : liveIcon;
           } else if (route.name === 'MyPage') {
             iconName = focused ? myIconFocused : myIcon;
+          } else if (route.name === 'Shop') {
+            iconName = focused ? shopIconFocused : shopIcon;
           }
 
-          return  <Image source={iconName} style={{ width: 24, height: 24 }} />;
+          return  <Image source={iconName} style={{ width: 22, height: 22 }} />;
         },
       })}
     >
       <Tab.Screen name="Home" component={Home} options={{tabBarLabel : '홈'}}/>
       <Tab.Screen name="Graph" component={StatisticsRecord} options={{tabBarLabel : '기록 및 통계'}}/>
       <Tab.Screen name="Temp" component={Temp} options={{tabBarLabel : '라이브'}}/>
+      <Tab.Screen name="Shop" component={Shop} options={{tabBarLabel : '스토어'}}/>
       <Tab.Screen name="MyPage" component={MyPage} options={{tabBarLabel : '마이'}}/>
     </Tab.Navigator>
   )

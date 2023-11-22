@@ -6,7 +6,7 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 const CarouselPage = ({ item, style }) => {
   const time = item.time === 'BREAKFAST' ? '아침' : item.time === 'LUNCH' ? '점심' : item.time === 'DINNER' ? '저녁' : item.time;
   const navigation = useNavigation();
-  const URL = 'http://43.202.91.101:8080/api/meals?memberId=1'
+  const URL = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals?memberId=1'
   const handlePress = async () => {
     try {
       const response = await axios.post(URL, {

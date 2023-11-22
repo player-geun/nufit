@@ -6,13 +6,22 @@ import NutBox from '../components/NutBox';
 const MealDetail = ({route, navigation}) => {
 
   const [foods, setFoods] = useState([]);
+  const [data, setData] = useState([]);
   const { mealId } = route.params;
     
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://43.202.91.101:8080/api/meals/${mealId}/details`);
+
+              const serverAddress = "http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080";
+              const memberId = 1;
+              const date = "2023-11-10"; 
+              const url = `${serverAddress}/api/meals/intake?memberId=${memberId}&date=${date}`;
+  
+              const response = await axios.get(url);
+                //const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/${mealId}/details`);
                 setFoods(response.data.foodSimpleResponses);
+                setData(response.data);
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -29,13 +38,14 @@ const MealDetail = ({route, navigation}) => {
     const goBefore = () => {
       navigation.popToTop();
   }
+  const totalcal = data ? data.calorieTotal : 0;
+  const carb = data ? data.carbAmount : 0;
+  const protein = data ? data.proteinAmount : 0;
+  const totalf = data ? data.fatAmount : 0;
 
-    const carb = 24;
-    const protein = 24;
-    const totalf = 24;
-    const carbsPercentage = 3;
-    const proteinPercentage = 5;
-    const fatPercentage = 5;
+  const carbsPercentage = data ? data.carbPercent : 0;
+  const proteinPercentage = data ? data.proteinPercent : 0;
+  const fatPercentage = data ? data.fatPercent : 0;
 
 
   return (
@@ -44,7 +54,7 @@ const MealDetail = ({route, navigation}) => {
         <View style={{flexDirection: 'row', alignItems: 'flex-start', marginTop: 36, justifyContent: 'space-between'}}>
           <View>
             <Text style={{textAlign: 'left', color: '#fff', fontSize: 15, fontFamily: "Pretendard-Light", marginBottom: 5}}>총 칼로리.</Text>
-            <Text style={styles.resultText}>127 kcal</Text>
+            <Text style={styles.resultText}>{totalcal} kcal</Text>
           </View>
           <TouchableOpacity style={styles.purpleBtn} onPress={goNext}>
             <Text style={{color: '#fff', fontSize:26}}>+</Text>

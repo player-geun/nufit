@@ -1,67 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from "victory-native";
+import axios from 'axios';
 
-const Data = [
-  {
-    date: '10.07',
-    carbohydrate: 18,
-    protein: 12,
-    fat: 6
-  },
-  {
-    date: "10.08",
-    carbohydrate: 20,
-    protein: 19,
-    fat: 3
-  },
-  {
-    date: "10.09",
-    carbohydrate: 42,
-    protein: 15,
-    fat: 20
-  },
-  {
-    date: "10.10",
-    carbohydrate: 23,
-    protein: 26,
-    fat: 12
-  },
-  {
-    date: "10.11",
-    carbohydrate: 31,
-    protein: 32,
-    fat: 14
-  },
-  {
-    date: "10.12",
-    carbohydrate: 45,
-    protein: 35,
-    fat: 15
-  },
-  {
-    date: "10.13",
-    carbohydrate: 33,
-    protein: 24,
-    fat: 10
-  }
-];
+// const Data = [
+
+//   { date: '10.07', calorie: 300 },
+//   { date: "10.08", calorie: 350 },
+//   { date: "10.09", calorie: 400 },
+//   { date: '10.10', calorie: 300 },
+//   { date: "10.11", calorie: 350 },
+//   { date: "10.12", calorie: 400 },
+//   { date: "10.13", calorie: 400 }
+  
+// ];
 
 const StackedBarChart = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [tooltipData, setTooltipData] = useState(null);
   const [modalTextVisible, setModalTextVisible] = useState(false);
-  // modalTextVisible
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const date = "2023-11-10";
+        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/1/bar?date=${date}`);
+        const serverData = response.data.calories;
+        const transformedData = Object.keys(serverData)
+          .map(date => {
+            const formattedDate = date.substring(5).replace('-', '.');
+            return { date: formattedDate, calorie: serverData[date] };
+          })
+          .reverse();
+
+        setData(transformedData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handlePress = (datum) => {
     setTooltipData(datum);
     setModalVisible(false);
     setModalVisible(true);
   };
 
+
   return (
     <View style={styles.container}>
       <Modal
-        
         animationType="fade"
         transparent={true}
         visible={modalVisible}
@@ -72,92 +63,44 @@ const StackedBarChart = () => {
         <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
           <View style={styles.modal}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>지방: {tooltipData?.fat}g</Text>
-              <Text style={styles.modalText}>단백질: {tooltipData?.protein}g</Text>
-              <Text style={styles.modalText}>순탄수: {tooltipData?.carbohydrate}g</Text>
+              <Text style={styles.modalText}>칼로리: {tooltipData?.calorie}kcal</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
       </Modal>
 
       <VictoryChart
-        style={{axis:{stroke:'white'}, background: { fill: "#8655B7" }}}
+        style={{ background: { fill: "#8655B7" }}}
         domainPadding={20}
       >
         <VictoryAxis
           style={{
-            tickLabels: { fill: "white", fontSize: '11' },
+            tickLabels: { fill: "white", fontSize: 11 },
             axis: { stroke: "white" }  
           }}
         />
-        <VictoryStack>
-          <VictoryBar 
-            data={Data} x="date" y="fat"
-            barWidth={5}
-            style={{ data: { fill: "navy" } }}
-            events={[{
-              target: "data",
-              eventHandlers: {
-                onPressIn: () => {
-                  return [
-                    {
-                      target: "data",
-                      mutation: (props) => {
-                        handlePress(props.datum);
-                        return null;
-                      }
-                    }
-                  ];
-                }
-              }
-            }]}
-          />
         <VictoryBar 
-            data={Data} x="date" y="protein" 
-            barWidth={5}
-            style={{ data: { fill: "#D5F12B" } }}
-            events={[{
-              target: "data",
-              eventHandlers: {
-                onPressIn: () => {
-                  return [
-                    {
-                      target: "data",
-                      mutation: (props) => {
-                        handlePress(props.datum);
-                        return null;
-                      }
-                    }
-                  ];
-                }
+          data={data} x="date" y="calorie"
+          barWidth={6}
+          style={{ data: { fill: "white" } }} 
+          events={[{
+            target: "data",
+            eventHandlers: {
+              onPressIn: () => {
+                return [{
+                  target: "data",
+                  mutation: (props) => {
+                    handlePress(props.datum);
+                    return null;
+                  }
+                }];
               }
-            }]}
-          />
-        <VictoryBar 
-            data={Data} x="date" y="carbohydrate"
-            barWidth={5}
-            style={{ data: { fill: "#FFFFFF" } }}
-            events={[{
-              target: "data",
-              eventHandlers: {
-                onPressIn: () => {
-                  return [
-                    {
-                      target: "data",
-                      mutation: (props) => {
-                        handlePress(props.datum);
-                        return null;
-                      }
-                    }
-                  ];
-                }
-              }
-            }]}
-          />
-
-          
-        </VictoryStack>
+            }
+          }]}
+        />
       </VictoryChart>
+
+
       <Modal
         
         animationType="fade"
@@ -170,7 +113,7 @@ const StackedBarChart = () => {
         <TouchableWithoutFeedback  style={styles.graphtext} onPress={() => setModalTextVisible(!modalTextVisible)}>
           <View style={styles.modalTextContainer}>
             <View >
-              <Text style={styles.graphTextDetail}>일간 탄단지 섭취량이 표시됩니다.</Text>
+              <Text style={styles.graphTextDetail}>일간 칼로리 섭취량이 표시됩니다.</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -211,7 +154,9 @@ const styles = StyleSheet.create({
 
   },
   graphTextDetail: {
-    fontSize: 12
+    fontSize: 12,
+    color: '#8655B7',
+    fontWeight: 600
   },
   graphtext: {
     textAlign: 'right',
