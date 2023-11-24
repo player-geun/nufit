@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import React from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { getTokenFromLocal } from '../utils/tokenUtils';
 
 const CarouselPage = ({ item, style }) => {
 
@@ -23,11 +24,17 @@ const CarouselPage = ({ item, style }) => {
   const navigation = useNavigation();
   const URL = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals?memberId=1'
   const handlePress = async () => {
+    const Token = await getTokenFromLocal();
+    const headers_config = {
+      Authorization: `Bearer ${Token.accessToken}`   
+    };
+
+
     try {
       const response = await axios.post(URL, {
         date: currentDate,
         mealType: item.time,
-      });
+      },{headers: headers_config});
       // console.log(response.data.id)
       const mealId = response.data.id;
       const mealTime = time; 
