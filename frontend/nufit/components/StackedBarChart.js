@@ -89,13 +89,23 @@ const StackedBarChart = () => {
       <VictoryChart
         style={{ background: { fill: "#8655B7" }}}
         domainPadding={20}
+        padding={{ top: 5, bottom: 60, left: 60, right: 30 }}
       >
         <VictoryAxis
+          offsetX={100000}
           style={{
             tickLabels: { fill: "white", fontSize: 11 },
-            axis: { stroke: "white" }  
+            axis: { stroke: "white" }
           }}
         />
+        <VictoryAxis
+          dependentAxis
+          offsetY={100000}
+          style={{
+            tickLabels: { fill: "white", fontSize: 11, padding: 5 },
+            axis: { stroke: "white" }
+          }}
+          />
         <VictoryBar 
           data={data} x="date" y="calorie"
           barWidth={6}
