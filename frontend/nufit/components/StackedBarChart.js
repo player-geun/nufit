@@ -73,9 +73,10 @@ const StackedBarChart = () => {
         padding={{ top: 5, bottom: 50, left: 70, right: 40 }}
       >
         <VictoryAxis
+          offsetX={100000}
           style={{
             tickLabels: { fill: "white", fontSize: 11 },
-            axis: { stroke: "white" }  
+            axis: { stroke: "white" }
           }}
         />
         <VictoryAxis
