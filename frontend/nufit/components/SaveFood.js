@@ -4,6 +4,7 @@ import char from '../assets/blank_data_ico.png'
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { getTokenFromLocal } from '../utils/tokenUtils';
 
 const FirstRoute = ({ res }) => {
   if (res === 0) {
@@ -58,15 +59,21 @@ const SecondRoute = ({navigation}) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // console.log(token.accessToken)
+      const token = await getTokenFromLocal();
       try {
+<<<<<<< HEAD
         const response = await axios.get('http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/foods/member/1'); 
+=======
+        const response = await axios.get('http://43.202.91.101:8080/api/foods/member',{headers: {Authorization : `Bearer ${token.accessToken}`}});
+>>>>>>> 794d515 ([feat] login-process-api)
         setFoods(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchData();
+    fetchData(); 
   }, []);
 
   return(

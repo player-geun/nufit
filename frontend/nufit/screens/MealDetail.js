@@ -12,9 +12,16 @@ const MealDetail = ({route, navigation}) => {
   const { mealTime } = route.params;
 
   const handleDelete = async (mealDetailId) => {
+<<<<<<< HEAD
     try {
       const deleteUrl = `http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/details/${mealDetailId}`;
       await axios.delete(deleteUrl);
+=======
+    const token = await getTokenFromLocal();
+    try {
+      const deleteUrl = `http://43.202.91.101:8080/api/meals/details/${mealDetailId}`;
+      await axios.delete(deleteUrl,{headers: {Authorization : `Bearer ${token.accessToken}`}});
+>>>>>>> 794d515 ([feat] login-process-api)
       console.log('삭제')
       const updatedFoods = foods.filter(item => item.mealDetailId !== mealDetailId);
       setFoods(updatedFoods);
@@ -27,17 +34,23 @@ const MealDetail = ({route, navigation}) => {
     
     useEffect(() => {
         const fetchData = async () => {
-          const Token = await getTokenFromLocal();
-          const headers_config = {
-            Authorization: `Bearer ${Token.accessToken}`   
-          };
+          
             try {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
                 const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/${mealId}/details`);
 =======
                 const response = await axios.get(`http://43.202.91.101:8080/api/meals/${mealId}/details`,{headers: headers_config});
 >>>>>>> ac882c2 ([feat] 로그인 과정 구현)
+=======
+              const token = await getTokenFromLocal();
+              // const headers_config = {
+              //   Authorization : `Bearer ${token.accessToken}`
+              // }
+                const response = await axios.get(`http://43.202.91.101:8080/api/meals/${mealId}/details`,
+                {headers: {Authorization : `Bearer ${token.accessToken}`}});
+>>>>>>> 794d515 ([feat] login-process-api)
                 setFoods(response.data.foodSimpleResponses);
                 setData(response.data);
                 console.log(response.data.foodSimpleResponses)
@@ -48,6 +61,7 @@ const MealDetail = ({route, navigation}) => {
 
         fetchData();
     }, []);
+
 
     const goNext = () => {
         navigation.navigate('ChooseSearch', {mealId});

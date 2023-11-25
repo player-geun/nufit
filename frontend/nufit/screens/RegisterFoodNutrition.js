@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
 import axios from 'axios';
+import { getTokenFromLocal } from '../utils/tokenUtils';
 
 const RegisterFoodNutrition = ({ route }) => {
   const { brand, food, unit, quantity } = route.params;
@@ -22,12 +23,12 @@ const RegisterFoodNutrition = ({ route }) => {
   const onSubmit = async () => {
     const url = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/foods';
     const payload = {
-      memberId: 1, 
+      // memberId: 1, 
       name: food,
       brand: brand,
       amount: quantity,
       unit: unit,
-      type: 'brand', 
+      type: 'BRAND', 
       calorie: calories,
       nutrients: [
         { name: '탄수화물', amount: carbohydrates },
@@ -43,7 +44,9 @@ const RegisterFoodNutrition = ({ route }) => {
     };
   
     try {
-      const response = await axios.post(url, payload);
+      const token = await getTokenFromLocal();
+      console.log(token.accessToken)
+      const response = await axios.post(url, payload, {headers: {Authorization : `Bearer ${token.accessToken}`}});
       console.log('success')
       console.log(response.data);
       navigation.popToTop();

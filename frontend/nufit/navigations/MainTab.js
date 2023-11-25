@@ -39,9 +39,13 @@ const MainTab = () => {
             iconName = focused ? liveIconFocused : liveIcon;
           } else if (route.name === 'MyPage') {
             iconName = focused ? myIconFocused : myIcon;
+<<<<<<< HEAD
           } else if (route.name === 'Shop') {
             iconName = focused ? shopIconFocused : shopIcon;
           }
+=======
+                    }
+>>>>>>> 794d515 ([feat] login-process-api)
 
           return  <Image source={iconName} style={{ width: 22, height: 22 }} />;
         },

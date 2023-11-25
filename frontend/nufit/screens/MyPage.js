@@ -4,14 +4,21 @@ import React, {useEffect, useState} from 'react'
 import char from '../assets/active3.png'
 import blank from '../assets/blank_data_ico.png'
 import axios from 'axios'
+import { getTokenFromLocal } from '../utils/tokenUtils'
 
 const MyPage = ({navigation}) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    
     const fetchData = async () => {
+      const token = await getTokenFromLocal();
       try {
+<<<<<<< HEAD
         const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/members/me/goals?memberId=1`); 
+=======
+        const response = await axios.get(`http://43.202.91.101:8080/api/members/me/goals`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
+>>>>>>> 794d515 ([feat] login-process-api)
         console.log(response.data)
         setData(response.data)
         
@@ -38,7 +45,7 @@ const MyPage = ({navigation}) => {
   
 
   function goSetGoal() {
-    navigation.navigate('SetGoal')
+    navigation.navigate('SetGoal', )
 }
 
   return (
