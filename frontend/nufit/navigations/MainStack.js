@@ -1,8 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { CaloriesResult, CameraScreen, ChooseSearch, Home, MealDetail, MyPage, NutResult, RegisterFoodName, RegisterFoodNutrition, RegisterFoodQuantity, Search, SearchDetail, SetGoal } from '../screens';
 import MainTab from './MainTab';
-import { ChooseSearch, Home, Search, SearchDetail, CameraScreen, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition, SetGoal,CaloriesResult, NutResult, MealDetail, MyPage } from '../screens';
-import SaveFood from '../components/SaveFood';
 
 const Stack = createStackNavigator();
 

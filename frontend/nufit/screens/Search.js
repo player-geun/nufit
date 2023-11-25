@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, View, FlatList, Text, TouchableOpacity, Image} f
 import searchImg from '../assets/add_by_search_ico.png'
 import SaveFood from '../components/SaveFood';
 import axios from 'axios';
+import { getTokenFromLocal } from '../utils/tokenUtils';
 
 const Search = ({ route, navigation }) => {
   const {mealId} = route.params;
@@ -13,8 +14,10 @@ const Search = ({ route, navigation }) => {
   
   useEffect(() => {
     const fetchData = async () => {
+      const token = await getTokenFromLocal()
       try {
-        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/foods/names?q=${searchTerm}`); 
+        const response = await axios.get(`http://43.202.91.101:8080/api/foods/names?q=${searchTerm}`,
+        {headers: {Authorization : `Bearer ${token.accessToken}`}}); 
         console.log(response.data)
         setFilteredData(response.data); 
         setShowFlatList(true);

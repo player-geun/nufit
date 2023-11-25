@@ -1,12 +1,14 @@
 import React from 'react'
 import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import axios from 'axios'
+import { getTokenFromLocal } from '../utils/tokenUtils';
 
 const NutResult = ({ route, navigation }) => {
   const { result, sw, gw} = route.params;
 
   const onSubmit = async () => {
-    const url = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/members/me/goals?memberId=1';
+    const token = await getTokenFromLocal();
+    const url = 'http://43.202.91.101:8080/api/members/me/goals';
     const payload = {
       goalCalorie: result, //칼로리
       startWeight: sw, //시작체중
@@ -17,10 +19,21 @@ const NutResult = ({ route, navigation }) => {
     };
   
     try {
-      const response = await axios.patch(url, payload);
-      console.log('success')
-      console.log(response.data);
-      navigation.popToTop()
+      const response = await axios.get(`http://43.202.91.101:8080/api/members/me/goals`, {headers: {Authorization: `Bearer ${token.accessToken}`}})
+      // console.log(response.status, 'SSSSSSSSSSSSSSSSSSSS')
+      if (response.status == 200) {
+        const response = await axios.patch(url, payload, {headers: {Authorization : `Bearer ${token.accessToken}`}});
+        console.log(response.data)
+        navigation.popToTop()
+      }
+      else{
+        const response = await axios.put(url, payload, {headers: {Authorization : `Bearer ${token.accessToken}`}});
+        console.log(response.data)
+        navigation.popToTop()
+      }
+      // console.log('success')
+      // console.log(response.data);
+      // console.log('STATUS',response.status)
     } catch (error) {
       console.error('Error:', error);
     }

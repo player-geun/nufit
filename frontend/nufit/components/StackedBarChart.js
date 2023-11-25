@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from "victory-native";
 import axios from 'axios';
+import { getTokenFromLocal } from "../utils/tokenUtils";
 
 // const Data = [
 
@@ -38,8 +39,10 @@ const StackedBarChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = await getTokenFromLocal(); 
         const date = currentDate;
-        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/1/bar?date=${date}`);
+        const response = await axios.get(`http://43.202.91.101:8080/api/meals/bar?date=${date}`,{headers: {Authorization : `Bearer ${token.accessToken}`}});
+        console.log(response)
         const serverData = response.data.calories;
         const transformedData = Object.keys(serverData)
           .map(date => {

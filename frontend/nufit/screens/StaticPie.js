@@ -10,6 +10,7 @@ import ProgressBar from '../components/ProgressBar';
 import TopBar from '../components/TopBar';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
+import { getTokenFromLocal } from '../utils/tokenUtils'
 
 const StaticPie = ({}) => {
 
@@ -33,8 +34,10 @@ const StaticPie = ({}) => {
   useFocusEffect(React.useCallback(() => {
     const fetchData = async () => {
       try {
+        const token = await getTokenFromLocal(); 
         const date = currentDate; 
-        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/1/circle?date=${date}`); 
+        const response = await axios.get(`http://43.202.91.101:8080/api/meals/circle?date=${date}`,
+        {headers: {Authorization : `Bearer ${token.accessToken}`}}); 
         console.log(response.data)
         
         const mealData = response.data.mealTypeCalories;
@@ -279,4 +282,3 @@ const styles = StyleSheet.create({
 })
 
 export default StaticPie;
-

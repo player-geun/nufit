@@ -1,50 +1,31 @@
-import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
 //import {Linking} from 'react-native'
+import * as Linking from 'expo-linking';
 import AuthStack from './AuthStack';
-import MainStack from './MainStack';
-import * as Linking from 'expo-linking'
 
 const Navigation = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-//     const prefix = Linking.createURL('/');
+    const prefix = Linking.createURL('/');
 
-//     const linking = {
-//       prefixes: [prefix],
-//       config: {
-//           initialRouteName: "LoginScreen",  
-//           screens: {
-//               LoginScreen: 'login',
-//               SetGoal: 'setgoal',
-//               CaloriesResult: 'calorie',
-//               
-//       },
-//       subscribe(listener) {
-//           const onReceiveURL = ({ url }) => {
-//               console.log(`Received URL: ${url}`); 
-//               listener(url);
-//           };
-          
-//           const urlSubscription = Linking.addEventListener('url', onReceiveURL);
-          
-//           Linking.getInitialURL().then((initialUrl) => {
-//               if (initialUrl) {
-//                   console.log(`Initial URL: ${initialUrl}`); // 초기 URL 로그
-//               }
-//           }).catch(err => console.error('An error occurred', err));
-          
-//           return () => {
-
-//               urlSubscription.remove();
-//           };
-//       },
-//   };
+    const linking = {
+      prefixes: [prefix],
+      config: {
+          initialRouteName: "LoginScreen",  
+          screens: {
+              LoginScreen: 'login',
+              // SetGoal: 'setgoal',
+              // CaloriesResult: 'calorie',
+              
+      },
+  }
+}
     
 
     return (
-      <NavigationContainer>
-        {isLoggedIn ? <MainStack /> : <AuthStack />}
+      <NavigationContainer linking={linking}>
+        <AuthStack/>
+        {/* {isLoggedIn ? <MainStack /> : <AuthStack />} */}
       </NavigationContainer>
     );
   };

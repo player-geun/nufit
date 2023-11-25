@@ -16,4 +16,5 @@ import RegisterFoodQuantity from "./RegisterFoodQuantity";
 import RegisterFoodNutrition from "./RegisterFoodNutrition";
 import MealDetail from "./MealDetail";
 import Shop from "./Shop"
-export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition, StatisticsRecord, MealDetail, Shop};
+import SplashScreen from "./SplashScreen";
+export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition, StatisticsRecord, MealDetail, SplashScreen, Shop};

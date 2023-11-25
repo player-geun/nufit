@@ -3,6 +3,7 @@ import { Text, StyleSheet, View,TouchableOpacity, ScrollView } from 'react-nativ
 import NutBox from '../components/NutBox';
 import NutDetail from '../components/NutDetail';
 import axios from 'axios';
+import { getTokenFromLocal } from '../utils/tokenUtils';
 
 const SearchDetail = ({ route, navigation }) => {
 
@@ -14,8 +15,9 @@ const SearchDetail = ({ route, navigation }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = await getTokenFromLocal(); 
       try {
-        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/foods/${id}`); 
+        const response = await axios.get(`http://43.202.91.101:8080/api/foods/${id}`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
         console.log(response.data)
         setData(response.data);
       } catch (error) {
@@ -28,24 +30,32 @@ const SearchDetail = ({ route, navigation }) => {
 
 
   const addFood = async () => {
-    const url = `http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/${mealId}`;
+    const token = await getTokenFromLocal(); 
+    const url = `http://43.202.91.101:8080/api/meals/${mealId}`;
     const payload = {
       "foodId" : id,
       "foodCount" : 1
     };
-  
     try {
-      const response = await axios.post(url, payload);
-      console.log('success')
-      console.log(response.data);
+      const response = await axios.post(url, payload,
+        {headers: {Authorization : `Bearer ${token.accessToken}`}});
+      console.log(response,'RRRRRRRRRRRRRRRRRRRRRRRRR')
+      // console.log('click!!!!!')
+      // console.log(url, payload)
+      // console.log(response)
+
       navigation.popToTop()
+      
+      console.log('success')
+      // console.log(response.status)
+      // console.log(response.data);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   const goNext = () => {
-    navigation.navigate('ChooseSearch');
+    navigation.navigate('ChooseSearch', {mealId});
   }
   //data
   const kcalData = data ? data.calorie : 0;

@@ -4,6 +4,7 @@ import Carousel from '../components/Carousel';
 import TopBarTemp from '../components/TopBarTemp';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
+import { getTokenFromLocal } from '../utils/tokenUtils';
 
 const Home = () => {
 
@@ -32,13 +33,13 @@ const Home = () => {
 
   useFocusEffect(React.useCallback(() => {
       const fetchData = async () => {
+      const token = await getTokenFromLocal();
           try {
-            const serverAddress = "http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080";
-            const memberId = 1;  
+            const serverAddress = "http://43.202.91.101:8080";
+            // const memberId = 1;  
             const date = currentDate; 
-            const url = `${serverAddress}/api/meals/intake?memberId=${memberId}&date=${date}`;
-
-            const response = await axios.get(url);
+            const url = `${serverAddress}/api/meals/intake?date=${date}`;
+            const response = await axios.get(url, {headers: {Authorization : `Bearer ${token.accessToken}`}});
               //const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/intake?memberId=1`);
               const data = response.data;
               console.log(data)
