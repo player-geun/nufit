@@ -43,40 +43,6 @@ export const getTokens = async (navigation) => {
   }
     
 
-      
-
-    
-
-
-
-    // axios.post(`${URL}/login`,
-    // {
-    //   "userId":email,
-    //   "userpw":password
-    // })
-    // .then(res =>{{
-    //       //accessToken, refreshToken 로컬에 저장
-    //       if (res.status === 200){
-    //         AsyncStorage.setItem('Tokens', JSON.stringify({
-    //           'accessToken': res.data.accessToken,
-    //           'refreshToken': res.data.refreshToken,
-    //           'userId': res.data.userId
-    //         }))
-    //         navigation.navigate('HomeTab');
-    //       }
-
-    // }})
-    // .catch(error =>{
-    //         if(error.response.status === 401){
-    //             showToast(error.response.data)
-    //         }
-    //         else{
-    //             showToast("알수없는 오류")
-    //         } 
-          
-    // })
-// };
-
 
 export const getTokenFromLocal = async () => {
     try {

@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "nufit",
+    "scheme" : "nufit",
     "slug": "nufit",
     "version": "1.0.0",
     "orientation": "portrait",

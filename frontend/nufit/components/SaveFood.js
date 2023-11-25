@@ -62,11 +62,7 @@ const SecondRoute = ({navigation}) => {
       // console.log(token.accessToken)
       const token = await getTokenFromLocal();
       try {
-<<<<<<< HEAD
-        const response = await axios.get('http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/foods/member/1'); 
-=======
         const response = await axios.get('http://43.202.91.101:8080/api/foods/member',{headers: {Authorization : `Bearer ${token.accessToken}`}});
->>>>>>> 794d515 ([feat] login-process-api)
         setFoods(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);

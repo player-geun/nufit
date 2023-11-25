@@ -1,14 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
-import React, {useState} from 'react'
-import { Alert, Image, StyleSheet, Text, View, } from 'react-native'
+import React from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import imageLogo from '../assets/image_logo.png'
 import textLogo from '../assets/text_logo.png'
 import LoginButton from '../components/LoginButton'
-import * as AuthSession from 'expo-auth-session';
-import { useNavigation } from '@react-navigation/native'
-import * as WebBrowser from 'expo-web-browser';
-import * as Linking from 'expo-linking'
 import { getTokens } from '../utils/tokenUtils'
 
 const LoginScreen = ({navigation}) => {

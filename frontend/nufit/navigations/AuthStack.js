@@ -10,7 +10,6 @@ const AuthStack = () => {
   return (
     <Stack.Navigator >
       <Stack.Screen name='SplashScreen' component={SplashScreen} options={{ headerShown: false }}/>
-      {/* <Stack.Screen name='MainTab' component={MainTab} options={{ headerShown: false }}/> */}
       <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }}/>
       <Stack.Screen name='MainStack' component={MainStack} options={{ headerShown: false }}/>
     </Stack.Navigator>

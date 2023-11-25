@@ -17,9 +17,4 @@ import RegisterFoodNutrition from "./RegisterFoodNutrition";
 import MealDetail from "./MealDetail";
 import Shop from "./Shop"
 import SplashScreen from "./SplashScreen";
-<<<<<<< HEAD
-export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition, StatisticsRecord, MealDetail,SplashScreen, Shop};
-=======
-import Shop from "./Shop";
 export { CaloriesResult, ChooseSearch, CameraScreen, LoginScreen, NutResult, Search, SearchDetail, SetGoal, StaticPie, MyPage, Temp, Home, RegisterFoodName, RegisterFoodQuantity, RegisterFoodNutrition, StatisticsRecord, MealDetail, SplashScreen, Shop};
->>>>>>> bfa0f8d ([feat] add shop)

@@ -22,11 +22,7 @@ const CarouselPage = ({ item, style }) => {
 
   const time = item.time === 'BREAKFAST' ? '아침' : item.time === 'LUNCH' ? '점심' : item.time === 'DINNER' ? '저녁' : item.time;
   const navigation = useNavigation();
-<<<<<<< HEAD
-  const URL = 'http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals?memberId=1'
-=======
   const URL = 'http://43.202.91.101:8080/api/meals'
->>>>>>> 794d515 ([feat] login-process-api)
   const handlePress = async () => {
     const token = await getTokenFromLocal();
     // console.log(token.accessToken)

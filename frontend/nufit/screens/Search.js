@@ -16,12 +16,8 @@ const Search = ({ route, navigation }) => {
     const fetchData = async () => {
       const token = await getTokenFromLocal()
       try {
-<<<<<<< HEAD
-        const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/foods/names?q=${searchTerm}`); 
-=======
         const response = await axios.get(`http://43.202.91.101:8080/api/foods/names?q=${searchTerm}`,
         {headers: {Authorization : `Bearer ${token.accessToken}`}}); 
->>>>>>> 794d515 ([feat] login-process-api)
         console.log(response.data)
         setFilteredData(response.data); 
         setShowFlatList(true);
