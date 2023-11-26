@@ -24,18 +24,13 @@ const NutResult = ({ route, navigation }) => {
       if (response.status == 200) {
         const response = await axios.patch(url, payload, {headers: {Authorization : `Bearer ${token.accessToken}`}});
         console.log(response.data)
-        navigation.popToTop()
+        navigation.reset({routes: [{name: "MainStack"}]});
       }
-      else{
+
+    } catch (error) {
         const response = await axios.put(url, payload, {headers: {Authorization : `Bearer ${token.accessToken}`}});
         console.log(response.data)
-        navigation.popToTop()
-      }
-      // console.log('success')
-      // console.log(response.data);
-      // console.log('STATUS',response.status)
-    } catch (error) {
-      console.error('Error:', error);
+        navigation.reset({routes: [{name: "MainStack"}]});
     }
   };
 

@@ -47,6 +47,7 @@ const StackedBarChart = () => {
     setModalVisible(true);
   };
 
+  console.log(data)
 
   return (
     <View style={styles.container}>
@@ -75,7 +76,7 @@ const StackedBarChart = () => {
         <VictoryAxis
           style={{
             tickLabels: { fill: "white", fontSize: 11 },
-            axis: { stroke: "white" }  
+            axis: { stroke: "white" }
           }}
         />
         <VictoryAxis
@@ -84,6 +85,7 @@ const StackedBarChart = () => {
             tickLabels: { fill: "white", fontSize: 11, padding: 3 },
             axis: { stroke: "white" }
           }}
+          tickValues={data && data.every(item => item.calorie === 0) ? [1000, 2000, 3000, 4000] : undefined}
           />
         <VictoryBar 
           data={data} x="date" y="calorie"
