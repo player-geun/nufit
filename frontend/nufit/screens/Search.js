@@ -55,7 +55,7 @@ const Search = ({ route, navigation }) => {
       <TouchableOpacity onPress={() => handleItemClick(item)}>
         <View style={styles.item}>
           <Image style={styles.searchimg} source={searchImg}/>
-          <Text>{item.name}</Text>
+          <Text style={{fontSize: 16}}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -103,24 +103,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingTop: 80,
     paddingBottom: 10,
-    // borderRadius: 8,
-    // marginHorizontal: 10,
-    // marginTop: 20,
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.23,
-    // shadowRadius: 2.62,
-    // elevation: 0,
   },
   searchInput: {
     fontSize: 16,
     fontFamily: 'Pretendard-Bold',
-    // paddingVertical: 10,
-    // paddingHorizontal: 20,
-    
   },
   item: {
     padding: 10,

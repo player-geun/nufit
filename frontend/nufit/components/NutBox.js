@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     nutName: {
         color: '#FFF',
         fontFamily: 'Pretendard-Regular',
-        fontSize: 10,
+        fontSize: 12,
     },
     grams: {
         color: '#FFF',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     percents: {
         color: 'rgba(255, 255, 255, 0.60)',
         fontFamily: 'Pretendard-Light',
-        fontSize: 10,
+        fontSize: 11.5,
 
     }
 })

@@ -2,15 +2,20 @@ import { StyleSheet, Text, View} from 'react-native'
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import YoutubePlayer from "react-native-youtube-iframe";
+import Constants from 'expo-constants';
+
+
 
 const Temp = () => {
+
+  const apiKey = Constants.manifest.extra.apiKey;
 
   const [playlist, setPlaylist] = useState('xaTu2eZ9lqw');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get( "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCbsHYIZwk9pZIMp53ciDjOw&maxResults=5&eventType=live&type=video&key="); 
+        const response = await axios.get( `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCbsHYIZwk9pZIMp53ciDjOw&maxResults=5&eventType=live&type=video&key=${apiKey}`); 
         console.log(response.data.items[2].id.videoId); 
         setPlaylist(response.data.items[2].id.videoId)
       } catch (error) {
@@ -49,13 +54,13 @@ const styles = StyleSheet.create({
     padding: 30
   },
   title: {
-    fontSize: 22,
+    fontSize: 23,
     fontFamily: 'Pretendard-Bold',
     color: '#000',
     marginTop: 70
   },
   subTitle: {
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: 'Pretendard-Regular',
     color: '#9c9c9c',
     marginTop: 10,

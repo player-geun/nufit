@@ -12,7 +12,7 @@ const NutrientBarChart = () => {
       {/* <TopBar /> */}
       <View style={styles.chartContainer}>
         <View style={styles.kcalText}>
-          <Text style={styles.text}>칼로리 섭취 통계(kcal)</Text>
+          <Text style={styles.text}>일간 칼로리 섭취</Text>
         </View>
         <View style={styles.chart}>
           <StackedBarChart/>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 5,
     borderRadius: 15,
-    marginHorizontal: 30,
+    marginHorizontal: 20,
     // marginVertical: 50,
     marginBottom: 80,
     shadowColor: '#19C1AD',
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 2.62,
     elevation: 6,
-    width:330
+    width:355
   },
   kcalText: {
     marginTop: 20,

@@ -3,18 +3,8 @@ import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-n
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from "victory-native";
 import axios from 'axios';
 import { getTokenFromLocal } from "../utils/tokenUtils";
+import { useDate } from '../context/DateContext';
 
-// const Data = [
-
-//   { date: '10.07', calorie: 300 },
-//   { date: "10.08", calorie: 350 },
-//   { date: "10.09", calorie: 400 },
-//   { date: '10.10', calorie: 300 },
-//   { date: "10.11", calorie: 350 },
-//   { date: "10.12", calorie: 400 },
-//   { date: "10.13", calorie: 400 }
-  
-// ];
 
 const StackedBarChart = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,25 +12,16 @@ const StackedBarChart = () => {
   const [modalTextVisible, setModalTextVisible] = useState(false);
   const [data, setData] = useState([]);
 
-  const getCurrentDate = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; 
-    const day = date.getDate();
   
-    const formattedMonth = month < 10 ? `0${month}` : month;
-    const formattedDay = day < 10 ? `0${day}` : day;
-  
-    return `${year}-${formattedMonth}-${formattedDay}`;
-  };
 
-  const currentDate = getCurrentDate();
+  const { date } = useDate();
+  const Date = date.toISOString().split('T')[0];
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = await getTokenFromLocal(); 
-        const date = currentDate;
+        const date = Date;
         const response = await axios.get(`http://43.202.91.101:8080/api/meals/bar?date=${date}`,{headers: {Authorization : `Bearer ${token.accessToken}`}});
         console.log(response)
         const serverData = response.data.calories;
@@ -58,7 +39,7 @@ const StackedBarChart = () => {
     };
 
     fetchData();
-  }, []);
+  }, [date]);
 
   const handlePress = (datum) => {
     setTooltipData(datum);
@@ -80,7 +61,7 @@ const StackedBarChart = () => {
         <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
           <View style={styles.modal}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>칼로리: {tooltipData?.calorie}kcal</Text>
+              <Text style={styles.modalText}>{tooltipData?.calorie}kcal</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -88,7 +69,8 @@ const StackedBarChart = () => {
 
       <VictoryChart
         style={{ background: { fill: "#8655B7" }}}
-        domainPadding={20}
+        domainPadding={25}
+        padding={{ top: 5, bottom: 50, left: 70, right: 40 }}
       >
         <VictoryAxis
           style={{
@@ -96,6 +78,13 @@ const StackedBarChart = () => {
             axis: { stroke: "white" }  
           }}
         />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: { fill: "white", fontSize: 11, padding: 3 },
+            axis: { stroke: "white" }
+          }}
+          />
         <VictoryBar 
           data={data} x="date" y="calorie"
           barWidth={6}
@@ -129,9 +118,11 @@ const StackedBarChart = () => {
       >
         <TouchableWithoutFeedback  style={styles.graphtext} onPress={() => setModalTextVisible(!modalTextVisible)}>
           <View style={styles.modalTextContainer}>
-            <View >
-              <Text style={styles.graphTextDetail}>일간 칼로리 섭취량이 표시됩니다.</Text>
+          <Text style={{fontSize: 18, position: 'absolute', top: 0, right: 8}}>×</Text>
+            <View>
+              <Text style={styles.graphTextDetail}>해당 기간 동안의 일간{'\n'}칼로리 섭취량이 표시됩니다.</Text>
             </View>
+            
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -159,21 +150,30 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   modalTextContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
-    marginTop: 650,
-    paddingTop: 5,
+    marginTop: 640,
+    paddingTop: 8,
+    paddingRight: 10,
     paddingBottom:5,
-    width: 180,
-    marginLeft: 180,
+    width: 160,
+    marginLeft: 200,
     backgroundColor: 'white',
-    borderRadius: 5
+    borderRadius: 5,
+    shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 2.62,
+        elevation: 6,
 
   },
   graphTextDetail: {
     fontSize: 12,
     color: '#8655B7',
-    fontWeight: 600
+    fontWeight: 600,
   },
   graphtext: {
     textAlign: 'right',

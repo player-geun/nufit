@@ -39,20 +39,20 @@ const Shop = () => {
   const styles = StyleSheet.create({
     title: {
         position: 'absolute',
-        top: 120,
+        top: 100,
         left: 25,
         color: '#fff',
         fontFamily: 'Pretendard-Bold',
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 700
     },
     sub: {
         position: 'absolute',
-        top: 160,
+        top: 140,
         left: 25,
         color: '#fff',
         fontFamily: 'Pretendard-Regular',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 400
     },
     brand: {

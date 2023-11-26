@@ -3,6 +3,8 @@ import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import Navigation from './navigations';
+import { DateProvider } from "./context/DateContext";
+
 
 
 const Stack = createStackNavigator();
@@ -24,7 +26,6 @@ export default function App() {
   };
 
   const preload = async () => {
-    //AsyncStorage에서 꺼내와야 하는 아이템 출력
    return await fetchFonts(); 
   }
 
@@ -37,20 +38,9 @@ export default function App() {
 
 
   return (
+    <DateProvider>
     <Navigation/>
-    // <NavigationContainer>
-    //   <Stack.Navigator>
-    //     {/* <Stack.Screen  options={{headerShown: false,}} name="ChooseSearch" component={ChooseSearch} />
-    //     <Stack.Screen name="Search" component={Search} />
-    //     <Stack.Screen name="SearchDetail" component={SearchDetail} /> */}
-    //     <Stack.Screen options={{headerShown: false,}} name="SetGoal" component={SetGoal} />
-    //     <Stack.Screen options={{headerShown: false,}} name="CaloriesResult" component={CaloriesResult} />
-    //     <Stack.Screen options={{headerShown: false,}} name="NutResult" component={NutResult} />
-    //     <Stack.Screen 
-    //       name="StaticPie" 
-    //       options={{headerShown: false,}}
-    //       component={StaticPie} />
-    //   </Stack.Navigator> 
-    // </NavigationContainer>
+    </DateProvider>
+    
   );
 }

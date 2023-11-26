@@ -35,18 +35,18 @@ const ChooseSearch = ({ route, navigation }) => {
         <View style={styles.chooseContainer}>
             <TouchableOpacity style={styles.choose1} onPress={openCameraHandler}>
                 <Image source={camera}/>
-                <Text>사진으로{'\n'}기록하기</Text>
+                <Text style={{fontSize: 17}}>사진으로{'\n'}기록하기</Text>
                 <Image source={arrow}/>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.choose2} onPress={openSearch}>
                 <Image source={search}/>
-                <Text>검색으로{'\n'}기록하기</Text>
+                <Text style={{fontSize: 17}}>검색으로{'\n'}기록하기</Text>
                 <Image source={arrow}/>
             </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.nextBtn} onPress={close}>
-          <Text style={{color: '#fff'}}>닫기</Text>
+          <Text style={{color: '#fff', fontSize: 16}}>닫기</Text>
         </TouchableOpacity>
     </View>
   );
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     text: {
         marginTop: 0,
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
     },
     chooseContainer: {

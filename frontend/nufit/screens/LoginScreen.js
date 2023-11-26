@@ -7,6 +7,8 @@ import textLogo from '../assets/text_logo.png'
 import LoginButton from '../components/LoginButton'
 import { getTokens } from '../utils/tokenUtils'
 
+import * as AuthSession from 'expo-auth-session';
+
 const LoginScreen = ({navigation}) => {
   
   const onSubmit = () => {
@@ -75,9 +77,7 @@ const styles = StyleSheet.create({
   },
   imgLogo:{
       position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      height: 340
+      bottom: -88,
     },
   info:{
       marginTop:25,

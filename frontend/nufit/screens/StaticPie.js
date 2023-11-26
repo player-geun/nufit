@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-// import { Alert} from 'react-native'
 import { Text, StyleSheet, View, Image, Button } from 'react-native'
 import morningimg from '../assets/morning_ico_white.png'
 import lunchimg from '../assets/afternoon_ico_white.png'
@@ -11,32 +10,20 @@ import TopBar from '../components/TopBar';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 import { getTokenFromLocal } from '../utils/tokenUtils'
+import { useDate } from '../context/DateContext';
 
 const StaticPie = ({}) => {
 
-    const getCurrentDate = () => {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1; 
-        const day = date.getDate();
-      
-        const formattedMonth = month < 10 ? `0${month}` : month;
-        const formattedDay = day < 10 ? `0${day}` : day;
-      
-        return `${year}-${formattedMonth}-${formattedDay}`;
-      };
-    
-      const currentDate = getCurrentDate();
-
   const [data, setData] = useState(null);
   const [chart, setChart]= useState(null);
+  const { date } = useDate();
+  const formattedDate = date.toISOString().split('T')[0];
 
   useFocusEffect(React.useCallback(() => {
     const fetchData = async () => {
       try {
         const token = await getTokenFromLocal(); 
-        const date = currentDate; 
-        const response = await axios.get(`http://43.202.91.101:8080/api/meals/circle?date=${date}`,
+        const response = await axios.get(`http://43.202.91.101:8080/api/meals/circle?date=${formattedDate}`,
         {headers: {Authorization : `Bearer ${token.accessToken}`}}); 
         console.log(response.data)
         
@@ -69,7 +56,7 @@ const StaticPie = ({}) => {
     };
 
     fetchData();
-  }, [currentDate]));
+  }, [formattedDate]));
 
   const morning = data ? data.breakfast : 0;
   const lunch = data ? data.lunch : 0;
@@ -194,16 +181,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginTop: 14,
+        marginTop: 20,
       
        
     },
     container6: {
         alignItems: 'flex-start',
         justifyContent: 'center',
-        flex: 0.8, 
+        flex: 0.7, 
         backgroundColor: '#17AE9C',
-        marginBottom: 30,
+        marginBottom: 20,
         width: 300,
         borderRadius: 10,
         paddingLeft: 30,
@@ -216,7 +203,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: '#00D7BD',
         paddingHorizontal: 20,
-        paddingBottom: 5,
+        paddingBottom: 0,
         borderRadius: 15,
         marginHorizontal: 30,
         // marginVertical: 50,
@@ -234,12 +221,13 @@ const styles = StyleSheet.create({
         marginRight: 230,
         color: '#fff',
         fontSize: 16,
-        marginTop: 20,
+        marginTop: 14,
+        marginBottom: 10,
         fontFamily: 'Pretendard-SemiBold'
     },
     infotext: {
         color: '#fff',
-        fontSize: 12,
+        fontSize: 13,
         marginLeft: 5,
     },
     percentfont: {

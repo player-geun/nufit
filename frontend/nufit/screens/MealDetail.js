@@ -28,10 +28,6 @@ const MealDetail = ({route, navigation}) => {
     
     useEffect(() => {
         const fetchData = async () => {
-          const Token = await getTokenFromLocal();
-          const headers_config = {
-            Authorization: `Bearer ${Token.accessToken}`   
-          };
             try {
               const token = await getTokenFromLocal();
                 const response = await axios.get(`http://43.202.91.101:8080/api/meals/${mealId}/details`,
@@ -69,7 +65,7 @@ const MealDetail = ({route, navigation}) => {
       <View style={styles.blackBox}> 
         <View style={{flexDirection: 'row', alignItems: 'flex-start', marginTop: 36, justifyContent: 'space-between'}}>
           <View>
-            <Text style={{textAlign: 'left', color: '#fff', fontSize: 15, fontFamily: "Pretendard-Light", marginBottom: 5}}>총 칼로리.</Text>
+            <Text style={{textAlign: 'left', color: '#fff', fontSize: 17, fontFamily: "Pretendard-Light", marginBottom: 5}}>총 칼로리.</Text>
             <Text style={styles.resultText}>{totalcal} kcal</Text>
           </View>
           <TouchableOpacity style={styles.purpleBtn} onPress={goNext}>
@@ -83,7 +79,7 @@ const MealDetail = ({route, navigation}) => {
         </View>
       </View>
       <ScrollView style={styles.whiteBox}> 
-        <Text style={{marginLeft: 10, fontWeight: 700}}>{mealTime}에 먹었어요</Text>
+        <Text style={{marginLeft: 10, fontWeight: 700, fontSize: 16}}>{mealTime}에 먹었어요</Text>
         <View style={styles.wrapper}>
             
           {foods.map((item, index) => (
@@ -112,7 +108,7 @@ const MealDetail = ({route, navigation}) => {
 
 const styles = StyleSheet.create({
     resultText: {
-      fontSize: 22,
+      fontSize: 24,
       fontFamily: 'Pretendard-Bold',
       color: '#fff'
     },
