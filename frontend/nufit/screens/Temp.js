@@ -8,14 +8,14 @@ import Constants from 'expo-constants';
 
 const Temp = () => {
 
-  const apiKey = Constants.manifest.extra.apiKey;
-
+  console.log(Constants.manifest,'CCCCCCCCCCCCCC')
+  // const apiKey = Constants.manifest.extra.apiKey;
   const [playlist, setPlaylist] = useState('xaTu2eZ9lqw');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get( `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCbsHYIZwk9pZIMp53ciDjOw&maxResults=5&eventType=live&type=video&key=${apiKey}`); 
+        const response = await axios.get( `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCbsHYIZwk9pZIMp53ciDjOw&maxResults=5&eventType=live&type=video&key=AIzaSyAT5KAVZK9c6JRMRbw2NbtqF2v47cdgCVM`); 
         console.log(response.data.items[2].id.videoId); 
         setPlaylist(response.data.items[2].id.videoId)
       } catch (error) {

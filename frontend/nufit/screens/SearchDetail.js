@@ -56,9 +56,9 @@ const SearchDetail = ({ route, navigation }) => {
       "foodCount" : 1
     };
     try {
-      const response = await axios.post(url, payload,
-        {headers: {Authorization : `Bearer ${token.accessToken}`}});
-      console.log(response,'RRRRRRRRRRRRRRRRRRRRRRRRR')
+      // console.log(url, payload, 'URLPAYLODAD')
+      await axios.post(url, payload, {headers: {Authorization : `Bearer ${token.accessToken}`}});
+      // console.log(response,'RRRRRRRRRRRRRRRRRRRRRRRRR')
       // console.log('click!!!!!')
       // console.log(url, payload)
       // console.log(response)

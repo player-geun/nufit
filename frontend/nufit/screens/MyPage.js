@@ -25,6 +25,7 @@ const MyPage = ({navigation}) => {
 
     const getUser = async () => {
       try {
+        const token = await getTokenFromLocal();
         const response = await axios.get(`http://43.202.91.101:8080/api/members/me/details`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
         console.log(response.data)
         setName(response.data.name)
@@ -59,8 +60,8 @@ const MyPage = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.user}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={{fontSize: 22, fontWeight: 600}}>{name}</Text>
-          <Text style={{fontSize: 18, marginLeft: 5, marginTop: 5}}>님, 환영합니다</Text>
+          {/* <Text style={{fontSize: 22, fontWeight: 600}}>{name}</Text> */}
+          <Text style={{fontSize: 18, marginLeft: 5, marginTop: 5}}>환영합니다</Text>
         </View>
         <Image source={char}/>
       </View>

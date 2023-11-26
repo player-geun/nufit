@@ -12,6 +12,9 @@ const AuthStack = () => {
       <Stack.Screen name='SplashScreen' component={SplashScreen} options={{ headerShown: false }}/>
       <Stack.Screen name='LoginScreen' component={LoginScreen} options={{ headerShown: false }}/>
       <Stack.Screen name='MainStack' component={MainStack} options={{ headerShown: false }}/>
+      <Stack.Screen name='SetGoal' component={SetGoal} options={{ headerShown: false }}/>
+      <Stack.Screen name='CaloriesResult' component={CaloriesResult} options={{ headerShown: false }}/>
+      <Stack.Screen name='NutResult' component={NutResult} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 };

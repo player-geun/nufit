@@ -1,19 +1,23 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import imageLogo from '../assets/image_logo.png'
 import textLogo from '../assets/text_logo.png'
 import LoginButton from '../components/LoginButton'
 import { getTokens } from '../utils/tokenUtils'
-
+import * as Linking from 'expo-linking';
 import * as AuthSession from 'expo-auth-session';
 
 const LoginScreen = ({navigation}) => {
   
   const onSubmit = () => {
     getTokens(navigation)
+    // Alert.alert('TEST')
+    // Linking.openURL('http://43.202.91.101:8080/auth/authorize/kakao')
   }
+  
+// console.log(AuthSession.makeRedirectUri({ useProxy: true, path:'LoginScreen' }))
 
 
     return (
@@ -77,7 +81,9 @@ const styles = StyleSheet.create({
   },
   imgLogo:{
       position: 'absolute',
-      bottom: -88,
+      bottom: 0,
+      width: '100%',
+      height: 340
     },
   info:{
       marginTop:25,

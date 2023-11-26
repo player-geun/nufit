@@ -17,7 +17,7 @@ const CarouselPage = ({ item, style }) => {
   const URL = 'http://43.202.91.101:8080/api/meals'
   const handlePress = async () => {
     const token = await getTokenFromLocal();
-    // console.log(token.accessToken)
+    console.log(token.accessToken)
     try {
       const response = await axios.post(URL, {
         date: Date,
