@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 8,
-    marginTop: 300
+    marginTop: 250
   },
   label: {
     fontSize: 15,

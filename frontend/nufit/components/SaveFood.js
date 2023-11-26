@@ -29,7 +29,7 @@ const FirstRoute = ({ res }) => {
       { name: '사과', size: '1개 중간 크기', kcal: '57 kcal' },
       { name: '바나나', size: '2개 소 크기', kcal: '90 kcal' },
       { name: '딸기', size: '10개 작은 크기', kcal: '30 kcal' },
-    ]; //데이터 예시
+    ];
 
     return (
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -56,6 +56,19 @@ const FirstRoute = ({ res }) => {
 const SecondRoute = ({navigation}) => {
 
   const [foods, setFoods] = useState([]);
+
+  const handleDelete = async (id) => {
+    const token = await getTokenFromLocal();
+    try {
+      const deleteUrl = `http://43.202.91.101:8080/api/foods/${id}`;
+      await axios.delete(deleteUrl,{headers: {Authorization : `Bearer ${token.accessToken}`}});
+      console.log('삭제')
+      const updatedFoods = foods.filter(item => item.id !== id);
+      setFoods(updatedFoods);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,13 +101,16 @@ const SecondRoute = ({navigation}) => {
       
         {/* <Image style={styles.img} source={char} />
         <Text style={styles.text}>음식을 등록해보세요</Text> */}
-        {foods.map((food) => (
-          <View key={food.id} style={styles.context}>
+        {foods.map((food, index) => (
+          <View key={index} style={styles.context}>
             <View>
               <Text style={styles.text}>{food.name}</Text>
             </View>
             <View style={styles.righttext}>
               <Text style={styles.text}>{food.calorie}kcal</Text>
+              <TouchableOpacity onPress={() => handleDelete(food.id)}>
+                <Text style={styles.minitext}>삭제</Text>
+              </TouchableOpacity>
             </View>
           </View>
         ))}
@@ -183,7 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   minitext: {
-    fontSize: 12,
+    fontSize: 14,
     marginTop: 3,
     color: '#cdcdcd',
   },
@@ -193,7 +209,7 @@ const styles = StyleSheet.create({
     borderColor: '#CDCDCD',
     marginVertical: 6,
     paddingHorizontal: 40,
-    paddingVertical: 30,
+    paddingVertical: 20,
     justifyContent: 'space-between',
   },
   righttext: {

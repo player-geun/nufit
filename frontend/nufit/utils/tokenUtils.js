@@ -11,16 +11,16 @@ export const getTokens = async (navigation) => {
       if (result.type === 'success') {
         const { params } = result;
         const token = params.token.slice(7);
-        // console.log(token)
+        //console.log(token)
         // console.log(result.params.token.slice(8))
         AsyncStorage.setItem('Tokens', JSON.stringify({
             'accessToken': token,
             // 'refreshToken': res.data.refreshToken,
             // 'userId': res.data.userId
           }))
-        seperate({token, navigation})
+        // seperate({token, navigation})
         // navigation.navigate('MainStack')
-        // navigation.reset({routes: [{name: "MainStack"}]});
+        navigation.reset({routes: [{name: "MainStack"}]});
       }
       else{
         console.log(result.type)
@@ -28,19 +28,19 @@ export const getTokens = async (navigation) => {
     }
   
 
-  const seperate = async({token, navigation}) =>{
-    console.log(token)
-    try {
-      const response = await axios.get(`http://43.202.91.101:8080/api/members/me/goals`, {headers: {Authorization: `Bearer ${token}`}})
-      if(response.status ==200) {
-        navigation.reset({routes: [{name: "MainStack"}]});
-      }else{
-        navigation.reset({routes: [{name: "SetGoal"}]});
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  // const seperate = async({token, navigation}) =>{
+  //   console.log(token)
+  //   try {
+  //     const response = await axios.get(`http://43.202.91.101:8080/api/members/me/goals`, {headers: {Authorization: `Bearer ${token}`}})
+  //     if(response.status ==200) {
+  //       navigation.reset({routes: [{name: "MainStack"}]});
+  //     }else{
+  //       navigation.reset({routes: [{name: "SetGoal"}]});
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
     
 
 

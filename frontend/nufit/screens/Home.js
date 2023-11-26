@@ -5,6 +5,7 @@ import TopBarTemp from '../components/TopBarTemp';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
 import { getTokenFromLocal } from '../utils/tokenUtils';
+import { useDate } from '../context/DateContext';
 
 const Home = () => {
 
@@ -15,34 +16,18 @@ const Home = () => {
     { num: 3, time: 'DINNER', kcal: '', carbohydrate: '', protein: '', fat: '' }
   ]);
 
-  const getCurrentDate = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; 
-    const day = date.getDate();
-  
-    const formattedMonth = month < 10 ? `0${month}` : month;
-    const formattedDay = day < 10 ? `0${day}` : day;
-  
-    return `${year}-${formattedMonth}-${formattedDay}`;
-  };
+  const { date } = useDate();
+  const Date = date.toISOString().split('T')[0];
 
-  const currentDate = getCurrentDate();
-
-  
 
   useFocusEffect(React.useCallback(() => {
       const fetchData = async () => {
       const token = await getTokenFromLocal();
           try {
             const serverAddress = "http://43.202.91.101:8080";
-            // const memberId = 1;  
-            const date = currentDate; 
-            const url = `${serverAddress}/api/meals/intake?date=${date}`;
+            const url = `${serverAddress}/api/meals/intake?date=${Date}`;
             const response = await axios.get(url, {headers: {Authorization : `Bearer ${token.accessToken}`}});
-              //const response = await axios.get(`http://ec2-52-79-235-252.ap-northeast-2.compute.amazonaws.com:8080/api/meals/intake?memberId=1`);
               const data = response.data;
-              console.log(data)
               const updatedPages = pages.map(page => {
                   const mealData = data.find(meal => meal.type === page.time);
                   if (mealData) {
@@ -64,7 +49,7 @@ const Home = () => {
       };
 
       fetchData();
-  }, [currentDate]));
+  }, [Date]));
 
   return (
     <View style={styles.container}>

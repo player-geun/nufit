@@ -3,6 +3,7 @@ import React from 'react';
 import { CaloriesResult, CameraScreen, ChooseSearch, Home, MealDetail, MyPage, NutResult, RegisterFoodName, RegisterFoodNutrition, RegisterFoodQuantity, Search, SearchDetail, SetGoal } from '../screens';
 import MainTab from './MainTab';
 
+
 const Stack = createStackNavigator();
 
 const MainStack = () => {
@@ -22,7 +23,6 @@ const MainStack = () => {
       <Stack.Screen name='SetGoal' component={SetGoal} options={{ headerShown: false }}/>
       <Stack.Screen name='CaloriesResult' component={CaloriesResult} options={{ headerShown: false }}/>
       <Stack.Screen name='NutResult' component={NutResult} options={{ headerShown: false }}/>
-
     </Stack.Navigator>
   )
 }

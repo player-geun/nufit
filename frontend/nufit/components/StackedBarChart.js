@@ -3,18 +3,8 @@ import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-n
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack } from "victory-native";
 import axios from 'axios';
 import { getTokenFromLocal } from "../utils/tokenUtils";
+import { useDate } from '../context/DateContext';
 
-// const Data = [
-
-//   { date: '10.07', calorie: 300 },
-//   { date: "10.08", calorie: 350 },
-//   { date: "10.09", calorie: 400 },
-//   { date: '10.10', calorie: 300 },
-//   { date: "10.11", calorie: 350 },
-//   { date: "10.12", calorie: 400 },
-//   { date: "10.13", calorie: 400 }
-  
-// ];
 
 const StackedBarChart = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,25 +12,16 @@ const StackedBarChart = () => {
   const [modalTextVisible, setModalTextVisible] = useState(false);
   const [data, setData] = useState([]);
 
-  const getCurrentDate = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; 
-    const day = date.getDate();
   
-    const formattedMonth = month < 10 ? `0${month}` : month;
-    const formattedDay = day < 10 ? `0${day}` : day;
-  
-    return `${year}-${formattedMonth}-${formattedDay}`;
-  };
 
-  const currentDate = getCurrentDate();
+  const { date } = useDate();
+  const Date = date.toISOString().split('T')[0];
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = await getTokenFromLocal(); 
-        const date = currentDate;
+        const date = Date;
         const response = await axios.get(`http://43.202.91.101:8080/api/meals/bar?date=${date}`,{headers: {Authorization : `Bearer ${token.accessToken}`}});
         console.log(response)
         const serverData = response.data.calories;
@@ -58,7 +39,7 @@ const StackedBarChart = () => {
     };
 
     fetchData();
-  }, []);
+  }, [date]);
 
   const handlePress = (datum) => {
     setTooltipData(datum);

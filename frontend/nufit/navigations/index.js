@@ -4,6 +4,7 @@ import React from 'react';
 import * as Linking from 'expo-linking';
 import AuthStack from './AuthStack';
 
+
 const Navigation = () => {
 
     const prefix = Linking.createURL('/');
@@ -23,6 +24,7 @@ const Navigation = () => {
     
 
     return (
+      
       <NavigationContainer linking={linking}>
         <AuthStack/>
         {/* {isLoggedIn ? <MainStack /> : <AuthStack />} */}

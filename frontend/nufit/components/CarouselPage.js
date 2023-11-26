@@ -3,22 +3,14 @@ import axios from 'axios';
 import React from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { getTokenFromLocal } from '../utils/tokenUtils';
+import { useDate } from '../context/DateContext';
+
 
 const CarouselPage = ({ item, style }) => {
 
-  const getCurrentDate = () => {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; 
-    const day = date.getDate();
+  const { date } = useDate();
+  const Date = date.toISOString().split('T')[0];
   
-    const formattedMonth = month < 10 ? `0${month}` : month;
-    const formattedDay = day < 10 ? `0${day}` : day;
-  
-    return `${year}-${formattedMonth}-${formattedDay}`;
-  };
-
-  const currentDate = getCurrentDate();
 
   const time = item.time === 'BREAKFAST' ? '아침' : item.time === 'LUNCH' ? '점심' : item.time === 'DINNER' ? '저녁' : item.time;
   const navigation = useNavigation();
@@ -28,7 +20,7 @@ const CarouselPage = ({ item, style }) => {
     // console.log(token.accessToken)
     try {
       const response = await axios.post(URL, {
-        date: currentDate,
+        date: Date,
         mealType: item.time,
       },{headers: {Authorization : `Bearer ${token.accessToken}`}});
       // console.log(response.data.id)

@@ -3,10 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import poster from '../assets/stats_character.png'
 import left from '../assets/prev_arrow_ico.png'
 import right from '../assets/next_arrow_ico.png'
+import { useDate } from '../context/DateContext';
 
 const TopBar = () => {
-  const [date, setDate] = useState(new Date()); // 현재 날짜 상태
-  const currentDate = date.toLocaleDateString(); // 현재 날짜를 문자열로 변환
+  const {date, setDate} = useDate();
+  const currentDate = date.toLocaleDateString();
 
   // 이전 날짜로 이동하는 함수
   const goToPreviousDay = () => {

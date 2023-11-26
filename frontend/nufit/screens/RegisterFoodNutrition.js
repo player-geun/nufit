@@ -55,7 +55,7 @@ const RegisterFoodNutrition = ({ route }) => {
     }
   };
 
-  const isInputValid = calories && carbohydrates && protein && fat;
+  const isInputValid = calories && carbohydrates && protein && fat && fat2 && fat3 && cholesterol && sodium;
 
   return (
     // <KeyboardAvoidingView 

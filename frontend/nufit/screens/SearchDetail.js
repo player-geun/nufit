@@ -12,14 +12,32 @@ const SearchDetail = ({ route, navigation }) => {
   const id = item.id;
   const mealId = item.mealId;
   const [data, setData] = useState(null);
+  const [foodid, setFoodid] = useState(id);
 
   useEffect(() => {
     const fetchData = async () => {
       const token = await getTokenFromLocal(); 
       try {
-        const response = await axios.get(`http://43.202.91.101:8080/api/foods/${id}`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
+
+        let response;
+
+        if (id) {
+          response = await axios.get(`http://43.202.91.101:8080/api/foods/${id}`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
+          setData(response.data);
+        } else {
+           
+          response = await axios.get(`http://43.202.91.101:8080/api/foods/details?q=${name}`,{headers: {Authorization : `Bearer ${token.accessToken}`}});
+          setData(response.data);
+          console.log(response.data)
+          setFoodid(response.data.foodId);
+        }
+  
         console.log(response.data)
         setData(response.data);
+
+        // const response = await axios.get(`http://43.202.91.101:8080/api/foods/${id}`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
+        // console.log(response.data)
+        // setData(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -29,11 +47,12 @@ const SearchDetail = ({ route, navigation }) => {
   }, []);
 
 
+
   const addFood = async () => {
     const token = await getTokenFromLocal(); 
     const url = `http://43.202.91.101:8080/api/meals/${mealId}`;
     const payload = {
-      "foodId" : id,
+      "foodId" : foodid,
       "foodCount" : 1
     };
     try {
@@ -58,7 +77,8 @@ const SearchDetail = ({ route, navigation }) => {
     navigation.navigate('ChooseSearch', {mealId});
   }
   //data
-  const kcalData = data ? data.calorie : 0;
+  const kcalData = data ? (data.calorie || data.calorieTotal || 0)  : 0;
+
   const carb = data ? data.nutrientResponses[0].amount : 0;
   const sugar = data ? data.nutrientResponses[0].childNutrientResponses[0].amount: 0;
   const protein = data ? data.nutrientResponses[1].amount : 0;
@@ -67,7 +87,7 @@ const SearchDetail = ({ route, navigation }) => {
   const satf = data ? data.nutrientResponses[2].childNutrientResponses[2].amount: 0;
   const chol = data ? data.nutrientResponses[3].amount : 0;
   const na  = data ? data.nutrientResponses[4].amount : 0;
-  const kcal = data ? data.calorie : 0;
+  const kcal = data ? (data.calorie || data.calorieTotal || 0)  : 0;
 
   const carbsCalories = carb * 4;
   const proteinCalories = protein * 4;

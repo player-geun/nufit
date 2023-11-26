@@ -3,24 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import poster from '../assets/character.png'
 import left from '../assets/prev_arrow_ico.png'
 import right from '../assets/next_arrow_ico.png'
+import { useDate } from '../context/DateContext';
 
 const TopBarTemp = () => {
-  const [date, setDate] = useState(new Date()); // 현재 날짜 상태
-  const currentDate = date.toLocaleDateString(); // 현재 날짜를 문자열로 변환
+  const {date} = useDate();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const currentDate = date.toLocaleDateString('ko-KR', options);
 
-  // 이전 날짜로 이동하는 함수
-  const goToPreviousDay = () => {
-    const previousDate = new Date(date); // 현재 날짜의 복사본 생성
-    previousDate.setDate(previousDate.getDate() - 1); // 이전 날짜로 설정
-    setDate(previousDate); // 날짜 상태 업데이트
-  };
-
-  // 다음 날짜로 이동하는 함수
-  const goToNextDay = () => {
-    const nextDate = new Date(date); // 현재 날짜의 복사본 생성
-    nextDate.setDate(nextDate.getDate() + 1); // 다음 날짜로 설정
-    setDate(nextDate); // 날짜 상태 업데이트
-  };
 
   return (
     
@@ -31,13 +20,9 @@ const TopBarTemp = () => {
       <View style={styles.headerbox}>
         <Text style={styles.text}>오늘은 이렇게 먹었어요</Text>
         <View style={styles.datebox}>
-          <TouchableOpacity onPress={goToPreviousDay}>
-            <Image style={styles.button} source={left}/>
-          </TouchableOpacity>
+          
           <Text style={styles.date}>{currentDate}</Text>
-          <TouchableOpacity onPress={goToNextDay}>
-          <Image style={styles.button} source={right}/>
-          </TouchableOpacity>
+
         </View>
         
       </View>
@@ -68,13 +53,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   date: {
-    // fontSize: 13,
+    fontSize: 15,
     fontWeight: 'bold',
-    paddingHorizontal: 15,
+    paddingHorizontal: 4,
   },
   text: {
     // fontFamily: 'Pretendard-Bold',
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: 'bold',
     paddingRight: 25,
   },

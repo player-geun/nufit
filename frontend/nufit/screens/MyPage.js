@@ -8,22 +8,34 @@ import { getTokenFromLocal } from '../utils/tokenUtils'
 
 const MyPage = ({navigation}) => {
   const [data, setData] = useState(null);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       const token = await getTokenFromLocal();
       try {
         const response = await axios.get(`http://43.202.91.101:8080/api/members/me/goals`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
-        console.log(response.data)
+        //console.log(response.data)
         setData(response.data)
         
       } catch (error) {
         console.error(error);
       }
-    };  
+    };
+
+    const getUser = async () => {
+      try {
+        const response = await axios.get(`http://43.202.91.101:8080/api/members/me/details`,{headers: {Authorization : `Bearer ${token.accessToken}`}}); 
+        console.log(response.data)
+        setName(response.data.name)
+      }catch (error) {
+        console.error(error);
+      }
+    };
 
     
     fetchData();
+    getUser();
 
     const unsubscribe = navigation.addListener('focus', () => {
       fetchData();
@@ -47,7 +59,7 @@ const MyPage = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.user}>
         <View style={{flexDirection: 'row'}}>
-          <Text style={{fontSize: 22, fontWeight: 600}}>김뉴핏</Text>
+          <Text style={{fontSize: 22, fontWeight: 600}}>{name}</Text>
           <Text style={{fontSize: 18, marginLeft: 5, marginTop: 5}}>님, 환영합니다</Text>
         </View>
         <Image source={char}/>
@@ -105,7 +117,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#FFF',
     fontFamily: 'Pretendard-Regular',
-    fontSize: 10,
+    fontSize: 11.5,
   },
   sub: {
     color: '#FFF',
