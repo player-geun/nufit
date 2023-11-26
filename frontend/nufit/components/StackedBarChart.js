@@ -61,7 +61,7 @@ const StackedBarChart = () => {
         <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
           <View style={styles.modal}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>칼로리: {tooltipData?.calorie}kcal</Text>
+              <Text style={styles.modalText}>{tooltipData?.calorie}kcal</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -69,7 +69,8 @@ const StackedBarChart = () => {
 
       <VictoryChart
         style={{ background: { fill: "#8655B7" }}}
-        domainPadding={20}
+        domainPadding={25}
+        padding={{ top: 5, bottom: 50, left: 70, right: 40 }}
       >
         <VictoryAxis
           style={{
@@ -77,6 +78,13 @@ const StackedBarChart = () => {
             axis: { stroke: "white" }  
           }}
         />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: { fill: "white", fontSize: 11, padding: 3 },
+            axis: { stroke: "white" }
+          }}
+          />
         <VictoryBar 
           data={data} x="date" y="calorie"
           barWidth={6}
@@ -110,9 +118,11 @@ const StackedBarChart = () => {
       >
         <TouchableWithoutFeedback  style={styles.graphtext} onPress={() => setModalTextVisible(!modalTextVisible)}>
           <View style={styles.modalTextContainer}>
-            <View >
-              <Text style={styles.graphTextDetail}>일간 칼로리 섭취량이 표시됩니다.</Text>
+          <Text style={{fontSize: 18, position: 'absolute', top: 0, right: 8}}>×</Text>
+            <View>
+              <Text style={styles.graphTextDetail}>해당 기간 동안의 일간{'\n'}칼로리 섭취량이 표시됩니다.</Text>
             </View>
+            
           </View>
         </TouchableWithoutFeedback>
       </Modal>
@@ -140,21 +150,30 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   modalTextContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
-    marginTop: 650,
-    paddingTop: 5,
+    marginTop: 640,
+    paddingTop: 8,
+    paddingRight: 10,
     paddingBottom:5,
-    width: 180,
-    marginLeft: 180,
+    width: 160,
+    marginLeft: 200,
     backgroundColor: 'white',
-    borderRadius: 5
+    borderRadius: 5,
+    shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 2.62,
+        elevation: 6,
 
   },
   graphTextDetail: {
     fontSize: 12,
     color: '#8655B7',
-    fontWeight: 600
+    fontWeight: 600,
   },
   graphtext: {
     textAlign: 'right',
