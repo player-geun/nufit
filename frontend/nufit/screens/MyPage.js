@@ -61,7 +61,7 @@ const MyPage = ({navigation}) => {
       <View style={styles.user}>
         <View style={{flexDirection: 'row'}}>
           {/* <Text style={{fontSize: 22, fontWeight: 600}}>{name}</Text> */}
-          <Text style={{fontSize: 18, marginLeft: 5, marginTop: 5}}>환영합니다</Text>
+          <Text style={{fontSize: 20,fontWeight:600, marginLeft: 5, marginTop: 5}}>Welcome To NUFIT</Text>
         </View>
         <Image source={char}/>
       </View>

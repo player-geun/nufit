@@ -56,18 +56,9 @@ const SearchDetail = ({ route, navigation }) => {
       "foodCount" : 1
     };
     try {
-      // console.log(url, payload, 'URLPAYLODAD')
       await axios.post(url, payload, {headers: {Authorization : `Bearer ${token.accessToken}`}});
-      // console.log(response,'RRRRRRRRRRRRRRRRRRRRRRRRR')
-      // console.log('click!!!!!')
-      // console.log(url, payload)
-      // console.log(response)
-
-      navigation.popToTop()
-      
-      console.log('success')
-      // console.log(response.status)
-      // console.log(response.data);
+      //navigation.popToTop()
+      navigation.reset({routes: [{name: "MainStack"}]});
     } catch (error) {
       console.error('Error:', error);
     }
