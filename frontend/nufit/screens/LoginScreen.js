@@ -81,9 +81,9 @@ const styles = StyleSheet.create({
   },
   imgLogo:{
       position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      height: 340
+      bottom: -88,
+      //width: '100%',
+      //height: 340
     },
   info:{
       marginTop:25,

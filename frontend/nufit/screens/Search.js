@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, TextInput, View, FlatList, Text, TouchableOpacity, Image} from 'react-native';
 import searchImg from '../assets/add_by_search_ico.png'
+import backImg from '../assets/back_button_ico_black.png'
 import SaveFood from '../components/SaveFood';
 import axios from 'axios';
 import { getTokenFromLocal } from '../utils/tokenUtils';
@@ -64,13 +65,19 @@ const Search = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="먹은 음식을 입력해주세요"
-          onChangeText={(text) => setSearchTerm(text)}
-          value={searchTerm}
-        />
-        <Image style={styles.searchimg} source={searchImg}/>
+        <TouchableOpacity onPress={() => navigation.navigate('ChooseSearch', {mealId})}>
+          <Image style={styles.backimg} source={backImg}/>
+        </TouchableOpacity>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="먹은 음식을 입력해주세요"
+            onChangeText={(text) => setSearchTerm(text)}
+            value={searchTerm}
+          />
+          <Image style={styles.searchimg} source={searchImg}/>
+        </View>
+        
       </View>
       <View style={styles.listContainer}>
         {showFlatList ? (
@@ -96,12 +103,12 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     //flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    //flexDirection: 'row',
+    //alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#f3f3f3',
     paddingHorizontal: 30,
-    paddingTop: 80,
+    paddingTop: 30,
     paddingBottom: 10,
   },
   searchInput: {
@@ -132,7 +139,11 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     marginRight: 15,
+  },
+  backimg: {
+    marginBottom:30
   }
+  
 });
 
 export default Search;

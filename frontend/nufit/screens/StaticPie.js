@@ -1,9 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { Text, StyleSheet, View, Image, Button } from 'react-native'
+import { Text, StyleSheet, View, Image, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native'
 import morningimg from '../assets/morning_ico_white.png'
 import lunchimg from '../assets/afternoon_ico_white.png'
 import dinnerimg from '../assets/night_ico_white.png'
+import markimg from '../assets/mark.png'
 import ProgressCircle from '../components/ProgressCircle';
 import ProgressBar from '../components/ProgressBar';
 import TopBar from '../components/TopBar';
@@ -16,6 +17,11 @@ const StaticPie = ({}) => {
 
   const [data, setData] = useState(null);
   const [chart, setChart]= useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [one, setOne] = useState('');
+  const [two, setTwo] = useState('');
+  const [three, setThree] = useState('');
+  const [four, setFour] = useState('');
   const { date } = useDate();
   const formattedDate = date.toISOString().split('T')[0];
 
@@ -58,6 +64,31 @@ const StaticPie = ({}) => {
     fetchData();
   }, [formattedDate]));
 
+
+  //추천 랜덤식단
+  const RandomFood = async () => {
+    try {
+      const token = await getTokenFromLocal(); 
+      const response = await axios.get(`http://43.202.91.101:8080/api/foods/random`,
+      {headers: {Authorization : `Bearer ${token.accessToken}`}}); 
+      setOne(response.data[0].name)
+      setTwo(response.data[1].name)
+      setThree(response.data[2].name)
+      setFour(response.data[3].name)
+
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const ModalOpen = () => {
+    RandomFood();
+    setModalVisible(!modalVisible)
+    
+  }
+  
+
   const morning = data ? data.breakfast : 0;
   const lunch = data ? data.lunch : 0;
   const dinner = data ? data.dinner : 0;
@@ -77,11 +108,37 @@ const StaticPie = ({}) => {
     const fatValue = chart ? chart.fatPercent : 0;
 
 
+
   return (
     
     <View style={styles.container}>
-        
-        {/* <TopBar/> */}
+   
+        <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.black}>
+            <View style={styles.modal}>
+                <Text style={styles.modalTitle}>추천 식단을 섭취해보세요</Text>
+                <Text style={styles.modalSub}>부족한 영양소를 채워줄 거예요</Text>
+                <View style={{flexDirection: 'row', gap: 10, marginBottom: 10, marginTop: 20}}>
+                    <Text style={styles.foodBox}>{one}</Text>
+                    <Text style={styles.foodBox}>{two}</Text>
+                </View>
+                <View style={{flexDirection: 'row', gap: 10, marginBottom: 30}}>
+                    <Text style={styles.foodBox}>{three}</Text>
+                    <Text style={styles.foodBox}>{four}</Text>
+                </View>
+                <TouchableOpacity style={styles.closebtn} onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={{color: '#fff', fontSize: 16}}>닫기</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+      </Modal>
         
         <View style={styles.shadowbox}>
             <Text style={styles.todaytext}>오늘 하루</Text>
@@ -136,6 +193,11 @@ const StaticPie = ({}) => {
                 </View>
 
             </View>
+            <TouchableOpacity style={styles.last} onPress={ModalOpen}>
+                <Image source={markimg}/>
+                <Text style={styles.recommend}>식단을 추천해드릴게요</Text>
+            </TouchableOpacity>
+
         </View>
         
         
@@ -190,7 +252,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 0.7, 
         backgroundColor: '#17AE9C',
-        marginBottom: 20,
+        marginBottom: 10,
         width: 300,
         borderRadius: 10,
         paddingLeft: 30,
@@ -266,6 +328,70 @@ const styles = StyleSheet.create({
         color: '#A2DFD7',
         fontSize: 16,
         marginRight: 120,
+    },
+    last: {
+        alignSelf: 'flex-start',
+        paddingBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    recommend: {
+        color: '#FFF',
+        fontFamily: 'Pretendard-Bold',
+        fontSize: 13,
+        fontWeight: 600,
+        marginLeft: 7,
+        marginTop: 2
+
+    },
+    closebtn: {
+        borderWidth: 1,
+        backgroundColor: '#000',
+        borderRadius: 30,
+        padding: 14,
+        marginVertical: 10,
+        width: '90%',
+        alignItems: 'center',
+        marginTop: 0
+    },
+    black: {
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modal: {
+        width: 300,
+        height: 360,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    foodBox: {
+        borderRadius: 5,
+        backgroundColor: '#00E9CD',
+        width: 125,
+        paddingVertical: 15,
+        paddingHorizontal: 4,
+        color: '#fff',
+        fontFamily: 'Pretendard-Bold',
+        fontSize: 16,
+        fontWeight: 600,
+        textAlign: 'center'
+    },
+    modalTitle: {
+        color: '#000',
+        fontFamily: 'Pretendard-Bold',
+        fontSize: 20,
+        fontWeight: 700,
+    },
+    modalSub: {
+        color: '#ADADAD',
+        fontFamily: 'Pretendard-Regular',
+        fontSize: 12,
+        fontWeight: 400,
+        marginTop: 4
     }
 })
 
